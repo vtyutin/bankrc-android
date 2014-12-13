@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#000000" >
+    
+    <TextView 
+        android:id="@+id/dashboardTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="25dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/MENU_DASHBOARD"
+        android:textColor="#FFFFFF"
+        android:background="#000000" />
+    
+    <include layout="@layout/divider"/>
+    
+    <TextView 
+        android:id="@+id/reportTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="25dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/MENU_DETAILS"
+        android:textColor="#FFFFFF"
+        android:background="#000000" />
+    
+    <include layout="@layout/divider"/>
+    
+    <TextView 
+        android:id="@+id/startChatTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="25dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/MENU_CHAT"
+        android:textColor="#FFFFFF"
+        android:background="#000000" />
+    
+    <include layout="@layout/divider"/>
+</LinearLayout>
+<!-- From: file:/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/src/main/res/layout/menu.xml -->

@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0EFF5"
+    tools:context=".RegistryActivity" >
+
+    <TextView
+        android:id="@+id/RegTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#000000"
+        android:gravity="center_horizontal"
+        android:paddingBottom="25dp"
+        android:paddingTop="40dp"
+        android:text="@string/SNILS_TITLE"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:id="@+id/backTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@id/RegTextView"
+        android:paddingBottom="20dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="40dp"
+        android:background="#000000"        
+        android:text="@string/BACK"
+        android:drawableLeft="@drawable/back"
+        android:drawablePadding="5dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#b1463e" />
+
+    <EditText
+        android:id="@+id/snilsEditText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="26dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:ems="14" 
+        android:maxLength="19"       
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="@string/SNILS_PLACEHOLDER"
+        android:gravity="center_horizontal"
+        android:inputType="phone" />
+    
+    <TextView
+        android:id="@+id/snilsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/snilsEditText"
+        android:gravity="center_horizontal"
+        android:paddingTop="2dp"
+        android:text="@string/SNILS_PLACEHOLDER"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:visibility="gone" />
+    
+    <ImageView
+        android:id="@+id/checkImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/REGISTRATION_TITLE"
+        android:paddingRight="45dp"
+        android:src="@drawable/check"
+        android:visibility="gone" />
+     
+    <LinearLayout
+        android:id="@+id/nextLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/snilsEditText"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/NEXT"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#b1463e" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/next" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/snilsEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone" />
+
+</RelativeLayout><!-- From: file:/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/src/main/res/layout/activity_snils.xml -->

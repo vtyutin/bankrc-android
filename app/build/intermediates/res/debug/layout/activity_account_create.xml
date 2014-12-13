@@ -1,0 +1,181 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".AccountCreateActivity" >
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#000000"
+        android:gravity="center_horizontal"
+        android:paddingBottom="25dp"
+        android:paddingTop="40dp"
+        android:text="@string/ACCOUNT_CREATION"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/progressPanelLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/titleTextView"
+        android:background="#F0EFF5"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/navbar_current_back" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/navbar_current" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/navbar_next" />
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/navbar_next" />
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/navbar_next" />
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/navbar_next" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/ogrnTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleTextView"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@id/progressPanelLayout"
+        android:text="@string/ENTER_OGRN"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+
+    <EditText
+        android:id="@+id/editTextOgrn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ogrnTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@id/progressPanelLayout"
+        android:background="#FFFFFF"
+        android:inputType="phone"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000"/>
+
+    <ImageView
+        android:id="@+id/ogrnSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextOgrn"
+        android:layout_toRightOf="@id/progressPanelLayout"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:src="@drawable/payment_horline" />
+
+    <RelativeLayout
+        android:id="@+id/ogrnDetailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ogrnSeparator"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="7dp"
+        android:layout_toRightOf="@id/progressPanelLayout"
+        android:background="#FFFFFF"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/companyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:paddingLeft="20dp"
+            android:paddingTop="25dp"
+            android:text="@string/COMPANY"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/companyNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/companyTextView"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#666666" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/confirmCompanyTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="15dp"
+        android:layout_toRightOf="@id/progressPanelLayout"
+        android:background="#000000"
+        android:text="@string/TRUE"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:visibility="gone" />
+    
+    <TextView
+        android:id="@+id/checkCompanyTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/confirmCompanyTextView"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@id/progressPanelLayout"
+        android:text="@string/CHECK_COMPANY"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAlignment="gravity"
+        android:gravity="center_horizontal"
+        android:textColor="#000000"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ogrnSeparator"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
+</RelativeLayout><!-- From: file:/android/repository/bankrc-android/app/src/main/res/layout/activity_account_create.xml -->

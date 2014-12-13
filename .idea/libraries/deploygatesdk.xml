@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="deploygatesdk">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/deploygatesdk.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

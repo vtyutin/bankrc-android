@@ -1,0 +1,147 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".RegistryActivity" >
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#000000"
+        android:gravity="center_horizontal"
+        android:paddingBottom="25dp"
+        android:paddingTop="40dp"
+        android:text="@string/ACCOUNT_CREATION"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/progressPanelLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/titleTextView"
+        android:background="#F0EFF5"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/navbar_done" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/navbar_current_back" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/navbar_current" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/navbar_next" />
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/navbar_next" />
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/navbar_next" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/phoneNumberTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleTextView"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@id/progressPanelLayout"
+        android:text="@string/PHONE_NUMBER"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+
+    <EditText
+        android:id="@+id/phoneNumberEditText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phoneNumberTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@id/progressPanelLayout"
+        android:background="#FFFFFF"
+        android:inputType="phone"
+        android:hint="+7"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+
+    <ImageView
+        android:id="@+id/phoneSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phoneNumberEditText"
+        android:layout_toRightOf="@id/progressPanelLayout"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:src="@drawable/payment_horline" />
+
+
+        <TextView
+            android:id="@+id/messageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phoneSeparator"
+            android:layout_toRightOf="@id/progressPanelLayout"
+            android:paddingLeft="20dp"
+            android:paddingTop="25dp"
+            android:text="@string/WE_WILL_CALL_YOU"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#999999"
+            android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/openAccountTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="15dp"
+        android:layout_toRightOf="@id/progressPanelLayout"
+        android:background="#000000"
+        android:text="@string/OPEN_ACCOUNT"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAlignment="gravity"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/messageTextView"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
+</RelativeLayout><!-- From: file:/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/src/main/res/layout/activity_registry.xml -->

@@ -1,0 +1,132 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="#F0EFF5"
+    android:orientation="vertical"
+    tools:context=".AccountStatusActivity" >
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#000000"
+        android:gravity="center_horizontal"
+        android:paddingBottom="25dp"
+        android:paddingTop="40dp"
+        android:text="@string/REQUIRED_DOCUMENTS"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/titleTextView"
+        android:contentDescription="@string/REGISTRATION_TITLE"
+        android:paddingBottom="25dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingTop="40dp"
+        android:src="@drawable/info" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleTextView" >
+
+            <ListView
+                android:id="@+id/cardsListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F0EFF5" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <View
+        android:id="@+id/shadowView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.65"
+        android:background="#8f8e93"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/menuLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-2dp"
+            android:src="@drawable/block_bg_top_white" />
+
+        <TextView
+            android:id="@+id/sendSmsTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:gravity="center_horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:text="@string/SMS_CODE"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#b1463e" />
+
+        <TextView
+            android:id="@+id/sendEmailTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="#FFFFFF"
+            android:gravity="center_horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:text="@string/EMAIL"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#b1463e" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:src="@drawable/block_bg_bot_white" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-2dp"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/block_bg_top_white" />
+
+        <TextView
+            android:id="@+id/cancelTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:gravity="center_horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:text="@string/CANCEL_BUTTON"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#b1463e" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="-2dp"
+            android:src="@drawable/block_bg_bot_white" />
+    </LinearLayout>
+
+</RelativeLayout><!-- From: file:/android/repository/bankrc-android/app/src/main/res/layout/activity_account_status.xml -->

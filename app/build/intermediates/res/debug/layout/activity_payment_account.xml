@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context="com.octoberry.rcbankmobile.payment.PaymentAccountActivity" >
+
+    <LinearLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/closeImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/REGISTRATION_TITLE"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/close_black" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/closeImageView"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="15dp"
+            android:text="@string/PAYMENT_ACCOUNT_TITLE"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/forwardImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/REGISTRATION_TITLE"
+            android:paddingBottom="5dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/forward"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressValue"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleLayout"
+        android:max="100"
+        android:progress="80"
+        android:progressDrawable="@drawable/custom_progress" />
+
+    <ListView 
+        android:id="@+id/accountListView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/progressValue"/>
+    
+    <ProgressBar android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        style="?android:attr/progressBarStyleLarge"/>
+    
+</RelativeLayout>
+<!-- From: file:/android/repository/bankrc-android/app/src/main/res/layout/activity_payment_account.xml -->

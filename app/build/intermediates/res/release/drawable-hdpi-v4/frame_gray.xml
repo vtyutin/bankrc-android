@@ -1,0 +1,11 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:innerRadius="0dp"
+    android:shape="rectangle"
+    android:thicknessRatio="2.0"
+    android:useLevel="false" >
+    <solid android:color="@android:color/transparent" />
+
+    <stroke
+        android:width="2dp"
+        android:color="#6D6D72" />
+</shape><!-- From: file:/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/src/main/res/drawable-hdpi/frame_gray.xml -->

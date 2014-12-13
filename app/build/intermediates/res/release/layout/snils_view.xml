@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.9"
+    android:background="#ffffff" >
+    <ImageView android:id="@+id/closeImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/close_black"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"/>
+    
+    <TextView
+        android:id="@+id/snilsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/closeImageView"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/SNILS_TITLE"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+
+    <EditText
+        android:id="@+id/snilsEditText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/snilsTextView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:background="#FFFFFF"
+        android:inputType="phone"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+    
+    <ImageView
+        android:id="@+id/snilsSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/snilsEditText"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:src="@drawable/payment_horline" />
+    
+    <TextView
+        android:id="@+id/checkSnilsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/snilsSeparator"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp"
+        android:text="@string/GENERATE_ACP"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAlignment="gravity"
+        android:gravity="center_horizontal"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        android:visibility="gone" />
+    
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkSnilsTextView"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
+</RelativeLayout>
+<!-- From: file:/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/src/main/res/layout/snils_view.xml -->

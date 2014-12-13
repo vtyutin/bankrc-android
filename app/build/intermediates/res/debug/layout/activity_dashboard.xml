@@ -1,0 +1,441 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context="com.octoberry.rcbankmobile.DashboardActivity" >
+
+    <TextView
+        android:id="@+id/favouritePartnersTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/FAVOURITE_PARTNERS"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#999999"
+        android:textStyle="bold"
+        android:visibility="gone" >
+    </TextView>
+
+    <RelativeLayout
+        android:id="@+id/topRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#000000" >
+
+        <RelativeLayout
+            android:id="@+id/credsDetailsLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:alpha="0" >
+
+            <LinearLayout
+                android:id="@+id/credsTitleLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/closeImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:src="@drawable/close_white" />
+
+                <TextView
+                    android:id="@+id/nameCredsTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="/ ОКТОБЕРРИ /"
+                    android:textAlignment="gravity"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#FFFFFF" />
+
+                <ImageView
+                    android:id="@+id/uploadCredsImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:src="@drawable/icon_share_white" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/innTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/credsTitleLayout"
+                android:paddingLeft="20dp"
+                android:text="@string/INN"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#CCCCCC"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/innValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/innTextView"
+                android:paddingLeft="20dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#EEEEEE" />
+
+            <TextView
+                android:id="@+id/kppTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/kppValueTextView"
+                android:layout_below="@id/credsTitleLayout"
+                android:paddingRight="20dp"
+                android:text="@string/KPP"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#CCCCCC"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@id/kppValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/kppTextView"
+                android:paddingRight="20dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#EEEEEE" />
+
+            <TextView
+                android:id="@+id/accountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/innValueTextView"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="@string/ACCOUNT_NUMBER"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#CCCCCC"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/accountValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/accountTextView"
+                android:paddingLeft="20dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#EEEEEE" />
+
+            <TextView
+                android:id="@+id/bankNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/accountValueTextView"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="@string/BANK_NAME"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#CCCCCC"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/bankNameValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bankNameTextView"
+                android:paddingLeft="20dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#EEEEEE" />
+
+            <TextView
+                android:id="@+id/corrTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/bankNameValueTextView"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="@string/CORR_NUMBER"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#CCCCCC"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/corrValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/corrTextView"
+                android:paddingLeft="20dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#EEEEEE" />
+
+            <TextView
+                android:id="@+id/bikTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/corrValueTextView"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="@string/BIK"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#CCCCCC"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/bikValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bikTextView"
+                android:paddingLeft="20dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#EEEEEE" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/accountDetailsLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/credsDetailsLayout"
+            android:layout_gravity="top"
+            android:background="#000000"
+            android:visibility="visible" >
+
+            <ImageView
+                android:id="@+id/chatImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:paddingBottom="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:src="@drawable/chat_white" />
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/chatImageView"
+                android:layout_centerHorizontal="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/balanceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nameTextView"
+                android:layout_centerHorizontal="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFFFFF" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/handleImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/accountDetailsLayout"
+            android:layout_centerHorizontal="true"
+            android:padding="20dp"
+            android:src="@drawable/icon_account_info" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/accountsImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:padding="10dp"
+        android:src="@drawable/accounts" />
+
+    <ImageView
+        android:id="@+id/actionImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:src="@drawable/action" />
+
+    <ListView
+        android:id="@+id/activeListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/actionImageView"
+        android:layout_below="@id/topRelativeLayout"
+        android:visibility="visible" />
+
+    <View
+        android:id="@+id/shadowView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.65"
+        android:background="#8f8e93"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/menuLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-2dp"
+            android:src="@drawable/block_bg_top_white" />
+
+        <TextView
+            android:id="@+id/sendSmsTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:gravity="center_horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:text="@string/SMS_CODE"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/sendEmailTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="#FFFFFF"
+            android:gravity="center_horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:text="@string/EMAIL"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:src="@drawable/block_bg_bot_white" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-2dp"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/block_bg_top_white" />
+
+        <TextView
+            android:id="@+id/cancelTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:gravity="center_horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:text="@string/CANCEL_BUTTON"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="-2dp"
+            android:src="@drawable/block_bg_bot_white" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/initMessageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:background="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/centerImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_close_coaching" />
+
+        <TextView
+            android:id="@+id/downTextView2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/centerImage"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_horizontal"
+            android:paddingBottom="10dp"
+            android:text="@string/PULL_DOWN_MESSAGE_2"
+            android:textAlignment="gravity"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/downTextView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/downTextView2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/PULL_DOWN_MESSAGE_1"
+            android:textAlignment="gravity"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/downTextView1"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp"
+            android:src="@drawable/up_arrow" />
+
+        <TextView
+            android:id="@+id/upTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/centerImage"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:text="@string/PULL_UP_MESSAGE"
+            android:textAlignment="gravity"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/upTextView"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="10dp"
+            android:src="@drawable/down_arrow" />
+    </RelativeLayout>
+
+</RelativeLayout><!-- From: file:/android/repository/bankrc-android/app/src/main/res/layout/activity_dashboard.xml -->

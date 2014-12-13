@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/libs/internal_impl-21.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
+        <dex dex="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.0-e4a18a8db62e183d11b3d4325b08a94946bb2f33.jar" />
+    </item>
+    <item
+        jar="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="686344a780033e4ba22b926cd225f8d4941247e6">
+        <dex dex="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/build/intermediates/pre-dexed/debug/classes-f20d4b6136d62268cde1c7ba5de65d56b62f9cf9.jar" />
+    </item>
+    <item
+        jar="/Users/vtyutin/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.0/support-annotations-21.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
+        <dex dex="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.0-55499c21348374a55ebe320f6e9ebda4c4d5a923.jar" />
+    </item>
+    <item
+        jar="/Users/vtyutin/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpmime/4.3.4/54ffde537682aea984c22fbcf0106f21397c5f9b/httpmime-4.3.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="54ffde537682aea984c22fbcf0106f21397c5f9b">
+        <dex dex="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/build/intermediates/pre-dexed/debug/httpmime-4.3.4-ceec7e87b6cef7fac9ff641cf2c9a7e8570aab01.jar" />
+    </item>
+    <item
+        jar="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/build/intermediates/pre-dexed/debug/classes-f92e2c3344a838beed0ccdd419420b3bfae42255.jar" />
+    </item>
+    <item
+        jar="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/libs/slidemenu-library.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="fec6b7502f8e325071bb642f37acd94125296f08">
+        <dex dex="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/build/intermediates/pre-dexed/debug/slidemenu-library-4d1a75cf3bfcbc3016797ce43c29e2056a114673.jar" />
+    </item>
+    <item
+        jar="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/libs/deploygatesdk.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c5616ae6242effdbc9309f297ca69a456e7fe448">
+        <dex dex="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/build/intermediates/pre-dexed/debug/deploygatesdk-f98bfe5c1259f982840b9a3b94dd014b9d476ebd.jar" />
+    </item>
+    <item
+        jar="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/libs/SDK-android.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c32d029bc281f8e78e57753138b7b3a887ee367">
+        <dex dex="/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/build/intermediates/pre-dexed/debug/SDK-android-e1be9eb5c558a8f762f183004ae5c0cb91539912.jar" />
+    </item>
+
+</items>
