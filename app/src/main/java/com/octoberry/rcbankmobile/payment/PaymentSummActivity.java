@@ -217,7 +217,7 @@ public class PaymentSummActivity extends Activity {
 			lastStr = "0" + String.valueOf(last);
 		}		
 		
-		return String.format("%s.%s �", fisrtStr, lastStr);		
+		return String.format("%s.%s Р", fisrtStr, lastStr);
 	}
 	
 	private void clearNdsSelection() {

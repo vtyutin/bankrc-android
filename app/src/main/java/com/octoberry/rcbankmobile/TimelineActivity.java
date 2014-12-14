@@ -32,6 +32,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 public class TimelineActivity extends Activity {
 
 	private PaymentListHandler mPaymentListHandler = new PaymentListHandler();
@@ -99,6 +104,7 @@ public class TimelineActivity extends Activity {
             public void onClick(View view) {
                 clearSelection();
                 mAllTextView.setTextColor(Color.WHITE);
+                updateDateFilter();
             }
         });
         mWeekTextView.setOnClickListener(new OnClickListener() {
@@ -106,6 +112,7 @@ public class TimelineActivity extends Activity {
             public void onClick(View view) {
                 clearSelection();
                 mWeekTextView.setTextColor(Color.WHITE);
+                updateDateFilter();
             }
         });
         mMonthTextView.setOnClickListener(new OnClickListener() {
@@ -113,6 +120,7 @@ public class TimelineActivity extends Activity {
             public void onClick(View view) {
                 clearSelection();
                 mMonthTextView.setTextColor(Color.WHITE);
+                updateDateFilter();
             }
         });
         mHalfYearTextView.setOnClickListener(new OnClickListener() {
@@ -120,22 +128,16 @@ public class TimelineActivity extends Activity {
             public void onClick(View view) {
                 clearSelection();
                 mHalfYearTextView.setTextColor(Color.WHITE);
+                updateDateFilter();
             }
         });
 
-		mToken = DataBaseManager.getInstance(getApplicationContext())
-				.getActiveToken();
-		mProgressBar.setVisibility(View.VISIBLE);
+        clearSelection();
+        mAllTextView.setTextColor(Color.WHITE);
 
-		AsyncJSONLoader paymentLoader = new AsyncJSONLoader(this);
-		paymentLoader.registryListener(mPaymentListHandler);
-		Bundle params2 = new Bundle();
-		params2.putString("requestType", "GET");
-		params2.putString("endpoint",
-				"/api/bank/timeline?date_to=2015-11-13&date_from=2014-11-01");
-		Bundle headerParams2 = new Bundle();
-		headerParams2.putString("Authorization", mToken);
-		paymentLoader.execute(params2, headerParams2, null);
+		mToken = DataBaseManager.getInstance(getApplicationContext()).getActiveToken();
+
+        updateDateFilter();
 	}
 
     private void clearSelection() {
@@ -143,6 +145,34 @@ public class TimelineActivity extends Activity {
         mWeekTextView.setTextColor(Color.parseColor("#999999"));
         mMonthTextView.setTextColor(Color.parseColor("#999999"));
         mHalfYearTextView.setTextColor(Color.parseColor("#999999"));
+    }
+
+    private void updateDateFilter() {
+        Calendar currentDate = GregorianCalendar.getInstance();
+        Calendar fromDate = GregorianCalendar.getInstance();
+        if (mWeekTextView.getCurrentTextColor() == Color.WHITE) {
+            fromDate.add(Calendar.DAY_OF_YEAR, -7);
+        } else if (mMonthTextView.getCurrentTextColor() == Color.WHITE) {
+            fromDate.add(Calendar.MONTH, -1);
+        } else if (mHalfYearTextView.getCurrentTextColor() == Color.WHITE) {
+            fromDate.add(Calendar.MONTH, -6);
+        } else {
+            fromDate.set(2000, 0, 1, 0, 0, 0);
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String fromDateString = dateFormat.format(fromDate.getTime());
+        String toDateString = dateFormat.format(currentDate.getTime());
+
+        mProgressBar.setVisibility(View.VISIBLE);
+        AsyncJSONLoader paymentLoader = new AsyncJSONLoader(this);
+        paymentLoader.registryListener(mPaymentListHandler);
+        Bundle params2 = new Bundle();
+        params2.putString("requestType", "GET");
+        params2.putString("endpoint", String.format("/api/bank/timeline?date_to=%s&date_from=%s",
+                        toDateString, fromDateString));
+        Bundle headerParams2 = new Bundle();
+        headerParams2.putString("Authorization", mToken);
+        paymentLoader.execute(params2, headerParams2, null);
     }
 
 	@Override

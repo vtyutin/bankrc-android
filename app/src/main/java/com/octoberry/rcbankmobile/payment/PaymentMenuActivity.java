@@ -125,10 +125,10 @@ public class PaymentMenuActivity extends Activity {
 				asyncLoader.registryListener(new FileUploadHandler());
 				Bundle params = new Bundle();
 				params.putString("requestType", "POST");
-				params.putString("endpoint", "/api/payments/import");
+				params.putString("endpoint", "/api/bank/payment/import");
 				params.putString("filePath", path);
 				Bundle headerParams = new Bundle();
-				headerParams.putString("Authorization", DataBaseManager.getInstance(this).getCurrentToken());
+				headerParams.putString("Authorization", DataBaseManager.getInstance(this).getActiveToken());
 				headerParams.putString("Accept", "/");
 				asyncLoader.execute(params, headerParams, null);
 			}
@@ -377,10 +377,10 @@ public class PaymentMenuActivity extends Activity {
 			Bundle params = new Bundle();
 			params.putString("requestType", "GET");
 			params.putString("endpoint", String.format(
-					"/api/payments/import/result/%d", getUploadId()));
+					"/api/bank/payment/import/result/%d", getUploadId()));
 			Bundle headerParams = new Bundle();
 			headerParams.putString("Authorization", DataBaseManager
-					.getInstance(PaymentMenuActivity.this).getCurrentToken());
+					.getInstance(PaymentMenuActivity.this).getActiveToken());
 			loader.execute(params, headerParams, null);
 		}
 	};
@@ -402,10 +402,10 @@ public class PaymentMenuActivity extends Activity {
 			asyncLoader.registryListener(new FileUploadHandler());
 			Bundle params = new Bundle();
 			params.putString("requestType", "POST");
-			params.putString("endpoint", "/api/payments/import");
+			params.putString("endpoint", "/api/bank/payment/import");
 			params.putString("filePath", path);
 			Bundle headerParams = new Bundle();
-			headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getCurrentToken());
+			headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getActiveToken());
 			headerParams.putString("Accept", "/");
 			asyncLoader.execute(params, headerParams, null);
 			
@@ -428,9 +428,9 @@ public class PaymentMenuActivity extends Activity {
 							loader.registryListener(new PaymentDetailsHandler());
 							Bundle params = new Bundle();
 							params.putString("requestType", "GET");
-							params.putString("endpoint", String.format("/api/payments/import/result/%d", getUploadId()));
+							params.putString("endpoint", String.format("/api/bank/payment/import/result/%d", getUploadId()));
 							Bundle headerParams = new Bundle();
-							headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getCurrentToken());
+							headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getActiveToken());
 							loader.execute(params, headerParams, null);
 							return;
 						} else {

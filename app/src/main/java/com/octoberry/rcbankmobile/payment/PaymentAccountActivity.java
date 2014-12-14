@@ -56,14 +56,14 @@ public class PaymentAccountActivity extends Activity {
 			}
 		});
 		
-		mToken = DataBaseManager.getInstance(this).getCurrentToken();
+		mToken = DataBaseManager.getInstance(this).getActiveToken();
 		
 		mProgress.setVisibility(View.VISIBLE);
 		AsyncJSONLoader paymentLoader = new AsyncJSONLoader(this);
 		paymentLoader.registryListener(mAccountListHandler);
 		Bundle params = new Bundle();
 		params.putString("requestType", "GET");
-		params.putString("endpoint", "/api/accounts");
+		params.putString("endpoint", "/api/bank/account");
 		Bundle headerParams = new Bundle();
 		headerParams.putString("Authorization", mToken);
 		paymentLoader.execute(params, headerParams, null);

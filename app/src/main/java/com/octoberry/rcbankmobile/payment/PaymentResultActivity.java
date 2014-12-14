@@ -68,13 +68,13 @@ public class PaymentResultActivity extends Activity implements JSONResponseListe
 		
 		Payment payment = Payment.createFromPreference(this);
 		
-		String token = DataBaseManager.getInstance(this).getCurrentToken();
+		String token = DataBaseManager.getInstance(this).getActiveToken();
 		
 		AsyncJSONLoader paymentLoader = new AsyncJSONLoader(this);
 		paymentLoader.registryListener(this);
 		Bundle params = new Bundle();
 		params.putString("requestType", "POST");
-		params.putString("endpoint", "/api/payments");
+		params.putString("endpoint", "/api/bank/payment");
 		Bundle headerParams = new Bundle();
 		headerParams.putString("Authorization", token);
 		Bundle bodyParams = new Bundle();

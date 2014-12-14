@@ -130,10 +130,10 @@ public class PaymentReceiverActivity extends Activity implements JSONResponseLis
 			AsyncJSONLoader paymentLoader = new AsyncJSONLoader(this);
 			paymentLoader.registryListener(this);
 			Bundle headerParams = new Bundle();
-			headerParams.putString("Authorization", DataBaseManager.getInstance(this).getCurrentToken());
+			headerParams.putString("Authorization", DataBaseManager.getInstance(this).getActiveToken());
 			Bundle params = new Bundle();
 			params.putString("requestType", "POST");
-			params.putString("endpoint", "/api/payments/parse");
+			params.putString("endpoint", "/api/bank/payment/parse");
 			Bundle bodyParams = new Bundle();
 			bodyParams.putString("text", pasteData);
 			paymentLoader.execute(params, headerParams, bodyParams);
