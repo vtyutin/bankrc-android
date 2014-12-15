@@ -3,10 +3,12 @@ package com.octoberry.rcbankmobile;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.octoberry.rcbankmobile.chat.ChatActivity;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
 import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
 import com.octoberry.rcbankmobile.net.JSONResponseListener;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.animation.Animator;
@@ -15,12 +17,13 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLayoutChangeListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -33,16 +36,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TimelineActivity extends Activity {
 
 	private PaymentListHandler mPaymentListHandler = new PaymentListHandler();
 	private String mToken;
-	private HistoryListAdapter mHistoryListAdapter;
-	private HistoryListValue[] mHistoryListValues;
+	private TimelineListAdapter mHistoryListAdapter;
+	private TimelineListValue[] mTimelineListValues;
+    private TimelineListValue[] mFilteredListValues;
 	private ListView mHistoryListView;
 	private ImageView mCloseImageView;
 	private ProgressBar mProgressBar;
@@ -50,14 +56,18 @@ public class TimelineActivity extends Activity {
     private EditText mFilterEditText;
     private LinearLayout mFilterLayout;
     private ImageView mFilterCloseImageView;
+    private ImageView mChatImageView;
     private TextView mAllTextView;
     private TextView mWeekTextView;
     private TextView mMonthTextView;
     private TextView mHalfYearTextView;
+    private Timer mTimer = null;
 
 	private ObjectAnimator mAppearAnimator;
 	private ObjectAnimator mDisappearAnimator;
 	private RelativeLayout mRootLayout;
+
+    private final static int ENTER_LOCK_TIMER_DELAY = 1000; // 1 sec
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +87,7 @@ public class TimelineActivity extends Activity {
         mWeekTextView = (TextView) findViewById(R.id.weekTextView);
         mMonthTextView = (TextView) findViewById(R.id.monthTextView);
         mHalfYearTextView = (TextView) findViewById(R.id.halfYearTextView);
+        mChatImageView = (ImageView) findViewById(R.id.chatImageView);
 
 		mCloseImageView.setOnClickListener(new OnClickListener() {
 			@Override
@@ -88,6 +99,7 @@ public class TimelineActivity extends Activity {
         mFilterImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                mFilterEditText.setText("");
                 mFilterLayout.setVisibility(View.VISIBLE);
             }
         });
@@ -96,6 +108,12 @@ public class TimelineActivity extends Activity {
             @Override
             public void onClick(View view) {
                 mFilterLayout.setVisibility(View.INVISIBLE);
+                mFilteredListValues = new TimelineListValue[mTimelineListValues.length];
+                for (int index = 0; index < mTimelineListValues.length; index++) {
+                    mFilteredListValues[index] = mTimelineListValues[index];
+                }
+                mHistoryListAdapter.setTimelineValues(mFilteredListValues);
+                mHistoryListAdapter.notifyDataSetChanged();
             }
         });
 
@@ -129,6 +147,82 @@ public class TimelineActivity extends Activity {
                 clearSelection();
                 mHalfYearTextView.setTextColor(Color.WHITE);
                 updateDateFilter();
+            }
+        });
+
+        mFilterEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(final CharSequence charSequence, int i, int i2, int i3) {
+                if (mTimer != null) {
+                    mTimer.cancel();
+                    mTimer.purge();
+                }
+
+                if (charSequence.length() > 0) {
+                    final String filter = charSequence.toString().toUpperCase();
+                    mTimer = new Timer();
+                    mTimer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    mFilterEditText.setEnabled(false);
+                                    mProgressBar.setVisibility(View.VISIBLE);
+                                }
+                            });
+                            if (mTimelineListValues != null) {
+                                ArrayList<TimelineListValue> list = new ArrayList<TimelineListValue>();
+                                for (TimelineListValue value : mTimelineListValues) {
+                                    if (((value.getName() != null) && (value.getName().toUpperCase().contains(filter))) ||
+                                            ((value.getDescriptin() != null) && (value.getDescriptin().toUpperCase().contains(filter)))) {
+                                        list.add(value);
+                                    }
+                                }
+                                mFilteredListValues = new TimelineListValue[list.size()];
+                                for (int index = 0; index < list.size(); index++) {
+                                    mFilteredListValues[index] = list.get(index);
+                                }
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        mHistoryListAdapter.setTimelineValues(mFilteredListValues);
+                                        mHistoryListAdapter.notifyDataSetChanged();
+                                    }
+                                });
+                            }
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    mFilterEditText.setEnabled(true);
+                                    mProgressBar.setVisibility(View.GONE);
+                                }
+                            });
+                        }
+                    }, ENTER_LOCK_TIMER_DELAY);
+                } else {
+                    mFilteredListValues = new TimelineListValue[mTimelineListValues.length];
+                    for (int index = 0; index < mTimelineListValues.length; index++) {
+                        mFilteredListValues[index] = mTimelineListValues[index];
+                    }
+                    mHistoryListAdapter.setTimelineValues(mFilteredListValues);
+                    mHistoryListAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        mChatImageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TimelineActivity.this, ChatActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -238,28 +332,29 @@ public class TimelineActivity extends Activity {
 					if (resultCode == 200) {
 						JSONArray paymentListArray = response.getJSONArray("result");
 
-						mHistoryListValues = new HistoryListValue[paymentListArray
-								.length()];
+						mTimelineListValues = new TimelineListValue[paymentListArray.length()];
+                        mFilteredListValues = new TimelineListValue[paymentListArray.length()];
 						for (int i = 0; i < paymentListArray.length(); i++) {
 							JSONObject item = paymentListArray.getJSONObject(i);
 							String number = item.getString("amount");
 							String date = item.getString("date");
 							String name = item.getString("corr_name");
 							String description = item.getString("description");
-							HistoryListValue listItem = new HistoryListValue(number, date, name, description);
-							mHistoryListValues[i] = listItem;
+                            TimelineListValue listItem = new TimelineListValue(number, date, name, description);
+                            mTimelineListValues[i] = listItem;
+                            mFilteredListValues[i] = listItem;
 						}
 						if (mHistoryListAdapter == null) {
-							mHistoryListAdapter = new HistoryListAdapter(
-									getApplicationContext());
+							mHistoryListAdapter = new TimelineListAdapter(getApplicationContext());
 						}
-						mHistoryListAdapter
-								.setHistoryValues(mHistoryListValues);
+						mHistoryListAdapter.setTimelineValues(mFilteredListValues);
 						mHistoryListView.setAdapter(mHistoryListAdapter);
-					} else {
-						Toast.makeText(getApplicationContext(),
-								response.getString("message"),
-								Toast.LENGTH_LONG).show();
+					} else if (resultCode == 403) {
+                        Intent intent = new Intent(TimelineActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+						Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_LONG).show();
 					}
 				} catch (Exception exc) {
 					exc.printStackTrace();
@@ -269,13 +364,13 @@ public class TimelineActivity extends Activity {
 		}
 	}
 
-	private class HistoryListValue {
+	private class TimelineListValue {
 		private String number;
 		private String date;
 		private String name;
 		private String description;
 
-		public HistoryListValue(String numberValue, String dateValue,
+		public TimelineListValue(String numberValue, String dateValue,
 				String nameValue, String descriptionValue) {
 			number = numberValue;
 			date = dateValue;
@@ -300,17 +395,17 @@ public class TimelineActivity extends Activity {
 		}
 	}
 
-	private class HistoryListAdapter extends ArrayAdapter<Object> {
+	private class TimelineListAdapter extends ArrayAdapter<Object> {
 		private final Context context;
-		private HistoryListValue[] historyValues;
+		private TimelineListValue[] timelineValues;
 
-		public HistoryListAdapter(Context context) {
+		public TimelineListAdapter(Context context) {
 			super(context, R.layout.timeline_list_row);
 			this.context = context;
 		}
 
-		public void setHistoryValues(HistoryListValue[] historyValues) {
-			this.historyValues = historyValues;
+		public void setTimelineValues(TimelineListValue[] timelineValues) {
+			this.timelineValues = timelineValues;
 		}
 
 		@Override
@@ -334,17 +429,17 @@ public class TimelineActivity extends Activity {
 			TextView descriptionTextView = (TextView) rowView
 					.findViewById(R.id.descriptionTextView);
 
-			numberTextView.setText(historyValues[position].getNumber());
-			dateTextView.setText(historyValues[position].getDate());
-			nameTextView.setText(historyValues[position].getName());
-			descriptionTextView.setText(historyValues[position].getDescriptin());
+			numberTextView.setText(timelineValues[position].getNumber());
+			dateTextView.setText(timelineValues[position].getDate());
+			nameTextView.setText(timelineValues[position].getName());
+			descriptionTextView.setText(timelineValues[position].getDescriptin());
 			return rowView;
 		}
 
 		@Override
 		public int getCount() {
-			if (historyValues != null) {
-				return historyValues.length;
+			if (timelineValues != null) {
+				return timelineValues.length;
 			}
 			return 0;
 		}

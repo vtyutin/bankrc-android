@@ -103,4 +103,4 @@
         android:layout_below="@+id/uploadLayout"
         android:background="#8f8e93" />
 
-</RelativeLayout><!-- From: file:/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/src/main/res/layout/passports_card_row.xml -->
+</RelativeLayout><!-- From: file:/E:/Work/Projects/Octoberry/workspace/bankrc-android/app/src/main/res/layout/passports_card_row.xml -->

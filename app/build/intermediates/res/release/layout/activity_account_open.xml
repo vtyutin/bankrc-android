@@ -319,4 +319,4 @@
         android:layout_below="@id/titleLayout"
         layout="@layout/passports_view"
         android:visibility="gone"/>
-</RelativeLayout><!-- From: file:/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/src/main/res/layout/activity_account_open.xml -->
+</RelativeLayout><!-- From: file:/E:/Work/Projects/Octoberry/workspace/bankrc-android/app/src/main/res/layout/activity_account_open.xml -->

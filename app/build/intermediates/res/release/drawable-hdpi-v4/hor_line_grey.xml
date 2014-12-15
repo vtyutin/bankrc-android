@@ -4,4 +4,4 @@
       android:shape="rectangle">
       <size android:width="10000dp" android:height="1dp" />
       <solid android:color="#999999"/>
-</shape><!-- From: file:/Users/vtyutin/AndroidstudioProjects/bankrc-android/app/src/main/res/drawable-hdpi/hor_line_grey.xml -->
+</shape><!-- From: file:/E:/Work/Projects/Octoberry/workspace/bankrc-android/app/src/main/res/drawable-hdpi/hor_line_grey.xml -->
