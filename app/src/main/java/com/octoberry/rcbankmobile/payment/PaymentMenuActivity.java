@@ -393,7 +393,7 @@ public class PaymentMenuActivity extends Activity {
 			if (path == null) {
 				clearPathToFile();
 				storyUploadInProgress(false);
-				Toast.makeText(PaymentMenuActivity.this, "��� ������� ������������ ����", Toast.LENGTH_LONG).show();
+				Toast.makeText(PaymentMenuActivity.this, "can't upload file", Toast.LENGTH_LONG).show();
 				finish();
 				return;
 			}
@@ -405,7 +405,7 @@ public class PaymentMenuActivity extends Activity {
 			params.putString("endpoint", "/api/bank/payment/import");
 			params.putString("filePath", path);
 			Bundle headerParams = new Bundle();
-			headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getActiveToken());
+			headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getCurrentToken());
 			headerParams.putString("Accept", "/");
 			asyncLoader.execute(params, headerParams, null);
 			
@@ -430,7 +430,7 @@ public class PaymentMenuActivity extends Activity {
 							params.putString("requestType", "GET");
 							params.putString("endpoint", String.format("/api/bank/payment/import/result/%d", getUploadId()));
 							Bundle headerParams = new Bundle();
-							headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getActiveToken());
+							headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getCurrentToken());
 							loader.execute(params, headerParams, null);
 							return;
 						} else {
