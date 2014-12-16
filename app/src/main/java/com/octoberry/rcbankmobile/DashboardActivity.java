@@ -563,7 +563,7 @@ public class DashboardActivity extends Activity {
 							JSONObject resultObject = resultArray.getJSONObject(index);
 							String currency = resultObject.getString("currency");
 							if (currency.equals("RUR")) {
-								balance += resultObject.getDouble("balance");
+								balance += resultObject.getDouble("actual_balance");
 								info = resultObject.getString("info");
 							}
 						}
