@@ -573,8 +573,8 @@ containing a value of this type.
         public static final int confirmCompanyTextView=0x7f0a0028;
         public static final int confirmImageView=0x7f0a007c;
         public static final int confirmLayout=0x7f0a007b;
-        public static final int content=0x7f0a00b5;
-        public static final int contentWithBackground=0x7f0a00b7;
+        public static final int content=0x7f0a00bb;
+        public static final int contentWithBackground=0x7f0a00bd;
         public static final int copyDataTextView=0x7f0a0088;
         public static final int corrTextView=0x7f0a005f;
         public static final int corrValueTextView=0x7f0a0060;
@@ -582,7 +582,7 @@ containing a value of this type.
         public static final int credsDetailsLayout=0x7f0a0053;
         public static final int credsImageView=0x7f0a002f;
         public static final int credsTitleLayout=0x7f0a0054;
-        public static final int dashboardTextView=0x7f0a00b9;
+        public static final int dashboardTextView=0x7f0a00bf;
         public static final int dataTextView=0x7f0a0087;
         public static final int dateTextView=0x7f0a00cd;
         public static final int descriptionTextView=0x7f0a00b2;
@@ -599,12 +599,12 @@ containing a value of this type.
         public static final int filterEditText=0x7f0a00a7;
         public static final int filterImageView=0x7f0a00a5;
         public static final int filterLayout=0x7f0a00a6;
-        public static final int firstPageLayout=0x7f0a00bd;
-        public static final int firstPageProgress=0x7f0a00bf;
-        public static final int firstPageProgressBar=0x7f0a00c5;
-        public static final int firstPageRemove=0x7f0a00c4;
-        public static final int firstPageTextView=0x7f0a00be;
-        public static final int firstPageThumbnail=0x7f0a00c3;
+        public static final int firstPageLayout=0x7f0a00b6;
+        public static final int firstPageProgress=0x7f0a00c2;
+        public static final int firstPageProgressBar=0x7f0a00ba;
+        public static final int firstPageRemove=0x7f0a00b9;
+        public static final int firstPageTextView=0x7f0a00b7;
+        public static final int firstPageThumbnail=0x7f0a00b8;
         public static final int forwardImageView=0x7f0a0074;
         public static final int founderListLayout=0x7f0a003c;
         public static final int generateACPTextView=0x7f0a0031;
@@ -668,7 +668,7 @@ containing a value of this type.
         public static final int progressPanelLayout=0x7f0a001e;
         public static final int progressValue=0x7f0a0075;
         public static final int receiverDataListView=0x7f0a0089;
-        public static final int reportTextView=0x7f0a00ba;
+        public static final int reportTextView=0x7f0a00c0;
         public static final int resultImageView=0x7f0a008c;
         public static final int resultMessageTextView=0x7f0a008d;
         public static final int resultTextView=0x7f0a008b;
@@ -677,11 +677,11 @@ containing a value of this type.
         public static final int sandbox=0x7f0a000a;
         public static final int satellite=0x7f0a0005;
         public static final int saveTextView=0x7f0a0078;
-        public static final int secondPageLayout=0x7f0a00c0;
-        public static final int secondPageProgress=0x7f0a00c2;
+        public static final int secondPageLayout=0x7f0a00c3;
+        public static final int secondPageProgress=0x7f0a00c5;
         public static final int secondPageProgressBar=0x7f0a00c8;
         public static final int secondPageRemove=0x7f0a00c7;
-        public static final int secondPageTextView=0x7f0a00c1;
+        public static final int secondPageTextView=0x7f0a00c4;
         public static final int secondPageThumbnail=0x7f0a00c6;
         public static final int selectionDetails=0x7f0a000d;
         public static final int sendEmailTextView=0x7f0a0038;
@@ -693,7 +693,7 @@ containing a value of this type.
         public static final int snilsLayout=0x7f0a003b;
         public static final int snilsSeparator=0x7f0a00cb;
         public static final int snilsTextView=0x7f0a009e;
-        public static final int startChatTextView=0x7f0a00bb;
+        public static final int startChatTextView=0x7f0a00c1;
         public static final int statusImageView=0x7f0a004a;
         public static final int strict_sandbox=0x7f0a000b;
         public static final int sub_center=0x7f0a007f;
@@ -715,11 +715,11 @@ containing a value of this type.
         public static final int topRelativeLayout=0x7f0a0052;
         public static final int totalLayout=0x7f0a0091;
         public static final int totalTextView=0x7f0a0092;
-        public static final int txtInfo=0x7f0a00b6;
-        public static final int txtMessage=0x7f0a00b8;
+        public static final int txtInfo=0x7f0a00bc;
+        public static final int txtMessage=0x7f0a00be;
         public static final int upTextView=0x7f0a006d;
         public static final int uploadCredsImageView=0x7f0a0056;
-        public static final int uploadLayout=0x7f0a00bc;
+        public static final int uploadLayout=0x7f0a00b5;
         public static final int uploadTextView=0x7f0a0032;
         public static final int valueEditText=0x7f0a00ca;
         public static final int valueTextView=0x7f0a00af;
@@ -762,17 +762,18 @@ containing a value of this type.
         public static final int creds_card=0x7f03001c;
         public static final int divider=0x7f03001d;
         public static final int event_card=0x7f03001e;
-        public static final int list_item_message=0x7f03001f;
-        public static final int menu=0x7f030020;
-        public static final int passports_card_row=0x7f030021;
-        public static final int passports_list_row=0x7f030022;
-        public static final int passports_view=0x7f030023;
-        public static final int receiver_list_row=0x7f030024;
-        public static final int separator_card=0x7f030025;
-        public static final int signature_card=0x7f030026;
-        public static final int snils_view=0x7f030027;
-        public static final int text_card=0x7f030028;
-        public static final int timeline_list_row=0x7f030029;
+        public static final int legal_list_row=0x7f03001f;
+        public static final int list_item_message=0x7f030020;
+        public static final int menu=0x7f030021;
+        public static final int passports_card_row=0x7f030022;
+        public static final int passports_list_row=0x7f030023;
+        public static final int passports_view=0x7f030024;
+        public static final int receiver_list_row=0x7f030025;
+        public static final int separator_card=0x7f030026;
+        public static final int signature_card=0x7f030027;
+        public static final int snils_view=0x7f030028;
+        public static final int text_card=0x7f030029;
+        public static final int timeline_list_row=0x7f03002a;
     }
     public static final class raw {
         public static final int gtm_analytics=0x7f040000;
@@ -940,10 +941,11 @@ containing a value of this type.
         public static final int create_calendar_message=0x7f08009f;
         public static final int create_calendar_title=0x7f0800a0;
         public static final int decline=0x7f0800a1;
-        public static final int server_url=0x7f0800a2;
-        public static final int store_picture_message=0x7f0800a3;
-        public static final int store_picture_title=0x7f0800a4;
-        public static final int wallet_buy_button_place_holder=0x7f0800a5;
+        public static final int flurry_app_key=0x7f0800a2;
+        public static final int server_url=0x7f0800a3;
+        public static final int store_picture_message=0x7f0800a4;
+        public static final int store_picture_title=0x7f0800a5;
+        public static final int wallet_buy_button_place_holder=0x7f0800a6;
     }
     public static final class style {
         /** 

@@ -1,12 +1,17 @@
 package com.octoberry.rcbankmobile;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.octoberry.rcbankmobile.chat.ChatActivity;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
 import com.octoberry.rcbankmobile.db.SharedPreferenceManager;
@@ -20,6 +25,7 @@ import com.octoberry.rcbankmobile.ui.CardListAdapter;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -156,6 +162,7 @@ public class AccountOpenActivity extends Activity {
 		}
 		
 		if (SharedPreferenceManager.getInstance(this).isSignatureCreated()) {
+            isACPGenerated = true;
 			mGenerateACPTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check, R.drawable.hor_line_grey);
 		}
 		
@@ -350,20 +357,76 @@ public class AccountOpenActivity extends Activity {
 			loader.registryListener(new GetCredentialsHandler());
 			Bundle params = new Bundle();
 			params.putString("requestType", "GET");
-			params.putString("endpoint", "/api/organization/creds");
+			params.putString("endpoint", "/api/organization.pdf");
 			Bundle headerParams = new Bundle();
 			headerParams.putString("Authorization", mToken);
 			headerParams.putString("Accept", "application/pdf");
 			loader.execute(params, headerParams, null);
 		}
+
+        checkActivityCompleted();
+
+        SharedPreferenceManager manager = SharedPreferenceManager.getInstance(AccountOpenActivity.this);
+        if (manager.getUploadDocId() != null) {
+            showView(mFounderListLayout);
+        }
 	}
 	
 	private void checkActivityCompleted() {
+        SharedPreferenceManager manager = SharedPreferenceManager.getInstance(this);
+        if (mDocumentsCheckList != null) {
+            isCheckListCompleted = true;
+            for (Document doc: mDocumentsCheckList) {
+                if (manager.getCheckDocStatus(doc.getTitle()) == false) {
+                    isCheckListCompleted = false;
+                    break;
+                }
+            }
+        }
+
+        if (mFounderCheckList != null) {
+            isAllDocumentsUploaded = true;
+            for (Document doc: mFounderCheckList) {
+                if (manager.getUploadedDocPath(doc.getFirstPageId()) == null) {
+                    isAllDocumentsUploaded = false;
+                    break;
+                }
+                if (doc.getType().equals(Document.TYPE_PASSPORT)) {
+                    if (manager.getUploadedDocPath(doc.getSecondPageId()) == null) {
+                        isAllDocumentsUploaded = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (isAllDocumentsUploaded) {
+            mUploadDocumentsTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check, R.drawable.hor_line_grey);
+        } else {
+            mUploadDocumentsTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.list_item_arrow, R.drawable.hor_line_grey);
+        }
+
+        if (isACPGenerated) {
+            mGenerateACPTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check, R.drawable.hor_line_grey);
+        } else {
+            mGenerateACPTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.list_item_arrow, R.drawable.hor_line_grey);
+        }
+
+        if (isCheckListCompleted) {
+            mPrepareDocumentsTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check, R.drawable.hor_line_grey);
+        } else {
+            mPrepareDocumentsTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.list_item_arrow, R.drawable.hor_line_grey);
+        }
+
 		if (isACPGenerated && isCheckListCompleted && isAllDocumentsUploaded) {
 			mAllDoneTextView.setEnabled(true);
 			mAllDoneTextView.setBackgroundColor(Color.BLACK);
 			mAllDoneTextView.setTextColor(Color.WHITE);
-		}
+		} else {
+            mAllDoneTextView.setEnabled(false);
+            mAllDoneTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
+            mAllDoneTextView.setTextColor(Color.parseColor("#333333"));
+        }
 	}
 	
 	private void showView(View view) {
@@ -399,19 +462,6 @@ public class AccountOpenActivity extends Activity {
 	
 	private void checkListCompletion() {
 		if (mDocumentsCheckList != null) {
-			boolean listIsCompleted = true;
-			for (int i = 0; i < mDocumentsCheckList.size(); i++) {
-				if (!mDocumentsCheckList.get(i).isCompleted()) {
-					listIsCompleted = false;
-					break;
-				}
-			}
-			if (listIsCompleted) {
-				isCheckListCompleted = true;
-				mPrepareDocumentsTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check, R.drawable.hor_line_grey);
-			} else {
-				mPrepareDocumentsTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.list_item_arrow, R.drawable.hor_line_grey);
-			}
 			checkActivityCompleted();
 		}		
 	}
@@ -442,10 +492,21 @@ public class AccountOpenActivity extends Activity {
 					if (status == 200) {
 						mGenerateACPTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check, R.drawable.hor_line_grey);
 						hideView(mSnilsLayout);
+                        SharedPreferenceManager.getInstance(AccountOpenActivity.this).setSignatureCreated(true);
 						isACPGenerated = true;
 						checkActivityCompleted();
+
+                        // log flurry event
+                        Map<String, String> articleParams = new HashMap<String, String>();
+                        articleParams.put("snils", keepNumbersOnly(mSnilsEditText.getText().toString()));
+                        FlurryAgent.logEvent("snils successfully verified", articleParams);
 					} else {
 						Toast.makeText(AccountOpenActivity.this, "error: " + response.getString("message") , Toast.LENGTH_LONG).show();
+
+                        // log flurry event
+                        Map<String, String> articleParams = new HashMap<String, String>();
+                        articleParams.put("message", response.getString("message"));
+                        FlurryAgent.logEvent("snils verification failed", articleParams);
 					}
 				} catch (Exception exc) {
 					exc.printStackTrace();
@@ -470,9 +531,10 @@ public class AccountOpenActivity extends Activity {
 				LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				rowView = inflater.inflate(R.layout.check_list_row, null);				
 			}
+            SharedPreferenceManager manager = SharedPreferenceManager.getInstance(AccountOpenActivity.this);
 			TextView textView = (TextView)rowView.findViewById(R.id.titleTextView);
 			textView.setText(mDocumentsCheckList.get(position).getTitle());
-			if (mDocumentsCheckList.get(pos).isCompleted()) {				
+			if (manager.getCheckDocStatus(mDocumentsCheckList.get(pos).getTitle())) {
 				textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 			} else {
 				textView.setPaintFlags(0);
@@ -481,7 +543,8 @@ public class AccountOpenActivity extends Activity {
 			textView.setOnClickListener(new OnClickListener() {				
 				@Override
 				public void onClick(View v) {
-					mDocumentsCheckList.get(pos).setCompleted(!mDocumentsCheckList.get(pos).isCompleted());
+                    SharedPreferenceManager manager = SharedPreferenceManager.getInstance(AccountOpenActivity.this);
+                    manager.setCheckDocStatus(mDocumentsCheckList.get(pos).getTitle(), !manager.getCheckDocStatus(mDocumentsCheckList.get(pos).getTitle()));
 					checkListCompletion();
 					mCheckListAdapter.notifyDataSetChanged();									
 				}
@@ -510,47 +573,78 @@ public class AccountOpenActivity extends Activity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {			
 			View rowView = convertView;
-			if (rowView == null) {
+            boolean isPassport = Document.TYPE_PASSPORT.equals(mFounderCheckList.get(position).getType());
+			if (isPassport) {
 				LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				rowView = inflater.inflate(R.layout.passports_list_row, null);				
-			}
+			} else {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                rowView = inflater.inflate(R.layout.legal_list_row, null);
+            }
 			TextView textView = (TextView)rowView.findViewById(R.id.titleTextView);
 			textView.setText(mFounderCheckList.get(position).getTitle());			
 			
 			TextView firstPageTextView = (TextView)rowView.findViewById(R.id.firstPageTextView);
-			firstPageTextView.setOnClickListener(new UploadDocumentListener(mFounderCheckList.get(position).getId(), 0));
-			TextView secondPageTextView = (TextView)rowView.findViewById(R.id.secondPageTextView);
-			secondPageTextView.setOnClickListener(new UploadDocumentListener(mFounderCheckList.get(position).getId(), 1));
+			firstPageTextView.setOnClickListener(new UploadDocumentListener(mFounderCheckList.get(position).getFirstPageId(),
+                    0, mFounderCheckList.get(position).getType(), mFounderCheckList.get(position).getFirstPageTitle()));
+            firstPageTextView.setText(mFounderCheckList.get(position).getFirstPageTitle());
+            TextView secondPageTextView = (TextView) rowView.findViewById(R.id.secondPageTextView);
+            if (isPassport) {
+                secondPageTextView.setOnClickListener(new UploadDocumentListener(mFounderCheckList.get(position).getSecondPageId(),
+                        1, mFounderCheckList.get(position).getType(), mFounderCheckList.get(position).getSecondPageTitle()));
+                secondPageTextView.setText(mFounderCheckList.get(position).getSecondPageTitle());
+            }
 			
 			ImageView firstPageThumbnail = (ImageView)rowView.findViewById(R.id.firstPageThumbnail);
-			ImageView secondPageThumbnail = (ImageView)rowView.findViewById(R.id.secondPageThumbnail);
+            ImageView secondPageThumbnail = (ImageView) rowView.findViewById(R.id.secondPageThumbnail);
 			ImageView firstPageRemove = (ImageView)rowView.findViewById(R.id.firstPageRemove);
-			ImageView secondPageRemove = (ImageView)rowView.findViewById(R.id.secondPageRemove);			
-			if (mFounderCheckList.get(position).isFirstPageUploaded()) {
-				Bitmap bitmap = BitmapFactory.decodeFile(mFounderCheckList.get(position).getFirstPageFilePath());
+            ImageView secondPageRemove = (ImageView) rowView.findViewById(R.id.secondPageRemove);
+
+            SharedPreferenceManager manager = SharedPreferenceManager.getInstance(AccountOpenActivity.this);
+            String path = manager.getUploadedDocPath(mFounderCheckList.get(position).getFirstPageId());
+            if (path != null) {
+				Bitmap bitmap = BitmapFactory.decodeFile(path);
 				firstPageThumbnail.setImageBitmap(bitmap);
 				firstPageThumbnail.setVisibility(View.VISIBLE);
 				firstPageRemove.setVisibility(View.VISIBLE);
-			}
-			if (mFounderCheckList.get(position).isSecondPageUploaded()) {
-				Bitmap bitmap = BitmapFactory.decodeFile(mFounderCheckList.get(position).getSecondPageFilePath());
-				secondPageThumbnail.setImageBitmap(bitmap);
-				secondPageThumbnail.setVisibility(View.VISIBLE);
-				secondPageRemove.setVisibility(View.VISIBLE);
-			}			
+                firstPageTextView.setOnClickListener(null);
+                firstPageRemove.setOnClickListener(new RemoveDocumentListener(mFounderCheckList.get(position).getFirstPageId()));
+			} else {
+                firstPageThumbnail.setVisibility(View.GONE);
+                firstPageRemove.setVisibility(View.GONE);
+            }
+            if (isPassport) {
+                path = manager.getUploadedDocPath(mFounderCheckList.get(position).getSecondPageId());
+                Log.d("###", "path for second page: " + path);
+                Log.d("###", "id for second page: " + mFounderCheckList.get(position).getSecondPageId());
+                if (path != null) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(path);
+                    secondPageThumbnail.setImageBitmap(bitmap);
+                    secondPageThumbnail.setVisibility(View.VISIBLE);
+                    secondPageRemove.setVisibility(View.VISIBLE);
+                    secondPageTextView.setOnClickListener(null);
+                    secondPageRemove.setOnClickListener(new RemoveDocumentListener(mFounderCheckList.get(position).getSecondPageId()));
+                } else {
+                    secondPageThumbnail.setVisibility(View.GONE);
+                    secondPageRemove.setVisibility(View.GONE);
+                }
+            }
 			
 			ProgressBar firstPageProgressBar = (ProgressBar)rowView.findViewById(R.id.firstPageProgressBar);
 			ProgressBar secondPageProgressBar = (ProgressBar)rowView.findViewById(R.id.secondPageProgressBar);
 			firstPageProgressBar.setVisibility(View.GONE);
-			secondPageProgressBar.setVisibility(View.GONE);
-			SharedPreferenceManager manager = SharedPreferenceManager.getInstance(context);
-			if (mFounderCheckList.get(position).getId().equals(manager.getUploadDocId())) {
-				if (manager.getUploadDocPage() == 0) {
-					firstPageProgressBar.setVisibility(View.VISIBLE);
-				} else if (manager.getUploadDocPage() == 1) {
-					secondPageProgressBar.setVisibility(View.VISIBLE);
-				}
+            if (isPassport) {
+                secondPageProgressBar.setVisibility(View.GONE);
+            }
+
+			if (mFounderCheckList.get(position).getFirstPageId().equals(manager.getUploadDocId())) {
+                firstPageProgressBar.setVisibility(View.VISIBLE);
 			}
+            if (isPassport) {
+                if (mFounderCheckList.get(position).getSecondPageId().equals(manager.getUploadDocId())) {
+                    secondPageProgressBar.setVisibility(View.VISIBLE);
+                }
+            }
 			
 			return rowView;
 		}
@@ -566,9 +660,13 @@ public class AccountOpenActivity extends Activity {
 		class UploadDocumentListener implements OnClickListener {
 			private String documentId = null;
 			private int pageIndex = -1;
-			UploadDocumentListener(String documentId, int pageIndex) {
+            private String documentType = null;
+            private String documentTitle = null;
+			UploadDocumentListener(String documentId, int pageIndex, String documentType, String documentTitle) {
 				this.documentId = documentId;
 				this.pageIndex = pageIndex;
+                this.documentType = documentType;
+                this.documentTitle = documentTitle;
 			}
 			@Override
 			public void onClick(View v) {
@@ -578,11 +676,35 @@ public class AccountOpenActivity extends Activity {
 				} else {
 					manager.setUploadDocId(documentId);
 					manager.setUploadDocPage(pageIndex);
+                    manager.setUploadDocType(documentType);
+                    manager.setUploadDocTitle(documentTitle);
 					selectImage();
 					notifyDataSetChanged();
 				}			
 			}
 		}
+
+        class RemoveDocumentListener implements OnClickListener {
+            private String documentId = null;
+            RemoveDocumentListener(String documentId) {
+                this.documentId = documentId;
+            }
+            @Override
+            public void onClick(View v) {
+                SharedPreferenceManager manager = SharedPreferenceManager.getInstance(context);
+                String path = manager.getUploadedDocPath(documentId);
+                if (path == null) {
+                    return;
+                }
+                File file = new File(path);
+                if (file.exists()) {
+                    file.delete();
+                }
+                manager.clearUploadedDocPath(documentId);
+                notifyDataSetChanged();
+                checkActivityCompleted();
+            }
+        }
 		
 		private void selectImage() {
 			Resources res = context.getResources();
@@ -612,9 +734,7 @@ public class AccountOpenActivity extends Activity {
 						intent.setType("image/*");
 						AccountOpenActivity.this.startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
 					} else if (items[item].equals(res.getString(R.string.CANCEL_BUTTON))) {
-						manager.clearUploadDocId();
-						manager.clearUploadDocPage();
-						manager.clearUploadDocPath();
+						manager.clearUploadData();
 						dialog.dismiss();
 						mFounderListAdapter.notifyDataSetChanged();
 					}
@@ -623,6 +743,64 @@ public class AccountOpenActivity extends Activity {
 			builder.show();
 		}
 	}
+
+    public String decodeImageFromFile(String path, String docId) {
+        int reqWidth = 200;
+        int reqHeight = 200;
+
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        OutputStream outStream = null;
+        File file = new File(extStorageDirectory, "thumbnail_" + docId + ".jpg");
+        if (file.exists()) {
+            file.delete();
+        }
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+
+        try {
+            outStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+        return file.getAbsolutePath();
+    }
+
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            int halfHeight = height;
+            int halfWidth = width;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and
+            // keeps both
+            // height and width larger than the requested height and width.
+            while (((halfHeight / inSampleSize) > reqHeight)
+                    && ((halfWidth / inSampleSize) > reqWidth)) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
 	
 	class FileUploadHandler implements JSONResponseListener {
 		@Override
@@ -635,49 +813,46 @@ public class AccountOpenActivity extends Activity {
 					if (resultCode == 200) {
 						Log.d("###", "file is uploaded to server");						
 						String id = manager.getUploadDocId();
-						int pageIndex = manager.getUploadDocPage();
+                        String path = manager.getUploadDocPath();
+                        Log.d("###", "id: " + id);
+                        Log.d("###", "path: " + path);
+                        String thumbnailPath = decodeImageFromFile(path, manager.getUploadDocId());
+                        Log.d("###", "decoded image path: " + thumbnailPath);
+                        manager.setUploadedDocPath(id, thumbnailPath);
+
+                        boolean isDocFound = false;
 						for (int i = 0; i < mFounderCheckList.size(); i++) {
 							Document doc = mFounderCheckList.get(i);
-							if ((id != null) && (id.equals(doc.getId()))) {								
-								switch (pageIndex) {
-									case 0:
-										doc.setFirstPageUploaded(true);
-										doc.setFirstPageFilePath(manager.getUploadDocPath());
-										break;
-									case 1:
-										doc.setSecondPageUploaded(true);
-										doc.setSecondPageFilePath(manager.getUploadDocPath());
-										break;	
-									default:
-										break;
-								}
-								if (doc.isFirstPageUploaded() && doc.isSecondPageUploaded()) {
-									doc.setCompleted(true);
-								}
-								break;
-							}
+							if ((id != null) && (id.equals(doc.getFirstPageId()))) {
+                                doc.setFirstPageUploaded(true);
+                                doc.setFirstPageFilePath(manager.getUploadDocPath());
+                                isDocFound = true;
+                            }
+                            if ((id != null) && (id.equals(doc.getSecondPageId()))) {
+                                doc.setSecondPageUploaded(true);
+                                doc.setSecondPageFilePath(manager.getUploadDocPath());
+                                isDocFound = true;
+                            }
+                            if (doc.getType().equals(Document.TYPE_PASSPORT)) {
+                                if (doc.isFirstPageUploaded() && doc.isSecondPageUploaded()) {
+                                    doc.setCompleted(true);
+                                }
+                            } else {
+                                if (doc.isFirstPageUploaded()) {
+                                    doc.setCompleted(true);
+                                }
+                            }
+                            if (isDocFound) {
+                                break;
+                            }
 						}
-						boolean isALLUploaded = true;
-						for (int i = 0; i < mFounderCheckList.size(); i++) {
-							Document doc = mFounderCheckList.get(i);
-							if (!doc.isCompleted()) {
-								isALLUploaded = false;
-								break;
-							}
-						}
-						if (isALLUploaded) {
-							mUploadDocumentsTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check, R.drawable.hor_line_grey);
-						}
-						isAllDocumentsUploaded = isALLUploaded;
 						checkActivityCompleted();
 					}
 				} catch (Exception exc) {
 					exc.printStackTrace();
 				}
 			}
-			manager.clearUploadDocId();
-			manager.clearUploadDocPage();
-			manager.clearUploadDocPath();
+            manager.clearUploadData();
 			mFounderListAdapter.notifyDataSetChanged();
 		}
 	}
@@ -698,12 +873,10 @@ public class AccountOpenActivity extends Activity {
 			}			
 			if (path == null) {
 				Toast.makeText(getApplicationContext(), "can't upload file", Toast.LENGTH_LONG).show();
-				manager.clearUploadDocId();
-				manager.clearUploadDocPage();
-				manager.clearUploadDocPath();
+                manager.clearUploadData();
 				return;
 			}
-			manager.setUploadDocPath(path);
+            manager.setUploadDocPath(path);
 
 			AsyncFileUploader asyncLoader = new AsyncFileUploader(this);
 			asyncLoader.registryListener(new FileUploadHandler());
@@ -712,12 +885,14 @@ public class AccountOpenActivity extends Activity {
 			params.putString("endpoint", "/api/organization/upload");
 			params.putString("filePath", path);
 			Bundle headerParams = new Bundle();
+            Bundle bodyParams = new Bundle();
+            bodyParams.putString("doc_id", manager.getUploadDocId());
+            bodyParams.putString("type", manager.getUploadDocType());
+            bodyParams.putString("title", manager.getUploadDocTitle());
 			headerParams.putString("Authorization", mToken);
-			asyncLoader.execute(params, headerParams, null);
+			asyncLoader.execute(params, headerParams, bodyParams);
 		} else {
-			manager.clearUploadDocId();
-			manager.clearUploadDocPage();
-			manager.clearUploadDocPath();
+            manager.clearUploadData();
 		}
 	}
 

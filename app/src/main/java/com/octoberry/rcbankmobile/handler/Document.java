@@ -1,9 +1,13 @@
 package com.octoberry.rcbankmobile.handler;
 
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Document implements Parcelable {
+    public final static String TYPE_PASSPORT = "passport";
+    public final static String TYPE_LEGAL = "legal";
+
 	private String title = null;
 	private boolean uploadable = false;
 	private boolean completed = false;
@@ -12,6 +16,53 @@ public class Document implements Parcelable {
 	private String id = null;
 	private String firstPageFilePath = null;
 	private String secondPageFilePath = null;
+
+    public String getFirstPageTitle() {
+        return firstPageTitle;
+    }
+
+    public void setFirstPageTitle(String firstPageTitle) {
+        this.firstPageTitle = firstPageTitle;
+    }
+
+    public String getSecondPageTitle() {
+        return secondPageTitle;
+    }
+
+    public void setSecondPageTitle(String secondPageTitle) {
+        this.secondPageTitle = secondPageTitle;
+    }
+
+    public String getFirstPageId() {
+        return firstPageId;
+    }
+
+    public void setFirstPageId(String firstPageId) {
+        this.firstPageId = firstPageId;
+    }
+
+    public String getSecondPageId() {
+        return secondPageId;
+    }
+
+    public void setSecondPageId(String secondPageId) {
+        this.secondPageId = secondPageId;
+    }
+
+    private String firstPageTitle = null;
+    private String secondPageTitle = null;
+    private String firstPageId = null;
+    private String secondPageId = null;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    private String type = null;
 	
 	public String getSecondPageFilePath() {
 		return secondPageFilePath;
@@ -67,8 +118,14 @@ public class Document implements Parcelable {
 	
 	public Document(Parcel parcel) {
 		title = parcel.readString();
-		uploadable = parcel.readInt() == 1 ? true : false;
-		id = parcel.readString();
+		uploadable = (parcel.readInt() == 1);
+		Bundle data = parcel.readBundle();
+        id = data.getString("id", null);
+        type = data.getString("type", null);
+        firstPageTitle = data.getString("firstPageTitle", null);
+        firstPageId = data.getString("firstPageId", null);
+        secondPageTitle = data.getString("secondPageTitle", null);
+        secondPageId = data.getString("secondPageId", null);
 	}
 	
 	@Override
@@ -100,9 +157,16 @@ public class Document implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-    	dest.writeString(title);
+        dest.writeString(title);
     	dest.writeInt(uploadable ? 1 : 0);
-    	dest.writeString(id);
+        Bundle data = new Bundle();
+        data.putString("id", id);
+        data.putString("type", type);
+        data.putString("firstPageTitle", firstPageTitle);
+        data.putString("firstPageId", firstPageId);
+        data.putString("secondPageTitle", secondPageTitle);
+        data.putString("secondPageId", secondPageId);
+        dest.writeBundle(data);
     }
     
     public static final Parcelable.Creator<Document> CREATOR = new Parcelable.Creator<Document>() {

@@ -4,6 +4,7 @@
     <string name="chat_opponent_id">1647202</string>
     <string name="chat_room_jid">14696_54304748535c12e386013b82@muc.chat.quickblox.com</string>
     <string name="server_url">http://bankrc.dev.octoberry.ru</string>
+    <string name="flurry_app_key">Q44C8XNP69PZHTNYZYZR</string>
     <!-- <string name="server_url">http://nonamebank.ru</string> -->
 
 

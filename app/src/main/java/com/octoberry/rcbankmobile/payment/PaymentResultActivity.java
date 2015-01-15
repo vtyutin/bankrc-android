@@ -2,6 +2,7 @@ package com.octoberry.rcbankmobile.payment;
 
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.octoberry.rcbankmobile.DashboardActivity;
 import com.octoberry.rcbankmobile.R;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
@@ -18,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class PaymentResultActivity extends Activity implements JSONResponseListener {
@@ -116,7 +120,13 @@ public class PaymentResultActivity extends Activity implements JSONResponseListe
 					mSeparatorImageView.setVisibility(View.VISIBLE);
 					mCancelTextView.setVisibility(View.VISIBLE);
 					mTellTextView.setVisibility(View.VISIBLE);
-					
+
+                    // log flurry event
+                    Map<String, String> articleParams = new HashMap<String, String>();
+                    articleParams.put("payment id", mPaymentId);
+                    FlurryAgent.logEvent("payment successful", articleParams);
+
+                    return;
 				} else {
 					Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_LONG).show();
 					
@@ -130,10 +140,19 @@ public class PaymentResultActivity extends Activity implements JSONResponseListe
 					mSeparatorImageView.setVisibility(View.INVISIBLE);
 					mCancelTextView.setVisibility(View.VISIBLE);
 					mTellTextView.setVisibility(View.INVISIBLE);
+
+                    // log flurry event
+                    Map<String, String> articleParams = new HashMap<String, String>();
+                    articleParams.put("message", response.getString("message"));
+                    FlurryAgent.logEvent("payment failed", articleParams);
 				}
 			} catch (Exception exc) {
 				exc.printStackTrace();
 			}
 		}
+        // log flurry event
+        Map<String, String> articleParams = new HashMap<String, String>();
+        articleParams.put("ogrn", DataBaseManager.getInstance(PaymentResultActivity.this).getOgrn());
+        FlurryAgent.logEvent("payment failed", articleParams);
 	}
 }

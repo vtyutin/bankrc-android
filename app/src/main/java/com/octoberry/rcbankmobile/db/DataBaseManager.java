@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
+import java.util.logging.LoggingMXBean;
+
 public class DataBaseManager {
 	public static String ACCOUNT_STATUS_NEW = "new";
 	public static String ACCOUNT_STATUS_CONFIRMED = "confirmed";
@@ -204,7 +206,7 @@ public class DataBaseManager {
         
         ContentValues values = new ContentValues();
     	values.put(columnName, value);        
-        if (idToUpdate > 0) { 
+        if (idToUpdate > 0) {
     		db.update(tableName, values, Columns.ID + "=" + idToUpdate, null);
     	} else {
     		db.insert(tableName, null, values);

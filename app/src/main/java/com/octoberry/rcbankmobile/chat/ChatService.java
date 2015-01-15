@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.SmackException.NotLoggedInException;
@@ -98,6 +100,7 @@ public class ChatService extends Service implements QBMessageListener {
 	public void onCreate() {
 		playServicesHelper = new PlayServicesHelper(this);
 		Log.d("###", "token: " + DataBaseManager.getInstance(this).getActiveToken());
+        Log.d("###", "phone_number: " + DataBaseManager.getInstance(this).getPhoneNumber());
 		AsyncJSONLoader loader = new AsyncJSONLoader(this);
 		loader.registryListener(mChatTokenHandler);
 		Bundle params = new Bundle();
@@ -105,6 +108,7 @@ public class ChatService extends Service implements QBMessageListener {
 		params.putString("endpoint", "/api/user");
 		Bundle headerParams = new Bundle();
 		headerParams.putString("Authorization", DataBaseManager.getInstance(this).getActiveToken());
+        headerParams.putString("phone_number", DataBaseManager.getInstance(this).getPhoneNumber());
 		loader.execute(params, headerParams, null);
 
 		super.onCreate();
@@ -283,12 +287,14 @@ public class ChatService extends Service implements QBMessageListener {
 		String message = String.format("[ERROR] Request has been completed with errors: %s", errors);
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 		Log.e("###", message);
-		try {
-			Thread.sleep(30000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		onCreate();
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                onCreate();
+            }
+        }, 300000);
+        //onCreate();
 	}
 	
 	class ChatTokenHandler implements JSONResponseListener {
@@ -312,12 +318,15 @@ public class ChatService extends Service implements QBMessageListener {
 								mUser.setId(Integer.parseInt(qbUser.getString("user_id")));
 								initChatSession();
 							} else {
+                                Log.w(TAG, "invalid chat data");
 								Toast.makeText(getApplicationContext(), "invalid data", Toast.LENGTH_LONG).show();
 							}
 						} else {
+                            Log.w(TAG, "no chat user created");
 							Toast.makeText(getApplicationContext(), "No chat user created", Toast.LENGTH_LONG).show();
 						}
 					} else {
+                        Log.e(TAG, "error getting user data: " + response.getString("message"));
 						Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_LONG).show();
 					}
 				} catch (Exception exc) {

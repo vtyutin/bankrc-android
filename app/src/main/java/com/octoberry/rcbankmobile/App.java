@@ -1,6 +1,7 @@
 package com.octoberry.rcbankmobile;
 
 import com.deploygate.sdk.DeployGate;
+import com.flurry.android.FlurryAgent;
 import com.octoberry.rcbankmobile.chat.ChatService;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
 import com.quickblox.core.QBSettings;
@@ -12,6 +13,9 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
+
 public class App extends Application {
 	public static final String PROJECT_NUMBER = "764899792444";
 		
@@ -20,11 +24,16 @@ public class App extends Application {
     public static App getInstance() {
         return instance;
     }
+
+    private Handler mUploadHandler;
     
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		DeployGate.install(this, null, true);
+
+        FlurryAgent.setLogEnabled(false);
+        FlurryAgent.init(this, getResources().getString(R.string.flurry_app_key));
 
 		initApplication();
 	}
@@ -33,9 +42,6 @@ public class App extends Application {
         instance = this;
         clearSharedPrefences();
         QBSettings.getInstance().fastConfigInit("14696", "2vghAtCu5uMpCHq", "BGnMkR3ZX4dq9hq");
-        if (DataBaseManager.getInstance(this).getPhoneNumber() != null) {
-        	startService(new Intent(this, ChatService.class));
-        }
     }
 	
 	private void clearSharedPrefences() {

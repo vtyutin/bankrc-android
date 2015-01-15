@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="#FFFFFF"
+    android:paddingTop="15dp" >
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:drawableLeft="@drawable/icon_user"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000" />
+
+    <LinearLayout
+        android:id="@+id/uploadLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/titleTextView"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/frame_gray" >
+
+        <RelativeLayout
+            android:id="@+id/firstPageLayout"
+            android:layout_width="0dp"
+            android:padding="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/firstPageTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:drawablePadding="5dp"
+                android:layout_centerHorizontal="true"
+                android:text="@string/FIRST_PAGE"
+                android:drawableTop="@drawable/icon_passport"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAlignment="gravity"
+                android:gravity="center_horizontal"
+                android:textColor="#000000" />
+
+            <ImageView android:id="@+id/firstPageThumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="false"
+                android:scaleType="fitCenter"
+                android:visibility="gone"/>
+            <ImageView android:id="@+id/firstPageRemove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/icon_delete_white"
+                android:visibility="gone"/>
+            <ProgressBar
+                android:id="@+id/firstPageProgressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

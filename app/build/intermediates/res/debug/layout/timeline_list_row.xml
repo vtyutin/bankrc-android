@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:paddingTop="5dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000000" />
     
     <TextView
@@ -21,8 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/nameTextView"
         android:paddingLeft="16dp"
-        android:paddingTop="10dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000000" />
 
     <TextView
@@ -31,8 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/numberTextView"
         android:paddingLeft="16dp"
-        android:paddingTop="5dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#6D6D72" />
 
     <TextView
@@ -40,10 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/descriptionTextView"
-        android:paddingBottom="10dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="16dp"
-        android:paddingTop="10dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#6D6D72" />
 
 </RelativeLayout><!-- From: file:/E:/Work/Projects/Octoberry/workspace/bankrc-android/app/src/main/res/layout/timeline_list_row.xml -->

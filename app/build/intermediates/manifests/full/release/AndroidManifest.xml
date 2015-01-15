@@ -87,10 +87,8 @@
         </activity>
         <activity
             android:name="com.octoberry.rcbankmobile.AccountOpenActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
-        </activity>
-        <activity
-            android:name="com.octoberry.rcbankmobile.ChooseTimeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <activity

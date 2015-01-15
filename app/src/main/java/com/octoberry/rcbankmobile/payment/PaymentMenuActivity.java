@@ -352,7 +352,7 @@ public class PaymentMenuActivity extends Activity {
 							startActivity(intent);
 							finish();
 						} else {
-							Toast.makeText(PaymentMenuActivity.this, "�� ������� ������� ���������", Toast.LENGTH_LONG).show();
+							Toast.makeText(PaymentMenuActivity.this, "no data parsed", Toast.LENGTH_LONG).show();
 						}
 					} else {
 						Toast.makeText(PaymentMenuActivity.this, "error: " + response.getString("message"), Toast.LENGTH_LONG).show();
@@ -377,7 +377,7 @@ public class PaymentMenuActivity extends Activity {
 			Bundle params = new Bundle();
 			params.putString("requestType", "GET");
 			params.putString("endpoint", String.format(
-					"/api/bank/payment/import/result/%d", getUploadId()));
+					"/api/bank/payment/import/%d", getUploadId()));
 			Bundle headerParams = new Bundle();
 			headerParams.putString("Authorization", DataBaseManager
 					.getInstance(PaymentMenuActivity.this).getActiveToken());
@@ -405,7 +405,7 @@ public class PaymentMenuActivity extends Activity {
 			params.putString("endpoint", "/api/bank/payment/import");
 			params.putString("filePath", path);
 			Bundle headerParams = new Bundle();
-			headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getCurrentToken());
+			headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getActiveToken());
 			headerParams.putString("Accept", "/");
 			asyncLoader.execute(params, headerParams, null);
 			
@@ -428,9 +428,9 @@ public class PaymentMenuActivity extends Activity {
 							loader.registryListener(new PaymentDetailsHandler());
 							Bundle params = new Bundle();
 							params.putString("requestType", "GET");
-							params.putString("endpoint", String.format("/api/bank/payment/import/result/%d", getUploadId()));
+							params.putString("endpoint", String.format("/api/bank/payment/import/%d", getUploadId()));
 							Bundle headerParams = new Bundle();
-							headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getCurrentToken());
+							headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getActiveToken());
 							loader.execute(params, headerParams, null);
 							return;
 						} else {

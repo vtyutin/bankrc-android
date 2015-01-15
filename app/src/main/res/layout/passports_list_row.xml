@@ -33,7 +33,7 @@
             android:id="@+id/firstPageLayout"
             android:layout_width="0dp"
             android:padding="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1" >
             
             <TextView
@@ -49,11 +49,10 @@
                 android:textAlignment="gravity"
                 android:gravity="center_horizontal"
                 android:textColor="#000000" />
-            
+
             <ImageView android:id="@+id/firstPageThumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@id/firstPageTextView"
                 android:adjustViewBounds="false"
                 android:scaleType="fitXY"
                 android:visibility="gone"/>

@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import com.octoberry.rcbankmobile.R;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
+import com.octoberry.rcbankmobile.db.SharedPreferenceManager;
 import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
 import com.octoberry.rcbankmobile.net.JSONResponseListener;
 
@@ -41,6 +42,7 @@ public class PaymentReceiverActivity extends Activity implements JSONResponseLis
 	
 	private Payment mPayment;
 	private ReceiverListAdapter mAdapter;
+    private String mAccountNumber;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,9 @@ public class PaymentReceiverActivity extends Activity implements JSONResponseLis
 		mAdapter = new ReceiverListAdapter(this);
 		mAdapter.setPayment(mPayment);
 		mReceiverListView.setAdapter(mAdapter);
+
+        SharedPreferenceManager manager = SharedPreferenceManager.getInstance(this);
+        mAccountNumber = manager.getAccountNumber();
 		
 		mDataTextView = (TextView)findViewById(R.id.dataTextView);
 		mDataTextView.setOnClickListener(new OnClickListener() {
@@ -99,7 +104,11 @@ public class PaymentReceiverActivity extends Activity implements JSONResponseLis
 	}
 	
 	private void checkForward() {
-		if ((mPayment.getCorrInn() == null) || (mPayment.getCorrInn().length() == 0) ||
+        boolean isPhysic = false;
+        if ((mAccountNumber != null) && (mAccountNumber.startsWith("40817"))) {
+            isPhysic = true;
+        }
+		if (((!isPhysic) && ((mPayment.getCorrInn() == null) || (mPayment.getCorrInn().length() == 0))) ||
 				(mPayment.getCorrBik() == null) || (mPayment.getCorrBik().length() == 0) ||
 				(mPayment.getCorrKpp() == null) || (mPayment.getCorrKpp().length() == 0) ||
 				(mPayment.getCorrName() == null) || (mPayment.getCorrName().length() == 0) ||

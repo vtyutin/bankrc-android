@@ -2,6 +2,8 @@ package com.octoberry.rcbankmobile;
 
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
+import com.octoberry.rcbankmobile.chat.ChatService;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
 import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
 import com.octoberry.rcbankmobile.net.JSONResponseListener;
@@ -19,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends Activity {
 	private EditText mPinEditText;
@@ -160,12 +165,29 @@ public class LoginActivity extends Activity {
 					if (resultCode == 200) {								
 						JSONObject resultObject = response.getJSONObject("result");
 						if (!resultObject.isNull("bank_token")) {
+                            Log.d("#####", "current token before: " + DataBaseManager.getInstance(getApplicationContext()).getCurrentToken());
+                            Log.d("#####", "active token before: " + DataBaseManager.getInstance(getApplicationContext()).getActiveToken());
+
+
 							DataBaseManager.getInstance(getApplicationContext()).setActiveToken(resultObject.getString("bank_token"));
 							DataBaseManager.getInstance(getApplicationContext()).setCurrentToken(resultObject.getString("crm_token"));
 							DataBaseManager.getInstance(getApplicationContext()).setPhoneNumber(mPhoneNumber);
+
+                            Log.d("#####", "current token after: " + DataBaseManager.getInstance(getApplicationContext()).getCurrentToken());
+                            Log.d("#####", "active token after: " + DataBaseManager.getInstance(getApplicationContext()).getActiveToken());
+
+                            // log flurry event
+                            Map<String, String> articleParams = new HashMap<String, String>();
+                            articleParams.put("User phone", mPhoneNumber);
+                            FlurryAgent.logEvent("login successful", articleParams);
+
+                            // start chat service
+                            startService(new Intent(LoginActivity.this, ChatService.class));
+
 							Intent intent = new Intent(getBaseContext(), DashboardActivity.class);
 							startActivity(intent);
 							finish();
+                            return;
 						}							
 					} else {
 						Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_LONG).show();			
@@ -173,7 +195,11 @@ public class LoginActivity extends Activity {
 				} catch (Exception exc) {
 					exc.printStackTrace();
 				}
-			}	
+			}
+            // log flurry event
+            Map<String, String> articleParams = new HashMap<String, String>();
+            articleParams.put("User phone", mPhoneNumber);
+            FlurryAgent.logEvent("login failed", articleParams);
 		}
 	}
 }

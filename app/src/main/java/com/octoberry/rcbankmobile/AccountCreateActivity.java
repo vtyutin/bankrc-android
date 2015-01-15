@@ -1,10 +1,13 @@
 package com.octoberry.rcbankmobile;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
 import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
 import com.octoberry.rcbankmobile.net.JSONResponseListener;
@@ -23,12 +26,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- * 
- * @see SystemUiHider
- */
 public class AccountCreateActivity extends Activity {
 	private ProgressBar mProgressBar;
 	private EditText mOgrnEditText;
@@ -143,7 +140,17 @@ public class AccountCreateActivity extends Activity {
 							mOrganizationRelativeLayout.setVisibility(View.VISIBLE);	
 							mCheckCompanyTextView.setVisibility(View.VISIBLE);
 							mConfirmOgrnTextView.setVisibility(View.VISIBLE);
+
+                            // log flurry event
+                            Map<String, String> articleParams = new HashMap<String, String>();
+                            articleParams.put("ogrn", mOgrn);
+                            FlurryAgent.logEvent("request name by ogrn successful", articleParams);
 						} else {
+                            // log flurry event
+                            Map<String, String> articleParams = new HashMap<String, String>();
+                            articleParams.put("ogrn", mOgrn);
+                            FlurryAgent.logEvent("ogrn confirmed", articleParams);
+
 							DataBaseManager.getInstance(getApplicationContext()).setOgrn(mOgrn);
 							Intent intent = new Intent(getApplicationContext(), RegistryActivity.class);
 							startActivity(intent);
@@ -151,6 +158,10 @@ public class AccountCreateActivity extends Activity {
 						}
 					} else {
 						Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_LONG).show();
+                        // log flurry event
+                        Map<String, String> articleParams = new HashMap<String, String>();
+                        articleParams.put("message", response.getString("message"));
+                        FlurryAgent.logEvent("ogrn verification failed", articleParams);
 					}
 				} catch (Exception exc) {
 					exc.printStackTrace();

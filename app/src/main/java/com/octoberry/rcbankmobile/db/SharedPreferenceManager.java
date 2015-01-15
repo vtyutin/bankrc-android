@@ -8,6 +8,8 @@ import android.content.SharedPreferences.Editor;
 public class SharedPreferenceManager {
 	private static SharedPreferenceManager instance;
 	private static SharedPreferences mPreferences;
+    private static SharedPreferences mUploadDataPreferences;
+    private static SharedPreferences mCheckDataPreferences;
 	
 	private SharedPreferenceManager() {		
 	}
@@ -17,9 +19,53 @@ public class SharedPreferenceManager {
 			instance = new SharedPreferenceManager();
 		}
 		mPreferences = context.getSharedPreferences("prefs", 0);
+        mUploadDataPreferences = context.getSharedPreferences("upload_data_prefs", 0);
+        mCheckDataPreferences = context.getSharedPreferences("check_data_prefs", 0);
 		return instance;
 	}
-	
+
+    public void setUploadedDocPath(String docId, String docPath) {
+        Editor editor = mUploadDataPreferences.edit();
+        editor.putString(docId, docPath);
+        editor.commit();
+    }
+
+    public String getUploadedDocPath(String docId) {
+        return mUploadDataPreferences.getString(docId, null);
+    }
+
+    public void clearUploadedDocPath(String docId) {
+        Editor editor = mUploadDataPreferences.edit();
+        editor.remove(docId);
+        editor.commit();
+    }
+
+    public void setCheckDocStatus(String docId, boolean isPrepared) {
+        Editor editor = mCheckDataPreferences.edit();
+        editor.putBoolean(docId, isPrepared);
+        editor.commit();
+    }
+
+    public boolean getCheckDocStatus(String docId) {
+        return mCheckDataPreferences.getBoolean(docId, false);
+    }
+
+    public void clearCheckDocStatus() {
+        Editor editor = mCheckDataPreferences.edit();
+        editor.clear();
+        editor.commit();
+    }
+
+    public void clearUploadData() {
+        Editor editor = mPreferences.edit();
+        editor.remove("upload_doc_id");
+        editor.remove("upload_doc_type");
+        editor.remove("upload_doc_title");
+        editor.remove("upload_doc_page");
+        editor.remove("upload_doc_path");
+        editor.commit();
+    }
+
 	public void clearAllPreferences() {
 		Editor editor = mPreferences.edit();
 		editor.clear();
@@ -41,6 +87,38 @@ public class SharedPreferenceManager {
 		editor.remove("upload_doc_id");
 		editor.commit();
 	}
+
+    public void setUploadDocTitle(String docTitle) {
+        Editor editor = mPreferences.edit();
+        editor.putString("upload_doc_title", docTitle);
+        editor.commit();
+    }
+
+    public String getUploadDocTitle() {
+        return mPreferences.getString("upload_doc_title", null);
+    }
+
+    public void clearUploadDocTitle() {
+        Editor editor = mPreferences.edit();
+        editor.remove("upload_doc_title");
+        editor.commit();
+    }
+
+    public void setUploadDocType(String type) {
+        Editor editor = mPreferences.edit();
+        editor.putString("upload_doc_type", type);
+        editor.commit();
+    }
+
+    public String getUploadDocType() {
+        return mPreferences.getString("upload_doc_type", null);
+    }
+
+    public void clearUploadDocType() {
+        Editor editor = mPreferences.edit();
+        editor.remove("upload_doc_type");
+        editor.commit();
+    }
 	
 	public void setUploadDocPage(int pageIndex) {
 		Editor editor = mPreferences.edit();
@@ -128,4 +206,12 @@ public class SharedPreferenceManager {
 	public String getAccountNumber() {
 		return mPreferences.getString("account_number", null);
 	}
+
+    public void setDashboardInfoViewed() {
+        Editor editor = mPreferences.edit();
+        editor.putBoolean("dashboard_info", true);
+        editor.commit();
+    }
+
+    public boolean isDashboardInfoViwed() { return mPreferences.getBoolean("dashboard_info", false); }
 }

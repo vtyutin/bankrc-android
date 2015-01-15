@@ -2,9 +2,12 @@ package com.octoberry.rcbankmobile;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
 import com.octoberry.rcbankmobile.handler.AccountStatusHandler;
 import com.octoberry.rcbankmobile.handler.Card;
@@ -134,22 +137,6 @@ public class AccountStatusActivity extends Activity implements OnRefreshListener
 		mAccountStatusHandler = new AccountStatusHandler(this, getApplicationContext(), mSwipeLayout, null);
 
 		initViews();
-		
-		/* get credentials */	
-		/*
-		File f = new File(android.os.Environment.getExternalStorageDirectory(), "credentials.pdf");
-		if (f.exists() == false) {			
-			AsyncFileLoader loader = new AsyncFileLoader(this, f.getAbsolutePath());
-			loader.registryListener(new GetCredentialsHandler());
-			Bundle params = new Bundle();
-			params.putString("requestType", "GET");
-			params.putString("endpoint", "/api/organization/creds");
-			Bundle headerParams = new Bundle();
-			headerParams.putString("Authorization", mToken);
-			headerParams.putString("Accept", "/");
-			loader.execute(params, headerParams, null);
-		}
-		*/
 	}
 	
 	@Override
@@ -173,9 +160,15 @@ public class AccountStatusActivity extends Activity implements OnRefreshListener
 				try {
 					int resultCode = response.getInt("status");
 					if (resultCode == 200) {
-						Log.d("###", "file is uploaded to server");						
+						Log.d("###", "file is uploaded to server");
+
 						String id = upload.getString(CardListAdapter.DOC_ID, null);
 						int pageIndex = upload.getInt(CardListAdapter.PAGE_INDEX, -1);
+                        // log flurry event
+                        Map<String, String> articleParams = new HashMap<String, String>();
+                        articleParams.put("doc_id", id);
+                        articleParams.put("page_index", "" + pageIndex);
+                        FlurryAgent.logEvent("file is uploaded to server", articleParams);
 						for (Card card: mCards) {
 							if (card.getDocuments() != null) {
 								for (Document doc: card.getDocuments()) {
@@ -199,7 +192,12 @@ public class AccountStatusActivity extends Activity implements OnRefreshListener
 							}
 						}
 						mCardAdapter.notifyDataSetChanged();
-					}
+					} else {
+                        // log flurry event
+                        Map<String, String> articleParams = new HashMap<String, String>();
+                        articleParams.put("message", response.getString("message"));
+                        FlurryAgent.logEvent("file uploaded failed", articleParams);
+                    }
 				} catch (Exception exc) {
 					exc.printStackTrace();
 				}

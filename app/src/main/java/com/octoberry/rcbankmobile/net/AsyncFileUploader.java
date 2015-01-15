@@ -49,6 +49,7 @@ public class AsyncFileUploader extends AsyncTask<Bundle, Void, JSONObject> {
 	protected JSONObject doInBackground(Bundle... arguments) {
 		String responseString;
 		HashMap<String, String> params = null;
+        HashMap<String, String> bodyParams = null;
 		String url = apiURL;
 		HttpResponse response = null;
 
@@ -96,8 +97,16 @@ public class AsyncFileUploader extends AsyncTask<Bundle, Void, JSONObject> {
 				}
 			}
 
+            // get body parameters
+            if ((arguments.length > 2) && (arguments[2] != null)) {
+                bodyParams = new HashMap<String, String>();
+                for (String key : arguments[2].keySet()) {
+                    bodyParams.put(key, arguments[2].getString(key));
+                }
+            }
+
 			HttpClient httpclient = new DefaultHttpClient();
-			
+
 			MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
             entityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
             
@@ -108,6 +117,12 @@ public class AsyncFileUploader extends AsyncTask<Bundle, Void, JSONObject> {
             } else {
             	Log.e(TAG, "file doesn't exist: " + filePath);
 				return null;
+            }
+
+            if (bodyParams != null) {
+                for (String key : bodyParams.keySet()) {
+                    entityBuilder.addTextBody(key, bodyParams.get(key));
+                }
             }
 
             HttpEntity entity = entityBuilder.build();

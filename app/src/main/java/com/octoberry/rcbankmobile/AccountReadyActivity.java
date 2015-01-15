@@ -1,9 +1,12 @@
 package com.octoberry.rcbankmobile;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.octoberry.rcbankmobile.chat.ChatActivity;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
 import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
@@ -211,12 +214,20 @@ public class AccountReadyActivity extends Activity {
 						JSONObject organization = resultObject.getJSONObject("organization");
 						if (!organization.isNull("meeting")) {
 							JSONObject meeting = organization.getJSONObject("meeting");
-							Calendar calendar = Calendar.getInstance();
-							calendar.setTimeInMillis(meeting.getLong("time_start"));
-							
-							String startDate = meeting.getString("date_start");
-							String meetingTime = formatTime(calendar);
-							String location = meeting.getString("location");
+                            String startDate = "";
+                            String meetingTime = "";
+                            String location = "";
+
+                            if ((!meeting.isNull("date_start")) && (!meeting.isNull("time_start"))) {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTimeInMillis(meeting.getLong("time_start"));
+
+                                startDate = meeting.getString("date_start");
+                                meetingTime = formatTime(calendar);
+                            }
+                            if (!meeting.isNull("location")) {
+                                location = meeting.getString("location");
+                            }
 							String message = String.format(getResources().getString(R.string.MEETING_DATA_FORMAT), startDate, meetingTime, location);
 							
 							mMeetingDetailsTextView.setText(Html.fromHtml(message));
@@ -263,10 +274,19 @@ public class AccountReadyActivity extends Activity {
 				try {
 					int resultCode = response.getInt("status");					
 					if (resultCode == 200) {
+                        // log flurry event
+                        Map<String, String> articleParams = new HashMap<String, String>();
+                        articleParams.put("phone", DataBaseManager.getInstance(AccountReadyActivity.this).getPhoneNumber());
+                        FlurryAgent.logEvent("password successfully created", articleParams);
+
 						Intent intent = new Intent(AccountReadyActivity.this, DashboardActivity.class);
 						startActivity(intent);
 						finish();
 					} else {
+                        // log flurry event
+                        Map<String, String> articleParams = new HashMap<String, String>();
+                        articleParams.put("message", response.getString("message"));
+                        FlurryAgent.logEvent("password set failed", articleParams);
 						Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_LONG).show();
 					}
 				} catch (Exception exc) {

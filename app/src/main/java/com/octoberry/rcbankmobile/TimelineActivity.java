@@ -203,12 +203,14 @@ public class TimelineActivity extends Activity {
                         }
                     }, ENTER_LOCK_TIMER_DELAY);
                 } else {
-                    mFilteredListValues = new TimelineListValue[mTimelineListValues.length];
-                    for (int index = 0; index < mTimelineListValues.length; index++) {
-                        mFilteredListValues[index] = mTimelineListValues[index];
+                    if (mTimelineListValues != null) {
+                        mFilteredListValues = new TimelineListValue[mTimelineListValues.length];
+                        for (int index = 0; index < mTimelineListValues.length; index++) {
+                            mFilteredListValues[index] = mTimelineListValues[index];
+                        }
+                        mHistoryListAdapter.setTimelineValues(mFilteredListValues);
+                        mHistoryListAdapter.notifyDataSetChanged();
                     }
-                    mHistoryListAdapter.setTimelineValues(mFilteredListValues);
-                    mHistoryListAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -253,7 +255,7 @@ public class TimelineActivity extends Activity {
         } else {
             fromDate.set(2000, 0, 1, 0, 0, 0);
         }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String fromDateString = dateFormat.format(fromDate.getTime());
         String toDateString = dateFormat.format(currentDate.getTime());
 
@@ -338,6 +340,7 @@ public class TimelineActivity extends Activity {
 							JSONObject item = paymentListArray.getJSONObject(i);
 							String number = item.getString("amount");
 							String date = item.getString("date");
+                            Log.d("###", "date: " + date);
 							String name = item.getString("corr_name");
 							String description = item.getString("description");
                             TimelineListValue listItem = new TimelineListValue(number, date, name, description);
@@ -349,6 +352,7 @@ public class TimelineActivity extends Activity {
 						}
 						mHistoryListAdapter.setTimelineValues(mFilteredListValues);
 						mHistoryListView.setAdapter(mHistoryListAdapter);
+                        mHistoryListAdapter.notifyDataSetChanged();
 					} else if (resultCode == 403) {
                         Intent intent = new Intent(TimelineActivity.this, LoginActivity.class);
                         startActivity(intent);

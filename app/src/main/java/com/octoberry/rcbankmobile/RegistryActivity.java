@@ -2,6 +2,7 @@ package com.octoberry.rcbankmobile;
 
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.octoberry.rcbankmobile.chat.ChatService;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
 import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
@@ -19,6 +20,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistryActivity extends Activity {
 	private EditText mPhoneEditText;
@@ -104,11 +108,21 @@ public class RegistryActivity extends Activity {
 						DataBaseManager.getInstance(getApplicationContext()).setPhoneNumber(mPhoneNumber);
 											
 						startService(new Intent(RegistryActivity.this, ChatService.class));
-						
+
+                        // log flurry event
+                        Map<String, String> articleParams = new HashMap<String, String>();
+                        articleParams.put("phone", mPhoneNumber);
+                        FlurryAgent.logEvent("user registered", articleParams);
+
 						Intent intent = new Intent(getBaseContext(), AccountActivateActivity.class);
 						startActivity(intent);
 						finish();				
-					}
+					} else {
+                        // log flurry event
+                        Map<String, String> articleParams = new HashMap<String, String>();
+                        articleParams.put("message", response.getString("message"));
+                        FlurryAgent.logEvent("user registration failed", articleParams);
+                    }
 				} catch (Exception exc) {
 					exc.printStackTrace();
 				}

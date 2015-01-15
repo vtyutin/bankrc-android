@@ -1,8 +1,15 @@
 package com.octoberry.rcbankmobile.payment;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
+import com.flurry.android.FlurryAgent;
 import com.octoberry.rcbankmobile.R;
+import com.octoberry.rcbankmobile.db.DataBaseManager;
+import com.octoberry.rcbankmobile.db.SharedPreferenceManager;
+import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
+import com.octoberry.rcbankmobile.net.JSONResponseListener;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,13 +17,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class PaymentSummActivity extends Activity {
+import org.json.JSONObject;
+
+public class PaymentSummActivity extends Activity implements JSONResponseListener {
 	ImageView mCheckImageView;
 	TextView mNoNdsTextView;
 	TextView mTenTextView;
@@ -32,6 +43,7 @@ public class PaymentSummActivity extends Activity {
 	private Double inputDouble = 0.0;
 	private Double ndsDouble = 0.0;
 	private Double totalDouble = 0.0;
+    private Double commisionDouble = 0.0;
 	
 	private static final Double NDS_10 = 0.1;
 	private static final Double NDS_18 = 0.18;
@@ -40,7 +52,8 @@ public class PaymentSummActivity extends Activity {
 	private static final int NDS_18_P = 18;
 	
 	Payment mPayment;
-	
+	String mAccountNumber;
+
 	static final Pattern CODE_PATTERN = Pattern.compile("([0-9]{0,3})|([0-9]{3}-)+|([0-9]{3}-[0-9]{0,3})+");
 
 	@Override
@@ -159,6 +172,18 @@ public class PaymentSummActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+
+        mAccountNumber = SharedPreferenceManager.getInstance(this).getAccountNumber();
+        AsyncJSONLoader commissionLoader = new AsyncJSONLoader(this);
+        commissionLoader.registryListener(this);
+        Bundle headerParams = new Bundle();
+        headerParams.putString("Authorization", DataBaseManager.getInstance(this).getActiveToken());
+        Bundle params = new Bundle();
+        params.putString("requestType", "POST");
+        params.putString("endpoint", "/api/bank/payment/commission");
+        Bundle bodyParams = new Bundle();
+        bodyParams.putString("corr_account_number", mAccountNumber);
+        commissionLoader.execute(params, headerParams, bodyParams);
 	}
 	
 	private void calculateValues(CharSequence s) {
@@ -190,8 +215,9 @@ public class PaymentSummActivity extends Activity {
 			ndsDouble = 0.0;
 			totalDouble = inputDouble;
 		}
+        totalDouble += commisionDouble;
 		mSummEditText.setText(doubleCurrencyToString(inputDouble));
-		mCommisionTextView.setText(doubleCurrencyToString(ndsDouble));
+		mCommisionTextView.setText(doubleCurrencyToString(commisionDouble));
 		mTotalTextView.setText(doubleCurrencyToString(totalDouble));
 	}
 	
@@ -262,4 +288,42 @@ public class PaymentSummActivity extends Activity {
 		calculateValues(mSummEditText.getText());
 	}
 
+    @Override
+    public void handleResponse(int result, JSONObject response, String error) {
+        if (response != null) {
+            Log.d("###", response.toString());
+            try {
+                int resultCode = response.getInt("status");
+
+                if (resultCode == 200) {
+                    JSONObject resultObject = response.getJSONObject("result");
+                    Log.d("###", "commission received: " + resultObject);
+                    if (!resultObject.isNull("commission")) {
+                        commisionDouble = new Double(resultObject.getString("commission"));
+                        // log flurry event
+                        Map<String, String> articleParams = new HashMap<String, String>();
+                        articleParams.put("account_number", mAccountNumber);
+                        FlurryAgent.logEvent("commission received", articleParams);
+
+                        calculateValues(mSummEditText.getText());
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_LONG).show();
+                    // log flurry event
+                    Map<String, String> articleParams = new HashMap<String, String>();
+                    articleParams.put("message", response.getString("message"));
+                    FlurryAgent.logEvent("commission failed", articleParams);
+                }
+            } catch (Exception exc) {
+                // log flurry event
+                Map<String, String> articleParams = new HashMap<String, String>();
+                articleParams.put("message", exc.getMessage());
+                FlurryAgent.logEvent("commission failed", articleParams);
+                exc.printStackTrace();
+            }
+        } else {
+            // log flurry event
+            FlurryAgent.logEvent("commission failed");
+        }
+    }
 }

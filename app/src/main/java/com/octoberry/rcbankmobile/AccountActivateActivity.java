@@ -128,13 +128,24 @@ public class AccountActivateActivity extends Activity {
 									mDocumentsCheckList.add(doc);
 								}								
 							}
-							if (!organization.isNull("founder_checklist")) {
+                            Log.d("###", "check uploads");
+							if (!organization.isNull("uploads_checklist")) {
 								mFounderCheckList = new ArrayList<Document>();
-								JSONArray jsonArray = organization.getJSONArray("founder_checklist");
+								JSONArray jsonArray = organization.getJSONArray("uploads_checklist");
+                                Log.d("###", "documents length: " + jsonArray.length());
 								for (int i = 0; i < jsonArray.length(); i++) {
-									Document doc = new Document(jsonArray.getJSONObject(i).getString("title"));
-									doc.setUploadable(jsonArray.getJSONObject(i).getBoolean("uploadable"));
-									doc.setId(jsonArray.getJSONObject(i).getString("id"));
+                                    Log.d("###", "create document[" + i + "] with title: " + jsonArray.getJSONObject(i).getString("title"));
+  									Document doc = new Document(jsonArray.getJSONObject(i).getString("title"));
+                                    doc.setType(jsonArray.getJSONObject(i).getString("type"));
+                                    JSONArray docArray = jsonArray.getJSONObject(i).getJSONArray("docs");
+                                    if (docArray.length() > 0) {
+                                        doc.setFirstPageId(docArray.getJSONObject(0).getString("id"));
+                                        doc.setFirstPageTitle(docArray.getJSONObject(0).getString("title"));
+                                    }
+                                    if (docArray.length() > 1) {
+                                        doc.setSecondPageId(docArray.getJSONObject(1).getString("id"));
+                                        doc.setSecondPageTitle(docArray.getJSONObject(1).getString("title"));
+                                    }
 									mFounderCheckList.add(doc);
 								}								
 							}

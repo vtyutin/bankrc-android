@@ -247,10 +247,17 @@ public class DashboardActivity extends Activity {
 		mSendCredsImageView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mMenuLinearLayout.setVisibility(View.VISIBLE);
-				mShadowView.setVisibility(View.VISIBLE);
+			mMenuLinearLayout.setVisibility(View.VISIBLE);
+			mShadowView.setVisibility(View.VISIBLE);
 			}
 		});
+
+        if (SharedPreferenceManager.getInstance(this).isDashboardInfoViwed()) {
+            mInitViewLayout.setVisibility(View.GONE);
+            mFavouritePartnersTextView.setVisibility(View.VISIBLE);
+        } else {
+            SharedPreferenceManager.getInstance(this).setDashboardInfoViewed();
+        }
 		
 		mInitViewLayout.setOnClickListener(new OnClickListener() {			
 			@Override
@@ -259,6 +266,8 @@ public class DashboardActivity extends Activity {
 				mFavouritePartnersTextView.setVisibility(View.VISIBLE);
 			}
 		});
+
+
 		
 		mAccountsImageView.setOnClickListener(new OnClickListener() {			
 			@Override
@@ -293,7 +302,7 @@ public class DashboardActivity extends Activity {
 			credsLoader.registryListener(new GetCredentialsHandler());
 			Bundle credsParams = new Bundle();
 			credsParams.putString("requestType", "GET");
-			credsParams.putString("endpoint", "/api/organization/creds");
+			credsParams.putString("endpoint", "/api/organization.pdf");
 			Bundle credsHeaderParams = new Bundle();
 			credsHeaderParams.putString("Authorization", mToken);
 			credsHeaderParams.putString("Accept", "application/pdf");
@@ -503,7 +512,6 @@ public class DashboardActivity extends Activity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {			
 			View rowView = convertView;
-			final int pos = position;
 			if (rowView == null) {
 				LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				rowView = inflater.inflate(R.layout.corresponders_list_row, null);				
@@ -600,6 +608,8 @@ public class DashboardActivity extends Activity {
 						}
 						if (!resultObject.isNull("account_number")) {
 							mAccountTextView.setText(resultObject.getString("account_number"));
+                            SharedPreferenceManager manager = SharedPreferenceManager.getInstance(DashboardActivity.this);
+                            manager.setAccountNumber(resultObject.getString("account_number"));
 						}
 						if (!resultObject.isNull("corr_number")) {
 							mCorrTextView.setText(resultObject.getString("corr_number"));

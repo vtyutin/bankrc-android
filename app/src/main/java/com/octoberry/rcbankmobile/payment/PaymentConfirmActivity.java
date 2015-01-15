@@ -56,7 +56,7 @@ public class PaymentConfirmActivity extends Activity {
 		SpannableString spanString = new SpannableString(mPayment.getCorrInn());
 		spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
 		mTargetIdTextView.setText(spanString);
-		
+
 		mPayTextView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

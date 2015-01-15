@@ -19,15 +19,20 @@ android {
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
     }
 }
 
 dependencies {
     compile 'com.android.support:support-v4:20.0.0'
     compile 'com.google.android.gms:play-services:+'
-    compile 'org.apache.httpcomponents:httpclient:4.4-alpha1'
-    compile 'org.apache.httpcomponents:httpmime:4.3.4'
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5'
+    compile('org.apache.httpcomponents:httpmime:4.3.5') {
+        exclude module: 'org.apache.httpcomponents:httpclient'
+    }
     compile files('libs/SDK-android.jar')
     compile files('libs/deploygatesdk.jar')
     compile files('libs/slidemenu-library.jar')
+    compile files('libs/FlurryAnalytics-5.0.0.jar')
 }
