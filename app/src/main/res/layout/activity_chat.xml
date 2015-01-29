@@ -52,14 +52,33 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:background="#222222" >
-        
-        <ImageView
-            android:id="@+id/chatAttachButton"
+
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/mes_add"
-            android:padding="10dp" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/chatAttachButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/mes_add"
+                android:padding="10dp" />
+            <ImageView
+                android:id="@+id/cancelAttachButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/clear_button"
+                android:layout_centerInParent="true"
+                android:padding="10dp"
+                android:visibility="gone"/>
+            <ProgressBar
+                android:id="@+id/uploadImageProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
 
         <EditText
             android:id="@+id/messageEdit"
@@ -102,5 +121,23 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/imagePreviewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000">
+        <ImageView
+            android:id="@+id/previewImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <ImageView
+            android:id="@+id/closePreviewImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close_white"
+            android:padding="10dp"/>
+    </RelativeLayout>
 
 </RelativeLayout>

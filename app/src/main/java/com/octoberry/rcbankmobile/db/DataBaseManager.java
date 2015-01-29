@@ -70,7 +70,7 @@ public class DataBaseManager {
 	public synchronized void setPhoneNumber(String phoneNumber) {
 		updateStringParameter(TABLE_SETTINGS, Columns.PHONE_NUMBER, phoneNumber, null);
 	}
-	
+
 	public synchronized String getOgrn() {		
         return getStringParameter(TABLE_SETTINGS, Columns.OGRN, null);
 	}
@@ -79,15 +79,15 @@ public class DataBaseManager {
 		updateStringParameter(TABLE_SETTINGS, Columns.OGRN, ogrn, null);
 	}
 	
-	public synchronized String getActiveToken() {		
+	public synchronized String getBankToken() {
         return getStringParameter(TABLE_SETTINGS, Columns.ACTIVE_TOKEN, null);
 	}
 	
-	public synchronized void setCurrentToken(String token) {
+	public synchronized void setCrmToken(String token) {
 		updateStringParameter(TABLE_SETTINGS, Columns.CURENT_TOKEN, token, null);
 	}
 	
-	public synchronized String getCurrentToken() {		
+	public synchronized String getCrmToken() {
         return getStringParameter(TABLE_SETTINGS, Columns.CURENT_TOKEN, null);
 	}
 	
@@ -131,7 +131,7 @@ public class DataBaseManager {
         return getStringParameter(TABLE_SETTINGS, Columns.CHAT_ID, null);
 	}
 	
-	public synchronized void setActiveToken(String token) {
+	public synchronized void setBankToken(String token) {
 		updateStringParameter(TABLE_SETTINGS, Columns.ACTIVE_TOKEN, token, null);
 	}
 	

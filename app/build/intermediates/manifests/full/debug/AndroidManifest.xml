@@ -65,7 +65,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.octoberry.rcbankmobile.RegistryActivity"
+            android:name="com.octoberry.rcbankmobile.EnterPhoneActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <activity
@@ -73,7 +73,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="com.octoberry.rcbankmobile.AccountActivateActivity"
+            android:name="com.octoberry.rcbankmobile.WaitDocumentsActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <activity
@@ -81,12 +81,12 @@
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="com.octoberry.rcbankmobile.AccountCreateActivity"
+            android:name="com.octoberry.rcbankmobile.CheckOgrnActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="com.octoberry.rcbankmobile.AccountOpenActivity"
+            android:name="com.octoberry.rcbankmobile.PrepareDocumentsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
@@ -98,7 +98,7 @@
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="com.octoberry.rcbankmobile.AccountReadyActivity"
+            android:name="com.octoberry.rcbankmobile.SetPincodeActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <!--
@@ -212,6 +212,10 @@
         </activity>
         <activity
             android:name="com.octoberry.rcbankmobile.payment.PaymentResultActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.octoberry.rcbankmobile.payment.PaymentDetailsActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
     </application>

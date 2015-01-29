@@ -17,11 +17,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.octoberry.rcbankmobile.AccountReadyActivity;
+import com.octoberry.rcbankmobile.SetPincodeActivity;
 import com.octoberry.rcbankmobile.AccountStatusActivity;
+import com.octoberry.rcbankmobile.EnterPhoneActivity;
 import com.octoberry.rcbankmobile.LoginActivity;
-import com.octoberry.rcbankmobile.AccountOpenActivity;
-import com.octoberry.rcbankmobile.RegistryActivity;
+import com.octoberry.rcbankmobile.PrepareDocumentsActivity;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
 import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
 import com.octoberry.rcbankmobile.net.JSONResponseListener;
@@ -51,7 +51,7 @@ public class AccountStatusHandler implements JSONResponseListener {
 					int resultCode = response.getInt("status");
 
 					if (resultCode == 200) {
-						String token = DataBaseManager.getInstance(mContext).getActiveToken();
+						String token = DataBaseManager.getInstance(mContext).getCrmToken();
 						Log.d("###", "checkAccountStatus: token: " + token);
 						AsyncJSONLoader loader = new AsyncJSONLoader(mContext);
 						loader.registryListener(AccountStatusHandler.this);
@@ -74,7 +74,7 @@ public class AccountStatusHandler implements JSONResponseListener {
 	}
 	
 	public void nextStep() {
-		String token = DataBaseManager.getInstance(mContext).getActiveToken();
+		String token = DataBaseManager.getInstance(mContext).getBankToken();
 		if (token != null) {
 			AsyncJSONLoader loader = new AsyncJSONLoader(mContext);
 			loader.registryListener(new NextStepHandler());
@@ -88,7 +88,7 @@ public class AccountStatusHandler implements JSONResponseListener {
 	}
 	
 	public void checkAccountStatus() {
-		String token = DataBaseManager.getInstance(mContext).getActiveToken();
+		String token = DataBaseManager.getInstance(mContext).getCrmToken();
 		Log.d("###", "checkAccountStatus: token: " + token);
 		if (token != null) {
 			AsyncJSONLoader loader = new AsyncJSONLoader(mContext);
@@ -130,21 +130,21 @@ public class AccountStatusHandler implements JSONResponseListener {
 						Intent intent = null;
 						if (status.equals(DataBaseManager.ACCOUNT_STATUS_NEW) ||
 								status.equals(DataBaseManager.ACCOUNT_STATUS_CONFIRMED)) {
-							intent = new Intent(mContext, AccountOpenActivity.class);
+							intent = new Intent(mContext, PrepareDocumentsActivity.class);
 						} else if (status.equals(DataBaseManager.ACCOUNT_STATUS_DOCUMENTS) ||
 								status.equals(DataBaseManager.ACCOUNT_STATUS_MEETING) ||
 								status.equals(DataBaseManager.ACCOUNT_STATUS_DENIED) ||
 								status.equals(DataBaseManager.ACCOUNT_STATUS_ERROR)) {
 							intent = new Intent(mContext, AccountStatusActivity.class);
 						} else if (status.equals(DataBaseManager.ACCOUNT_STATUS_CREATED)) {
-							if (DataBaseManager.getInstance(mContext).getCurrentToken() == null) {
-								intent = new Intent(mContext, AccountReadyActivity.class);
+							if (DataBaseManager.getInstance(mContext).getCrmToken() == null) {
+								intent = new Intent(mContext, SetPincodeActivity.class);
 							} else {
 								intent = new Intent(mContext, LoginActivity.class);
 							}
 						} else {
 							Log.e(this.getClass().getName(), "invalid account status: " + status);
-							intent = new Intent(mContext, RegistryActivity.class);
+							intent = new Intent(mContext, EnterPhoneActivity.class);
 						} 
 						
 						if (!organization.isNull("cards")) {

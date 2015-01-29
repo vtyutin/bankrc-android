@@ -52,7 +52,7 @@ public class SnilsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_snils);
 		
-		mToken = DataBaseManager.getInstance(this).getActiveToken();
+		mToken = DataBaseManager.getInstance(this).getBankToken();
 		
 		mBackTextView = (TextView) findViewById(R.id.backTextView);
 		mBackTextView.setOnClickListener(new OnClickListener() {

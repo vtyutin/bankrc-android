@@ -7,6 +7,9 @@
     <string name="flurry_app_key">Q44C8XNP69PZHTNYZYZR</string>
     <!-- <string name="server_url">http://nonamebank.ru</string> -->
 
+    <string name="NO_NDS_VALUE">Без НДС</string>
+    <string name="NDS_10P">В т.ч. НДС 10%</string>
+    <string name="NDS_18P">В т.ч. НДС 18%</string>
 
     <!-- General -->
     <string name="APP_NAME">No Name Bank</string>
@@ -136,5 +139,16 @@
     <string name="PERIOD_ALL">Все</string>
     <string name="PERIOD_WEEK">Неделя</string>
     <string name="PERIOD_MONTH">Месяц</string>
-    <string name="PERIOD_HALF_YEAR">Пол года</string>    
+    <string name="PERIOD_HALF_YEAR">Пол года</string>
+    <string name="REPEAT_PAYMENT">ПОВТОРИТЬ</string>
+    <string name="SHARE_PAYMENT">ПОДЕЛИТЬСЯ</string>
+    <string name="SHARE_PAYMENT_TITLE" formatted="false"><![CDATA[Платежное поручение от %s ]]></string>
+    <string name="SHARE_PAYMENT_BODY" formatted="false"><![CDATA[Здравствуйте!\nПрикрепляю платежное поручение от %s\nСтатус платежа: %s ]]></string>
+    <string name="SHARE_PAYMENT_REQUEST">Отправить платеж через</string>
+    <string name="TITLE_ACTIVITY_PAYMENT_DETAILS">PaymentDetailsActivity</string>
+    <string name="RECEIVED">ПОЛУЧЕН</string>
+    <string name="PAID">ОПЛАЧЕН</string>
+    <string name="FROM">ОТ</string>
+    <string name="BANK">БАНК</string>
+
 </resources>

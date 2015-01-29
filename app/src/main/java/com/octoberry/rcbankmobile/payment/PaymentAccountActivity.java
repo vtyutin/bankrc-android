@@ -56,7 +56,7 @@ public class PaymentAccountActivity extends Activity {
 			}
 		});
 		
-		mToken = DataBaseManager.getInstance(this).getActiveToken();
+		mToken = DataBaseManager.getInstance(this).getBankToken();
 		
 		mProgress.setVisibility(View.VISIBLE);
 		AsyncJSONLoader paymentLoader = new AsyncJSONLoader(this);

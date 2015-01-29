@@ -83,7 +83,7 @@ public class DashboardActivity extends Activity {
 	private ArrayList<Correspondent> mCorrespondersList = new ArrayList<Correspondent>();
 	private CorrespondersListAdapter mCorrespondersAdapter;
 	
-	private String mToken;
+	private String mCrmToken;
 	private String mBankToken;
 	private String mCompanyName;
 	private String mBalance;
@@ -125,8 +125,14 @@ public class DashboardActivity extends Activity {
 		mCorrespondersAdapter = new CorrespondersListAdapter(this);
 		mCorrespondersListView.setAdapter(mCorrespondersAdapter);
 		
-		mToken = DataBaseManager.getInstance(this).getCurrentToken();
-		mBankToken = DataBaseManager.getInstance(this).getActiveToken();
+		mCrmToken = DataBaseManager.getInstance(this).getCrmToken();
+		mBankToken = DataBaseManager.getInstance(this).getBankToken();
+
+        if (mBankToken == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
 		
 		mDetector = new GestureDetectorCompat(this, mSimpleGestureListener);
 		
@@ -220,7 +226,7 @@ public class DashboardActivity extends Activity {
 				intent.setType("message/rfc822");
 				intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.ACCOUNT_DETAILS));
 				
-				File f = new File(android.os.Environment.getExternalStorageDirectory(), "credentials.pdf");
+				File f = new File(android.os.Environment.getExternalStorageDirectory() + "/octoberry", "credentials.pdf");
 				if (f.exists()) {
 					intent.putExtra(Intent.EXTRA_STREAM, Uri.parse( "file://" + f.getAbsolutePath()));
 				} else {
@@ -296,7 +302,7 @@ public class DashboardActivity extends Activity {
 		corrLoader.execute(corrParams, corrHeaderParams, null);
 		
 		/* get credentials */		
-		File f = new File(android.os.Environment.getExternalStorageDirectory(), "credentials.pdf");
+		File f = new File(android.os.Environment.getExternalStorageDirectory() + "/octoberry", "credentials.pdf");
 		if (f.exists() == false) {			
 			AsyncFileLoader credsLoader = new AsyncFileLoader(this, f.getAbsolutePath());
 			credsLoader.registryListener(new GetCredentialsHandler());
@@ -304,7 +310,7 @@ public class DashboardActivity extends Activity {
 			credsParams.putString("requestType", "GET");
 			credsParams.putString("endpoint", "/api/organization.pdf");
 			Bundle credsHeaderParams = new Bundle();
-			credsHeaderParams.putString("Authorization", mToken);
+			credsHeaderParams.putString("Authorization", mCrmToken);
 			credsHeaderParams.putString("Accept", "application/pdf");
 			credsLoader.execute(credsParams, credsHeaderParams, null);
 		}
@@ -316,7 +322,11 @@ public class DashboardActivity extends Activity {
 			if (result == 200) {
 				Log.d(TAG, "Credentials file downloaded: " + path);
 				mSendCredsImageView.setVisibility(View.VISIBLE);
-			} else {
+			} else if (result == 403) {
+                Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
 				Toast.makeText(DashboardActivity.this, path, Toast.LENGTH_LONG).show();
 				Log.e(TAG, "can't load credentials file. response code: " + result);
 			}			
@@ -556,7 +566,7 @@ public class DashboardActivity extends Activity {
 			orgParams.putString("endpoint", "/api/organization");
 			orgParams.putString("requestType", "GET");
 			Bundle orgHeaderParams = new Bundle();
-			orgHeaderParams.putString("Authorization", mToken);
+			orgHeaderParams.putString("Authorization", mCrmToken);
 			orgLoader.execute(orgParams, orgHeaderParams, null);
 			
 			if (response != null) {
@@ -576,8 +586,11 @@ public class DashboardActivity extends Activity {
 							}
 						}
 						mBalance = doubleCurrencyToString(balance, "RUR");
-						mCompanyName = info;						
-					} else {
+					} else if (result == 403) {
+                        Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
 						Toast.makeText(DashboardActivity.this, "error: " + response.getString("message") , Toast.LENGTH_LONG).show();						
 					}
 				} catch (Exception exc) {
@@ -597,6 +610,9 @@ public class DashboardActivity extends Activity {
 					int status = response.getInt("status");
 					if (status == 200) {
 						JSONObject resultObject = response.getJSONObject("result");
+                        if (!resultObject.isNull("cutname")) {
+                            mCompanyName = resultObject.getString("cutname");
+                        }
 						if (!resultObject.isNull("inn")) {
 							mInnTextView.setText(resultObject.getString("inn"));
 						}
@@ -620,7 +636,11 @@ public class DashboardActivity extends Activity {
 						if (!resultObject.isNull("account_creds")) {
 							SharedPreferenceManager.getInstance(DashboardActivity.this).setCreds(resultObject.getString("account_creds"));
 						}
-					} else {
+					} else if (result == 403) {
+                        Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
 						Toast.makeText(DashboardActivity.this, "error: " + response.getString("message") , Toast.LENGTH_LONG).show();						
 					}
 				} catch (Exception exc) {
@@ -666,7 +686,11 @@ public class DashboardActivity extends Activity {
 						} else {
 							Toast.makeText(DashboardActivity.this, "correspondents list is empty", Toast.LENGTH_LONG).show();
 						}
-					} else {
+					} else if (result == 403) {
+                        Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
 						Toast.makeText(DashboardActivity.this, "error: " + response.getString("message") , Toast.LENGTH_LONG).show();						
 					}
 				} catch (Exception exc) {

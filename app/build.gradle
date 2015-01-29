@@ -26,6 +26,7 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:20.0.0'
+    compile 'com.nineoldandroids:library:2.4.0+'
     compile 'com.google.android.gms:play-services:+'
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5'
     compile('org.apache.httpcomponents:httpmime:4.3.5') {

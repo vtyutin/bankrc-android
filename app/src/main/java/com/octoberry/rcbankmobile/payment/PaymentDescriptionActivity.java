@@ -63,7 +63,10 @@ public class PaymentDescriptionActivity extends Activity {
 			@Override
 			public void afterTextChanged(Editable s) {}
 		});
-		
+
+        if (mPayment != null) {
+            mTargetEditText.setText(mPayment.getDescription());
+        }
 	}
 
 }

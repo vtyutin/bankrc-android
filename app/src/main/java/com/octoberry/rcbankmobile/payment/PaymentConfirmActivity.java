@@ -129,17 +129,15 @@ public class PaymentConfirmActivity extends Activity {
 					break;
 				case 3:
 					nameTextView.setText(R.string.BIK);
-					valueTextView.setText(payment.getCorrBik());
+					valueTextView.setText(payment.getCorrBankBik());
 					break;
 				case 4:
 					nameTextView.setText(R.string.ACCOUNT_NUMBER);
-					valueTextView.setText(payment.getCorrAccount());
+					valueTextView.setText(payment.getCorrAccountNumber());
 					break;
 				case 5:
 					nameTextView.setText(R.string.PAYMENT_SUMM);
-					Double summ = Long.valueOf(payment.getAmountFirst()).doubleValue();
-					summ = summ + (Long.valueOf(payment.getAmountLast()).doubleValue() / 100);
-					valueTextView.setText(doubleCurrencyToString(summ));
+					valueTextView.setText(doubleCurrencyToString(payment.getAmount()));
 					break;
 				case 6:
 					nameTextView.setText(R.string.FROM_ACCOUNT);
@@ -151,7 +149,7 @@ public class PaymentConfirmActivity extends Activity {
 					break;
 				case 8:
 					nameTextView.setText(R.string.NDS);
-					if (payment.isNdsIncluded()) {
+					if (payment.getNds() > 0) {
 						valueTextView.setText("" + payment.getNds() + "%");
 					} else {
 						valueTextView.setText(R.string.NO_NDS);

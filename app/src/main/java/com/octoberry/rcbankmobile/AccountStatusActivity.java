@@ -12,9 +12,7 @@ import com.octoberry.rcbankmobile.db.DataBaseManager;
 import com.octoberry.rcbankmobile.handler.AccountStatusHandler;
 import com.octoberry.rcbankmobile.handler.Card;
 import com.octoberry.rcbankmobile.handler.Document;
-import com.octoberry.rcbankmobile.net.AsyncFileLoader;
 import com.octoberry.rcbankmobile.net.AsyncFileUploader;
-import com.octoberry.rcbankmobile.net.FileResponseListener;
 import com.octoberry.rcbankmobile.net.JSONResponseListener;
 import com.octoberry.rcbankmobile.ui.CardListAdapter;
 
@@ -96,7 +94,7 @@ public class AccountStatusActivity extends Activity implements OnRefreshListener
 						intent.setType("message/rfc822");
 						intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.ACCOUNT_DETAILS));
 						
-						File f = new File(android.os.Environment.getExternalStorageDirectory(), "credentials.pdf");
+						File f = new File(android.os.Environment.getExternalStorageDirectory() + "/octoberry", "credentials.pdf");
 						if (f.exists()) {
 							intent.putExtra(Intent.EXTRA_STREAM, Uri.parse( "file://" + f.getAbsolutePath()));
 						} else {
@@ -125,7 +123,7 @@ public class AccountStatusActivity extends Activity implements OnRefreshListener
 		mCardsListView = (ListView) findViewById(R.id.cardsListView);
 		mCardsListView.setDividerHeight(0);
 
-		mToken = DataBaseManager.getInstance(getApplicationContext()).getActiveToken();
+		mToken = DataBaseManager.getInstance(getApplicationContext()).getBankToken();
 		
 		mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
 		mSwipeLayout.setOnRefreshListener(this);

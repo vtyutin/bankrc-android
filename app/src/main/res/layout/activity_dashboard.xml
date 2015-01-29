@@ -264,7 +264,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:padding="10dp"
-        android:src="@drawable/action" />
+        android:src="@drawable/action_button" />
 
     <ListView
         android:id="@+id/activeListView"

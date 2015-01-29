@@ -12,7 +12,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 
+import java.io.File;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
@@ -42,6 +44,10 @@ public class App extends Application {
         instance = this;
         clearSharedPrefences();
         QBSettings.getInstance().fastConfigInit("14696", "2vghAtCu5uMpCHq", "BGnMkR3ZX4dq9hq");
+
+        File folder = new File(Environment.getExternalStorageDirectory() + "/octoberry");
+        if (!folder.exists())
+            folder.mkdir();
     }
 	
 	private void clearSharedPrefences() {

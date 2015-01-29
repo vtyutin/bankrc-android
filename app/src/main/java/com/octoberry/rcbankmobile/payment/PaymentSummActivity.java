@@ -39,7 +39,7 @@ public class PaymentSummActivity extends Activity implements JSONResponseListene
 	ImageView mForwardImageView;
 	
 	private boolean mIsNdsIncluded = true;
-	private int mNdsSelection = 1;
+	private int mNdsSelection = 0;
 	private Double inputDouble = 0.0;
 	private Double ndsDouble = 0.0;
 	private Double totalDouble = 0.0;
@@ -135,17 +135,31 @@ public class PaymentSummActivity extends Activity implements JSONResponseListene
 		});
 		
 		mPayment = Payment.createFromPreference(PaymentSummActivity.this);
-		if ((mPayment.getAmountFirst() > 0) || (mPayment.getAmountLast() > 0)) {
-			mSummEditText.setText("" + mPayment.getAmountFirst() + "." + mPayment.getAmountLast());
+        switch(mPayment.getNds()) {
+            case NDS_10_P:
+                mNdsSelection = 1;
+                break;
+            case NDS_18_P:
+                mNdsSelection = 2;
+                break;
+            default:
+                mNdsSelection = 0;
+                break;
+        }
+        setNdsSelection(mNdsSelection);
+        if ((mPayment.getAmount() < 0)) {
+            mPayment.setAmount(-mPayment.getAmount());
+        }
+        if ((mPayment.getAmount() > 0)) {
+            Log.d("###", "summ: " + String.format("%.2f", mPayment.getAmount()));
+            mSummEditText.setText(String.format("%.2f", mPayment.getAmount()));
 		}
 		
 		mCloseImageView.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				mPayment.setAmountFirst(0);
-				mPayment.setAmountLast(0);
+				mPayment.setAmount(0.0);
 				mPayment.setNds(0);
-				mPayment.setNdsIncluded(false);
 				mPayment.addToPreference(PaymentSummActivity.this);
 				finish();
 			}
@@ -154,10 +168,7 @@ public class PaymentSummActivity extends Activity implements JSONResponseListene
 		mForwardImageView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				long first = totalDouble.longValue();
-				long last = Double.valueOf(totalDouble * 100).longValue() - (first * 100);
-				mPayment.setAmountFirst(first);
-				mPayment.setAmountLast(last);
+				mPayment.setAmount(totalDouble);
 				if (mNdsSelection == 1) {
 					mPayment.setNds(NDS_10_P);
 				} else if (mNdsSelection == 2) {
@@ -165,7 +176,6 @@ public class PaymentSummActivity extends Activity implements JSONResponseListene
 				} else {
 					mPayment.setNds(0);
 				}
-				mPayment.setNdsIncluded(mIsNdsIncluded);
 				mPayment.addToPreference(PaymentSummActivity.this);
 				
 				Intent intent = new Intent(PaymentSummActivity.this, PaymentAccountActivity.class);
@@ -177,7 +187,7 @@ public class PaymentSummActivity extends Activity implements JSONResponseListene
         AsyncJSONLoader commissionLoader = new AsyncJSONLoader(this);
         commissionLoader.registryListener(this);
         Bundle headerParams = new Bundle();
-        headerParams.putString("Authorization", DataBaseManager.getInstance(this).getActiveToken());
+        headerParams.putString("Authorization", DataBaseManager.getInstance(this).getBankToken());
         Bundle params = new Bundle();
         params.putString("requestType", "POST");
         params.putString("endpoint", "/api/bank/payment/commission");

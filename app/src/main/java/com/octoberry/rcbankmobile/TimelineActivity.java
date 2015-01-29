@@ -3,13 +3,23 @@ package com.octoberry.rcbankmobile;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.octoberry.rcbankmobile.chat.ChatActivity;
+import com.octoberry.rcbankmobile.db.CsvManager;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
+import com.octoberry.rcbankmobile.net.AsyncFileLoader;
 import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
+import com.octoberry.rcbankmobile.net.FileResponseListener;
 import com.octoberry.rcbankmobile.net.JSONResponseListener;
+import com.octoberry.rcbankmobile.payment.Payment;
+import com.octoberry.rcbankmobile.payment.PaymentDetailsActivity;
+import com.octoberry.rcbankmobile.payment.PaymentReceiverActivity;
+import com.octoberry.rcbankmobile.swipeview.BaseSwipeListViewListener;
+import com.octoberry.rcbankmobile.swipeview.SwipeListView;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -29,27 +39,30 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimelineActivity extends Activity {
+    private final static String TAG = TimelineActivity.class.getName();
 
 	private PaymentListHandler mPaymentListHandler = new PaymentListHandler();
 	private String mToken;
 	private TimelineListAdapter mHistoryListAdapter;
-	private TimelineListValue[] mTimelineListValues;
-    private TimelineListValue[] mFilteredListValues;
-	private ListView mHistoryListView;
+	Payment[] mTimelineListValues;
+    private Payment[] mFilteredListValues;
+	private SwipeListView mHistoryListView;
 	private ImageView mCloseImageView;
 	private ProgressBar mProgressBar;
     private ImageView mFilterImageView;
@@ -61,6 +74,7 @@ public class TimelineActivity extends Activity {
     private TextView mWeekTextView;
     private TextView mMonthTextView;
     private TextView mHalfYearTextView;
+    private ImageView mCsvImageView;
     private Timer mTimer = null;
 
 	private ObjectAnimator mAppearAnimator;
@@ -76,7 +90,7 @@ public class TimelineActivity extends Activity {
 
 		mRootLayout = (RelativeLayout) findViewById(R.id.rootRelativeLayout);
 
-		mHistoryListView = (ListView) findViewById(R.id.historyListView);
+		mHistoryListView = (SwipeListView) findViewById(R.id.historyListView);
 		mCloseImageView = (ImageView) findViewById(R.id.closeImageView);
 		mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mFilterImageView = (ImageView) findViewById(R.id.filterImageView);
@@ -88,6 +102,7 @@ public class TimelineActivity extends Activity {
         mMonthTextView = (TextView) findViewById(R.id.monthTextView);
         mHalfYearTextView = (TextView) findViewById(R.id.halfYearTextView);
         mChatImageView = (ImageView) findViewById(R.id.chatImageView);
+        mCsvImageView = (ImageView) findViewById(R.id.csvImageView);
 
 		mCloseImageView.setOnClickListener(new OnClickListener() {
 			@Override
@@ -108,7 +123,7 @@ public class TimelineActivity extends Activity {
             @Override
             public void onClick(View view) {
                 mFilterLayout.setVisibility(View.INVISIBLE);
-                mFilteredListValues = new TimelineListValue[mTimelineListValues.length];
+                mFilteredListValues = new Payment[mTimelineListValues.length];
                 for (int index = 0; index < mTimelineListValues.length; index++) {
                     mFilteredListValues[index] = mTimelineListValues[index];
                 }
@@ -176,14 +191,14 @@ public class TimelineActivity extends Activity {
                                 }
                             });
                             if (mTimelineListValues != null) {
-                                ArrayList<TimelineListValue> list = new ArrayList<TimelineListValue>();
-                                for (TimelineListValue value : mTimelineListValues) {
+                                ArrayList<Payment> list = new ArrayList<Payment>();
+                                for (Payment value : mTimelineListValues) {
                                     if (((value.getName() != null) && (value.getName().toUpperCase().contains(filter))) ||
-                                            ((value.getDescriptin() != null) && (value.getDescriptin().toUpperCase().contains(filter)))) {
+                                            ((value.getDescription() != null) && (value.getDescription().toUpperCase().contains(filter)))) {
                                         list.add(value);
                                     }
                                 }
-                                mFilteredListValues = new TimelineListValue[list.size()];
+                                mFilteredListValues = new Payment[list.size()];
                                 for (int index = 0; index < list.size(); index++) {
                                     mFilteredListValues[index] = list.get(index);
                                 }
@@ -204,7 +219,7 @@ public class TimelineActivity extends Activity {
                     }, ENTER_LOCK_TIMER_DELAY);
                 } else {
                     if (mTimelineListValues != null) {
-                        mFilteredListValues = new TimelineListValue[mTimelineListValues.length];
+                        mFilteredListValues = new Payment[mTimelineListValues.length];
                         for (int index = 0; index < mTimelineListValues.length; index++) {
                             mFilteredListValues[index] = mTimelineListValues[index];
                         }
@@ -228,10 +243,36 @@ public class TimelineActivity extends Activity {
             }
         });
 
+        mCsvImageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CsvManager manager = new CsvManager("timeline.csv");
+                manager.writeCsvHeader(Payment.getHeaders());
+                for (Payment payment: mFilteredListValues) {
+                    manager.writeCsvLine(payment.getValues());
+                }
+                manager.saveToFile();
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("message/rfc822");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "timeline");
+
+                File f = new File(manager.getFilePath());
+                if (f.exists()) {
+                    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + f.getAbsolutePath()));
+                }
+                try {
+                    startActivity(Intent.createChooser(intent, getResources().getString(R.string.SHARE_PAYMENT_REQUEST)));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(TimelineActivity.this, "There are no email clients installed.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         clearSelection();
         mAllTextView.setTextColor(Color.WHITE);
 
-		mToken = DataBaseManager.getInstance(getApplicationContext()).getActiveToken();
+		mToken = DataBaseManager.getInstance(getApplicationContext()).getBankToken();
 
         updateDateFilter();
 	}
@@ -334,16 +375,114 @@ public class TimelineActivity extends Activity {
 					if (resultCode == 200) {
 						JSONArray paymentListArray = response.getJSONArray("result");
 
-						mTimelineListValues = new TimelineListValue[paymentListArray.length()];
-                        mFilteredListValues = new TimelineListValue[paymentListArray.length()];
+						mTimelineListValues = new Payment[paymentListArray.length()];
+                        mFilteredListValues = new Payment[paymentListArray.length()];
 						for (int i = 0; i < paymentListArray.length(); i++) {
 							JSONObject item = paymentListArray.getJSONObject(i);
-							String number = item.getString("amount");
-							String date = item.getString("date");
-                            Log.d("###", "date: " + date);
-							String name = item.getString("corr_name");
-							String description = item.getString("description");
-                            TimelineListValue listItem = new TimelineListValue(number, date, name, description);
+                            Payment listItem = new Payment();
+                            if (!item.isNull("amount")) {
+                                listItem.setAmount(item.getDouble("amount"));
+                            }
+                            if (!item.isNull("date")) {
+                                listItem.setDate(item.getString("date"));
+                            }
+                            if (!item.isNull("corr_name")) {
+                                listItem.setCorrName(item.getString("corr_name"));
+                            }
+                            if (!item.isNull("description")) {
+                                listItem.setDescription(item.getString("description"));
+                            }
+                            if (!item.isNull("bank_name")) {
+                                listItem.setBankName(item.getString("bank_name"));
+                            }
+                            if (!item.isNull("corr_bank_bik")) {
+                                listItem.setCorrBankBik(item.getString("corr_bank_bik"));
+                            }
+                            if (!item.isNull("id")) {
+                                listItem.setId(item.getLong("id"));
+                            }
+                            if (!item.isNull("corr_bank_name")) {
+                                listItem.setCorrBankName(item.getString("corr_bank_name"));
+                            }
+                            if (!item.isNull("name")) {
+                                listItem.setName(item.getString("name"));
+                            }
+                            if (!item.isNull("opertype")) {
+                                listItem.setOperType(item.getString("opertype"));
+                            }
+                            if (!item.isNull("inn")) {
+                                listItem.setInn(item.getString("inn"));
+                            }
+                            if (!item.isNull("bank_place")) {
+                                listItem.setBankPlace(item.getString("bank_place"));
+                            }
+                            if (!item.isNull("account_number")) {
+                                listItem.setAccountNumber(item.getString("account_number"));
+                            }
+                            if (!item.isNull("account_id")) {
+                                listItem.setAccountId(item.getString("account_id"));
+                            }
+                            if (!item.isNull("status")) {
+                                listItem.setStatus(item.getString("status"));
+                            }
+                            if (!item.isNull("bank_corr_account")) {
+                                listItem.setBankCorrAccount(item.getString("bank_corr_account"));
+                            }
+                            if (!item.isNull("signed")) {
+                                listItem.setSigned(item.getBoolean("signed"));
+                            }
+                            if (!item.isNull("amount_words")) {
+                                listItem.setAmountWords(item.getString("amount_words"));
+                            }
+                            if (!item.isNull("number")) {
+                                listItem.setNumber(item.getString("number"));
+                            }
+                            if (!item.isNull("register_stamp")) {
+                                listItem.setRegisterStamp(item.getString("register_stamp"));
+                            }
+                            if (!item.isNull("corr_inn")) {
+                                listItem.setCorrInn(item.getString("corr_inn"));
+                            }
+                            if (!item.isNull("corr_cutname")) {
+                                listItem.setCorrCutName(item.getString("corr_cutname"));
+                            }
+                            if (!item.isNull("bank_bik")) {
+                                listItem.setBankBik(item.getString("bank_bik"));
+                            }
+                            if (!item.isNull("corr_account_number")) {
+                                listItem.setCorrAccountNumber(item.getString("corr_account_number"));
+                            }
+                            if (!item.isNull("urgenttype")) {
+                                listItem.setUrgentType(item.getString("urgenttype"));
+                            }
+                            if (!item.isNull("corr_bank_place")) {
+                                listItem.setCorrBankPlace(item.getString("corr_bank_place"));
+                            }
+                            if (!item.isNull("corr_kpp")) {
+                                listItem.setCorrKpp(item.getString("corr_kpp"));
+                            }
+                            if (!item.isNull("kpp")) {
+                                listItem.setKpp(item.getString("kpp"));
+                            }
+                            if (!item.isNull("corr_bank_corr_account")) {
+                                listItem.setCorrBankCorrAccount(item.getString("corr_bank_corr_account"));
+                            }
+                            if (!item.isNull("decline_stamp")) {
+                                listItem.setDeclineStamp(item.getString("decline_stamp"));
+                            }
+                            if (!item.isNull("sendtype_caption")) {
+                                listItem.setSendTypeCaption(item.getString("sendtype_caption"));
+                            }
+                            if (!item.isNull("nds_text")) {
+                                String ndsText = item.getString("nds_text");
+                                listItem.setNdsText(ndsText);
+                                if (ndsText.startsWith(getResources().getString(R.string.NDS_10P))) {
+                                    listItem.setNds(10);
+                                } else if (ndsText.startsWith(getResources().getString(R.string.NDS_18P))) {
+                                    listItem.setNds(18);
+                                }
+                            }
+
                             mTimelineListValues[i] = listItem;
                             mFilteredListValues[i] = listItem;
 						}
@@ -368,47 +507,16 @@ public class TimelineActivity extends Activity {
 		}
 	}
 
-	private class TimelineListValue {
-		private String number;
-		private String date;
-		private String name;
-		private String description;
-
-		public TimelineListValue(String numberValue, String dateValue,
-				String nameValue, String descriptionValue) {
-			number = numberValue;
-			date = dateValue;
-			name = nameValue;
-			description = descriptionValue;
-		}
-
-		String getNumber() {
-			return number;
-		}
-
-		String getDate() {
-			return date;
-		}
-
-		String getName() {
-			return name;
-		}
-
-		String getDescriptin() {
-			return description;
-		}
-	}
-
 	private class TimelineListAdapter extends ArrayAdapter<Object> {
 		private final Context context;
-		private TimelineListValue[] timelineValues;
+		private Payment[] timelineValues;
 
 		public TimelineListAdapter(Context context) {
 			super(context, R.layout.timeline_list_row);
 			this.context = context;
 		}
 
-		public void setTimelineValues(TimelineListValue[] timelineValues) {
+		public void setTimelineValues(Payment[] timelineValues) {
 			this.timelineValues = timelineValues;
 		}
 
@@ -417,13 +525,12 @@ public class TimelineActivity extends Activity {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-			View rowView;
-			if (convertView == null) {
-				rowView = inflater.inflate(R.layout.timeline_list_row, parent,
-						false);
-			} else {
-				rowView = convertView;
-			}
+			final View rowView;
+            if (convertView == null) {
+                rowView = inflater.inflate(R.layout.timeline_list_row, parent, false);
+            } else {
+                rowView = convertView;
+            }
 			TextView numberTextView = (TextView) rowView
 					.findViewById(R.id.numberTextView);
 			TextView dateTextView = (TextView) rowView
@@ -433,11 +540,61 @@ public class TimelineActivity extends Activity {
 			TextView descriptionTextView = (TextView) rowView
 					.findViewById(R.id.descriptionTextView);
 
-			numberTextView.setText(timelineValues[position].getNumber());
+			numberTextView.setText("" + timelineValues[position].getAmount().doubleValue());
 			dateTextView.setText(timelineValues[position].getDate());
-			nameTextView.setText(timelineValues[position].getName());
-			descriptionTextView.setText(timelineValues[position].getDescriptin());
-			return rowView;
+			nameTextView.setText(timelineValues[position].getCorrName());
+            descriptionTextView.setText(timelineValues[position].getDescription());
+
+            mHistoryListView.setSwipeListViewListener(new BaseSwipeListViewListener() {
+                @Override
+                public int onChangeSwipeMode(int position) {
+                    if (timelineValues[position].getAmount() < 0) {
+                        return SwipeListView.SWIPE_MODE_BOTH;
+                    }
+                    return SwipeListView.SWIPE_MODE_NONE;
+                }
+
+                @Override
+                public void onClickFrontView(int position) {
+                    Context context = TimelineActivity.this;
+                    Payment.clearPreference(context);
+                    timelineValues[position].addToPreference(context);
+                    Intent intent = new Intent(context, PaymentDetailsActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            final int index = position;
+            TextView repeatPaymentTextView = (TextView)rowView.findViewById(R.id.repeatTextView);
+            TextView sharePaymentTextView = (TextView)rowView.findViewById(R.id.shareTextView);
+            repeatPaymentTextView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    timelineValues[index].addToPreference(TimelineActivity.this);
+                    Intent intent = new Intent(TimelineActivity.this, PaymentReceiverActivity.class);
+                    startActivity(intent);
+                    mHistoryListView.closeOpenedItems();
+                }
+            });
+            sharePaymentTextView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ProgressBar progressBar = (ProgressBar)rowView.findViewById(R.id.progressBar);
+                    progressBar.setVisibility(View.VISIBLE);
+                    File f = new File(android.os.Environment.getExternalStorageDirectory() + "/octoberry", String.format("%s.pdf", timelineValues[index].getId()));
+                    AsyncFileLoader loader = new AsyncFileLoader(TimelineActivity.this, f.getAbsolutePath());
+                    loader.registryListener(new PaymentPdfLoadListener(timelineValues[index], progressBar));
+                    Bundle params = new Bundle();
+                    params.putString("requestType", "GET");
+                    params.putString("endpoint", String.format("/api/bank/payment/%s.pdf", timelineValues[index].getId()));
+                    Bundle headerParams = new Bundle();
+                    headerParams.putString("Authorization", mToken);
+                    headerParams.putString("Accept", "application/pdf");
+                    loader.execute(params, headerParams, null);
+                }
+            });
+
+            return rowView;
 		}
 
 		@Override
@@ -448,4 +605,53 @@ public class TimelineActivity extends Activity {
 			return 0;
 		}
 	}
+
+    private class PaymentPdfLoadListener implements FileResponseListener {
+        private Payment payment;
+        private ProgressBar progressBar;
+        public PaymentPdfLoadListener(Payment payment, ProgressBar progressBar) {
+            this.payment = payment;
+            this.progressBar = progressBar;
+        }
+        @Override
+        public void handleResponse(int result, String pathToFile) {
+            progressBar.setVisibility(View.GONE);
+            mHistoryListView.closeOpenedItems();
+            if (result == 200) {
+                Log.d(TAG, "Credentials file downloaded: " + pathToFile);
+
+                // log flurry event
+                Map<String, String> articleParams = new HashMap<String, String>();
+                articleParams.put("path", pathToFile);
+                FlurryAgent.logEvent("payment pdf downloaded", articleParams);
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("message/rfc822");
+                intent.putExtra(Intent.EXTRA_SUBJECT, String.format(getResources().getString(R.string.SHARE_PAYMENT_TITLE), payment.getName()));
+                intent.putExtra(Intent.EXTRA_TEXT, String.format(getResources().getString(R.string.SHARE_PAYMENT_BODY), payment.getName(), payment.getStatus()));
+
+                File f = new File(pathToFile);
+                if (f.exists()) {
+                    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + f.getAbsolutePath()));
+                }
+                try {
+                    startActivity(Intent.createChooser(intent, getResources().getString(R.string.SHARE_PAYMENT_REQUEST)));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(TimelineActivity.this, "There are no email clients installed.", Toast.LENGTH_LONG).show();
+                }
+            } else if (result == 403) {
+                Intent intent = new Intent(TimelineActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(TimelineActivity.this, "failed to load payment pdf", Toast.LENGTH_LONG).show();
+                Log.e(TAG, "can't load credentials file. response code: " + result);
+
+                // log flurry event
+                Map<String, String> articleParams = new HashMap<String, String>();
+                articleParams.put("result", "" + result);
+                FlurryAgent.logEvent("payment pdf download failed", articleParams);
+            }
+        }
+    }
 }

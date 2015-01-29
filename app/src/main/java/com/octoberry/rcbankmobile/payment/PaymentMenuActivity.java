@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
 
+import com.octoberry.rcbankmobile.GeneralUtils;
 import com.octoberry.rcbankmobile.R;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
 import com.octoberry.rcbankmobile.net.AsyncFileUploader;
@@ -108,9 +109,11 @@ public class PaymentMenuActivity extends Activity {
 				return;
 			} else {
 				String path = restoryPathToFile();
-				
-				path = decodeImageFromFile(path);
-				Log.d("###", "image decoded: " + path);
+				if (path.toUpperCase().endsWith(".PNG") || path.toUpperCase().endsWith(".JPG")) {
+                    GeneralUtils utils = new GeneralUtils();
+                    path = utils.decodeImageFromFile(path, null, 200, 200);
+                    Log.d("###", "image decoded: " + path);
+                }
 				if (path == null) {
 					Toast.makeText(this, "can't decode image", Toast.LENGTH_LONG).show();
 					finish();
@@ -128,7 +131,7 @@ public class PaymentMenuActivity extends Activity {
 				params.putString("endpoint", "/api/bank/payment/import");
 				params.putString("filePath", path);
 				Bundle headerParams = new Bundle();
-				headerParams.putString("Authorization", DataBaseManager.getInstance(this).getActiveToken());
+				headerParams.putString("Authorization", DataBaseManager.getInstance(this).getBankToken());
 				headerParams.putString("Accept", "/");
 				asyncLoader.execute(params, headerParams, null);
 			}
@@ -199,7 +202,6 @@ public class PaymentMenuActivity extends Activity {
 				if (is == null) {
 					return false;
 				}
-				Log.d("###", "content input stream: " + is);
 				path = makeFileCopy(is);
 				is.close();
 				if (path == null) {
@@ -209,10 +211,9 @@ public class PaymentMenuActivity extends Activity {
 				exc.printStackTrace();
 				return false;
 			}
-		} if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+		} else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
 			try {
 				FileInputStream fis = new FileInputStream(new File(data.getPath()));
-				Log.d("###", "content input stream: " + fis);
 				path = makeFileCopy(fis);
 				fis.close();
 				if (path == null) {
@@ -225,7 +226,6 @@ public class PaymentMenuActivity extends Activity {
 		} else {
 			return false;
 		}
-		
 		storyPathToFile(path);
 		return true;
 	}
@@ -270,7 +270,7 @@ public class PaymentMenuActivity extends Activity {
 					Calendar cal = Calendar.getInstance();
 					fileName = String.format(Locale.getDefault(), "scan%d%d%d%d%d.jpg", cal.get(Calendar.YEAR),
 							cal.get(Calendar.MONTH), cal.get(Calendar.DATE), cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE));
-					File f = new File(android.os.Environment.getExternalStorageDirectory(), fileName);
+					File f = new File(android.os.Environment.getExternalStorageDirectory() + "/octoberry", fileName);
 					storyPathToFile(f.getAbsolutePath());
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
 					startActivityForResult(intent, CardListAdapter.REQUEST_CAMERA);
@@ -322,12 +322,12 @@ public class PaymentMenuActivity extends Activity {
 								isDataAvailable = true;
 							}
 							if (!invoice.isNull("corr_bank_bik")) {
-								payment.setCorrBik(invoice
+								payment.setCorrBankBik(invoice
 										.getString("corr_bank_bik"));
 								isDataAvailable = true;
 							}
 							if (!invoice.isNull("corr_account_number")) {
-								payment.setCorrAccount(invoice
+								payment.setCorrAccountNumber(invoice
 										.getString("corr_account_number"));
 								isDataAvailable = true;
 							}
@@ -339,10 +339,7 @@ public class PaymentMenuActivity extends Activity {
 							if (!invoice.isNull("amount")) {
 								Double amount = invoice
 										.getDouble("amount");
-								payment.setAmountFirst(amount.longValue());
-								Double amountLast = amount * 100;
-								payment.setAmountLast(amountLast.longValue()
-										- (amount.longValue() * 100));
+								payment.setAmount(amount);
 							}
 						}
 						if (isDataAvailable) {
@@ -380,7 +377,7 @@ public class PaymentMenuActivity extends Activity {
 					"/api/bank/payment/import/%d", getUploadId()));
 			Bundle headerParams = new Bundle();
 			headerParams.putString("Authorization", DataBaseManager
-					.getInstance(PaymentMenuActivity.this).getActiveToken());
+					.getInstance(PaymentMenuActivity.this).getBankToken());
 			loader.execute(params, headerParams, null);
 		}
 	};
@@ -389,7 +386,8 @@ public class PaymentMenuActivity extends Activity {
 	Runnable compressImageTask = new Runnable() {
 		public void run() {
 			String path = restoryPathToFile();
-			path = decodeImageFromFile(path);
+            GeneralUtils utils = new GeneralUtils();
+			path = utils.decodeImageFromFile(path, null, 200, 200);
 			if (path == null) {
 				clearPathToFile();
 				storyUploadInProgress(false);
@@ -405,7 +403,7 @@ public class PaymentMenuActivity extends Activity {
 			params.putString("endpoint", "/api/bank/payment/import");
 			params.putString("filePath", path);
 			Bundle headerParams = new Bundle();
-			headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getActiveToken());
+			headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getBankToken());
 			headerParams.putString("Accept", "/");
 			asyncLoader.execute(params, headerParams, null);
 			
@@ -430,7 +428,7 @@ public class PaymentMenuActivity extends Activity {
 							params.putString("requestType", "GET");
 							params.putString("endpoint", String.format("/api/bank/payment/import/%d", getUploadId()));
 							Bundle headerParams = new Bundle();
-							headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getActiveToken());
+							headerParams.putString("Authorization", DataBaseManager.getInstance(PaymentMenuActivity.this).getBankToken());
 							loader.execute(params, headerParams, null);
 							return;
 						} else {
@@ -466,7 +464,7 @@ public class PaymentMenuActivity extends Activity {
 			}
 			Log.d("###", "path: " + path);
 			if (path == null) {
-				Toast.makeText(getApplicationContext(), "�� ������� ��������� ����", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "can't upload file", Toast.LENGTH_LONG).show();
 				return;
 			} else {
 				storyPathToFile(path);
@@ -583,62 +581,5 @@ public class PaymentMenuActivity extends Activity {
 		SharedPreferences pref = getSharedPreferences("upload", 0);
 		return pref.getLong("upload_id", -1);
 	}
-	
-	public static String decodeImageFromFile(String path) {
-		int reqWidth = 2048;
-		int reqHeight = 2048;
-		
-	    // First decode with inJustDecodeBounds=true to check dimensions
-	    final BitmapFactory.Options options = new BitmapFactory.Options();
-	    options.inJustDecodeBounds = true;
-	    BitmapFactory.decodeFile(path, options);
 
-	    // Calculate inSampleSize
-	    options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-	    // Decode bitmap with inSampleSize set
-	    options.inJustDecodeBounds = false;
-	    Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-	    
-	    String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-	    OutputStream outStream = null;
-	    File file = new File(extStorageDirectory, "payment.jpg");
-	    if (file.exists()) {
-	    	file.delete();
-	    }
-	    try {
-		    outStream = new FileOutputStream(file);
-		    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-		    outStream.flush();
-		    outStream.close();
-	    }
-	    catch(Exception e)
-	    {
-	    	return null;
-	    }
-	    return file.getAbsolutePath();
-	}
-	
-	public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-		// Raw height and width of image
-		final int height = options.outHeight;
-		final int width = options.outWidth;
-		int inSampleSize = 1;
-
-		if (height > reqHeight || width > reqWidth) {
-
-			int halfHeight = height;
-			int halfWidth = width;
-
-			// Calculate the largest inSampleSize value that is a power of 2 and
-			// keeps both
-			// height and width larger than the requested height and width.
-			while (((halfHeight / inSampleSize) > reqHeight)
-					&& ((halfWidth / inSampleSize) > reqWidth)) {
-				inSampleSize *= 2;
-			}
-		}
-
-		return inSampleSize;
-	}
 }

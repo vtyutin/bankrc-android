@@ -92,7 +92,6 @@ public class PaymentReceiverActivity extends Activity implements JSONResponseLis
 		mForwardImageView.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Payment.clearPreference(PaymentReceiverActivity.this);
 				mPayment.addToPreference(PaymentReceiverActivity.this);
 				
 				Intent intent = new Intent(PaymentReceiverActivity.this, PaymentDescriptionActivity.class);
@@ -109,10 +108,10 @@ public class PaymentReceiverActivity extends Activity implements JSONResponseLis
             isPhysic = true;
         }
 		if (((!isPhysic) && ((mPayment.getCorrInn() == null) || (mPayment.getCorrInn().length() == 0))) ||
-				(mPayment.getCorrBik() == null) || (mPayment.getCorrBik().length() == 0) ||
+				(mPayment.getCorrBankBik() == null) || (mPayment.getCorrBankBik().length() == 0) ||
 				(mPayment.getCorrKpp() == null) || (mPayment.getCorrKpp().length() == 0) ||
 				(mPayment.getCorrName() == null) || (mPayment.getCorrName().length() == 0) ||
-				(mPayment.getCorrAccount() == null) || (mPayment.getCorrAccount().length() == 0)) {
+				(mPayment.getCorrAccountNumber() == null) || (mPayment.getCorrAccountNumber().length() == 0)) {
 			mForwardImageView.setVisibility(View.INVISIBLE);
 			return;
 		}
@@ -139,7 +138,7 @@ public class PaymentReceiverActivity extends Activity implements JSONResponseLis
 			AsyncJSONLoader paymentLoader = new AsyncJSONLoader(this);
 			paymentLoader.registryListener(this);
 			Bundle headerParams = new Bundle();
-			headerParams.putString("Authorization", DataBaseManager.getInstance(this).getActiveToken());
+			headerParams.putString("Authorization", DataBaseManager.getInstance(this).getBankToken());
 			Bundle params = new Bundle();
 			params.putString("requestType", "POST");
 			params.putString("endpoint", "/api/bank/payment/parse");
@@ -190,11 +189,11 @@ public class PaymentReceiverActivity extends Activity implements JSONResponseLis
 					break;
 				case 3:
 					nameTextView.setText(R.string.BIK);
-					valueEditText.setText(payment.getCorrBik());
+					valueEditText.setText(payment.getCorrBankBik());
 					break;
 				case 4:
 					nameTextView.setText(R.string.ACCOUNT_NUMBER);
-					valueEditText.setText(payment.getCorrAccount());
+					valueEditText.setText(payment.getCorrAccountNumber());
 					break;
 				default:
 					break;
@@ -214,10 +213,10 @@ public class PaymentReceiverActivity extends Activity implements JSONResponseLis
 							mPayment.setCorrKpp(s.toString());
 							break;
 						case 3:
-							mPayment.setCorrBik(s.toString());
+							mPayment.setCorrBankBik(s.toString());
 							break;
 						case 4:
-							mPayment.setCorrAccount(s.toString());
+							mPayment.setCorrAccountNumber(s.toString());
 							break;							
 						default:
 							break;
@@ -261,11 +260,11 @@ public class PaymentReceiverActivity extends Activity implements JSONResponseLis
 						isCopyDataAvailable = true;
 					}
 					if (!resultObject.isNull("corr_bank_bik")) {
-						mPayment.setCorrBik(resultObject.getString("corr_bank_bik"));
+						mPayment.setCorrBankBik(resultObject.getString("corr_bank_bik"));
 						isCopyDataAvailable = true;
 					}
 					if (!resultObject.isNull("corr_account")) {
-						mPayment.setCorrAccount(resultObject.getString("corr_account"));
+						mPayment.setCorrAccountNumber(resultObject.getString("corr_account"));
 						isCopyDataAvailable = true;
 					}
 					if (isCopyDataAvailable) {

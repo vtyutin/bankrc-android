@@ -1,5 +1,6 @@
 package com.octoberry.rcbankmobile.chat;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import com.quickblox.module.chat.model.QBAttachment;
@@ -12,6 +13,7 @@ public class ChatMessage extends QBMessage {
 	private String dateSent;
 	private String dialogId;
 	private String id;
+    ArrayList<QBAttachment> attachments = new ArrayList<QBAttachment>();
 	
 	public ChatMessage(String id, String dialogId, String message, Integer senderId, Integer recipientId, String dateSent) {
 		this.dateSent = dateSent;
@@ -21,11 +23,25 @@ public class ChatMessage extends QBMessage {
 		this.senderId = senderId;
 		this.id = id;
 	}
-	
+
+    public ChatMessage clone() {
+        ChatMessage copyMessage = new ChatMessage(id, dialogId, message, senderId, recipientId, dateSent);
+        for (QBAttachment attachment: attachments) {
+            QBAttachment copyAttachment = new QBAttachment(attachment.getType());
+            copyAttachment.setUrl(attachment.getUrl());
+            copyAttachment.setId(attachment.getId());
+            copyMessage.addAttachment(copyAttachment);
+        }
+        return copyMessage;
+    }
+
+    public void addAttachment(QBAttachment attachment) {
+        attachments.add(attachment);
+    }
+
 	@Override
 	public Collection<QBAttachment> getAttachments() {
-		// TODO Auto-generated method stub
-		return null;
+		return attachments;
 	}
 	@Override
 	public String getBody() {
@@ -49,11 +65,13 @@ public class ChatMessage extends QBMessage {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public Integer getRecipientId() {
-		return recipientId;
-	}
-	@Override
+
+    @Override
+    public Integer getRecipientId() {
+        return recipientId;
+    }
+
+    @Override
 	public Integer getSenderId() {
 		return senderId;
 	}

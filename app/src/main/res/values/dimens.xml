@@ -9,4 +9,7 @@
     <dimen name="shadow_width">15dp</dimen>
 
     <integer name="num_cols">1</integer>
+
+    <dimen name="height_list">90dp</dimen>
+    <dimen name="padding_default">8dp</dimen>
 </resources>

@@ -385,7 +385,7 @@ public class CardListAdapter extends ArrayAdapter<Card> {
 					Calendar cal = Calendar.getInstance();
 					fileName = String.format(Locale.getDefault(), "scan_%d-%d-%d %d-%d.jpg", cal.get(Calendar.YEAR),
 							cal.get(Calendar.MONTH), cal.get(Calendar.DATE), cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE));
-					File f = new File(android.os.Environment.getExternalStorageDirectory(), fileName);
+					File f = new File(android.os.Environment.getExternalStorageDirectory() + "/octoberry", fileName);
 					editor.putString(PATH, f.getAbsolutePath());
 					editor.commit();
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));

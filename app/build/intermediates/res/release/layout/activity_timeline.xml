@@ -64,6 +64,12 @@
             </RelativeLayout>
 
             <ImageView
+                android:id="@+id/csvImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/icon_csv" />
+            <ImageView
                 android:id="@+id/chatImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -127,11 +133,20 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <ListView
+    <com.octoberry.rcbankmobile.swipeview.SwipeListView
+        xmlns:swipe="http://schemas.android.com/apk/res-auto"
         android:id="@+id/historyListView"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/titleLayout" />
+        android:layout_below="@id/titleLayout"
+        android:listSelector="#00000000"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        swipe:swipeFrontView="@+id/dataLinearLayout"
+        swipe:swipeBackView="@+id/optionsLinearLayout"
+        swipe:swipeDrawableChecked="@drawable/choice_selected"
+        swipe:swipeDrawableUnchecked="@drawable/choice_unselected"
+        swipe:swipeCloseAllItemsWhenMoveList="true"
+        swipe:swipeMode="both"
+        />
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -52,7 +52,7 @@ public class LoginActivity extends Activity {
 		mPhoneSeparatorImageView = (ImageView)findViewById(R.id.phoneSeparator);
 		
 		mPhoneNumber = DataBaseManager.getInstance(getApplicationContext()).getPhoneNumber();
-		mToken = DataBaseManager.getInstance(getApplicationContext()).getActiveToken();
+		mToken = DataBaseManager.getInstance(getApplicationContext()).getBankToken();
 		Log.d("###", "mPhoneNumber: " + mPhoneNumber);
 		if (mPhoneNumber == null) {
 			mPhoneEditText.setVisibility(View.VISIBLE);
@@ -65,7 +65,7 @@ public class LoginActivity extends Activity {
 		mOpenAccountTextView.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getBaseContext(), AccountCreateActivity.class);
+				Intent intent = new Intent(getBaseContext(), CheckOgrnActivity.class);
 				startActivity(intent);
 				finish();
 			}
@@ -165,16 +165,16 @@ public class LoginActivity extends Activity {
 					if (resultCode == 200) {								
 						JSONObject resultObject = response.getJSONObject("result");
 						if (!resultObject.isNull("bank_token")) {
-                            Log.d("#####", "current token before: " + DataBaseManager.getInstance(getApplicationContext()).getCurrentToken());
-                            Log.d("#####", "active token before: " + DataBaseManager.getInstance(getApplicationContext()).getActiveToken());
+                            Log.d("#####", "current token before: " + DataBaseManager.getInstance(getApplicationContext()).getCrmToken());
+                            Log.d("#####", "active token before: " + DataBaseManager.getInstance(getApplicationContext()).getBankToken());
 
 
-							DataBaseManager.getInstance(getApplicationContext()).setActiveToken(resultObject.getString("bank_token"));
-							DataBaseManager.getInstance(getApplicationContext()).setCurrentToken(resultObject.getString("crm_token"));
+							DataBaseManager.getInstance(getApplicationContext()).setBankToken(resultObject.getString("bank_token"));
+							DataBaseManager.getInstance(getApplicationContext()).setCrmToken(resultObject.getString("crm_token"));
 							DataBaseManager.getInstance(getApplicationContext()).setPhoneNumber(mPhoneNumber);
 
-                            Log.d("#####", "current token after: " + DataBaseManager.getInstance(getApplicationContext()).getCurrentToken());
-                            Log.d("#####", "active token after: " + DataBaseManager.getInstance(getApplicationContext()).getActiveToken());
+                            Log.d("#####", "current token after: " + DataBaseManager.getInstance(getApplicationContext()).getCrmToken());
+                            Log.d("#####", "active token after: " + DataBaseManager.getInstance(getApplicationContext()).getBankToken());
 
                             // log flurry event
                             Map<String, String> articleParams = new HashMap<String, String>();

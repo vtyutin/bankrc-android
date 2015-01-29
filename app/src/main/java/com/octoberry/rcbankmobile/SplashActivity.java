@@ -1,7 +1,5 @@
 package com.octoberry.rcbankmobile;
 
-import java.sql.DatabaseMetaData;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,7 +36,6 @@ public class SplashActivity extends Activity {
 	private final static int BUTTONS_ANIMATION_DURATION = 1000;
 	
 	private ObjectAnimator mLogoAnimator;
-	private String mToken = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +45,6 @@ public class SplashActivity extends Activity {
 		mAlreadyClientTextView = (TextView)findViewById(R.id.alreadyClientTextView);
 		mOpenAccountTextView = (TextView)findViewById(R.id.openAccountTextView);
 		mLogoImageView = (ImageView)findViewById(R.id.logoImageView);
-		
-		mToken = DataBaseManager.getInstance(this).getActiveToken();
 		
 		mLogoAnimator = new ObjectAnimator();
 		mLogoAnimator.setTarget(mLogoImageView);
@@ -74,7 +69,7 @@ public class SplashActivity extends Activity {
 			public void onAnimationCancel(Animator animation) {}
 		});
 		
-		if (DataBaseManager.getInstance(this).getCurrentToken() == null) {
+		if (DataBaseManager.getInstance(this).getBankToken() == null) {
 			mLogoImageView.addOnLayoutChangeListener(new OnLayoutChangeListener() {			
 				@Override
 				public void onLayoutChange(View v, int left, int top, int right,
@@ -84,7 +79,7 @@ public class SplashActivity extends Activity {
 					mLogoImageView.removeOnLayoutChangeListener(this);
 					if (mTextTopPosition != -1) {
 						mLogoAnimator.setFloatValues(0, -(mTextTopPosition / 2) - (mLogoHeight));
-						if (mToken != null) {
+						if (DataBaseManager.getInstance(SplashActivity.this).getBankToken() != null) {
 							mLogoAnimator.start();
 						}
 					}
@@ -99,7 +94,7 @@ public class SplashActivity extends Activity {
 					mOpenAccountTextView.removeOnLayoutChangeListener(this);
 					if (mLogoTopPosition != -1) {
 						mLogoAnimator.setFloatValues(0, -(mTextTopPosition / 2) - (mLogoHeight));
-						if (mToken != null) {
+						if (DataBaseManager.getInstance(SplashActivity.this).getBankToken() != null) {
 							mLogoAnimator.start();
 						}
 					}
@@ -124,17 +119,24 @@ public class SplashActivity extends Activity {
 		mOpenAccountTextView.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getBaseContext(), AccountCreateActivity.class);
+				Intent intent = new Intent(getBaseContext(), CheckOgrnActivity.class);
+                Log.d("###", "stored account status: " + DataBaseManager.getInstance(SplashActivity.this).getAccountStatus());
 				if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus() == null) {
 					if (DataBaseManager.getInstance(SplashActivity.this).getOgrn() != null) {
-						intent = new Intent(getBaseContext(), RegistryActivity.class);
+						intent = new Intent(getBaseContext(), EnterPhoneActivity.class);
 					}
 				} else {
 					if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_DOCUMENTS)) {
-						intent = new Intent(getBaseContext(), AccountActivateActivity.class);
+						intent = new Intent(getBaseContext(), WaitDocumentsActivity.class);
 					} else if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_PREPARED)) {
-						intent = new Intent(getBaseContext(), AccountReadyActivity.class);
-					}
+						intent = new Intent(getBaseContext(), SetPincodeActivity.class);
+					} else if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_CONFIRMED)) {
+                        intent = new Intent(getBaseContext(), WaitDocumentsActivity.class);
+                    } else if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_MEETING)) {
+                        intent = new Intent(getBaseContext(), PrepareDocumentsActivity.class);
+                    } else if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_CREATED)) {
+                        intent = new Intent(getBaseContext(), SetPincodeActivity.class);
+                    }
 				}
 				SharedPreferenceManager.getInstance(SplashActivity.this).clearAllPreferences();
 				startActivity(intent);
@@ -142,15 +144,30 @@ public class SplashActivity extends Activity {
 			}
 		});
 				
-		if (mToken == null) {
+		if (DataBaseManager.getInstance(this).getCrmToken() == null) {
 			AsyncJSONLoader loader = new AsyncJSONLoader(this);
 			loader.registryListener(new RegistryHandler());
 			Bundle params = new Bundle();
 			params.putString("endpoint", "/api/user/register");
 			params.putString("requestType", "POST");
 			loader.execute(params, null, null);		
-		}
+		} else {
+            if (DataBaseManager.getInstance(this).getBankToken() == null) {
+                checkAccountStatus();
+            }
+        }
 	}
+
+    private void checkAccountStatus() {
+        AsyncJSONLoader loader = new AsyncJSONLoader(this);
+        loader.registryListener(new AccountStatusHandler());
+        Bundle params = new Bundle();
+        params.putString("endpoint", "/api/user");
+        params.putString("requestType", "GET");
+        Bundle headerParams = new Bundle();
+        headerParams.putString("Authorization", DataBaseManager.getInstance(this).getCrmToken());
+        loader.execute(params, headerParams, null);
+    }
 	
 	class RegistryHandler implements JSONResponseListener {
 		@Override
@@ -161,7 +178,7 @@ public class SplashActivity extends Activity {
 					int resultCode = response.getInt("status");					
 					if (resultCode == 200) {
 						JSONObject resultObject = response.getJSONObject("result");
-						DataBaseManager.getInstance(SplashActivity.this).setActiveToken(resultObject.getString("crm_token"));
+						DataBaseManager.getInstance(SplashActivity.this).setCrmToken(resultObject.getString("crm_token"));
 						mLogoAnimator.start();
 					}
 				} catch (Exception exc) {
@@ -177,4 +194,34 @@ public class SplashActivity extends Activity {
 			}
 		}
 	}
+
+    class AccountStatusHandler implements JSONResponseListener {
+        @Override
+        public void handleResponse(int result, JSONObject response, String error) {
+            if (response != null) {
+                Log.d("###", response.toString());
+                try {
+                    int resultCode = response.getInt("status");
+                    if (resultCode == 200) {
+                        JSONObject resultObject = response.getJSONObject("result");
+                        if (!resultObject.isNull("organization")) {
+                            JSONObject organization = resultObject.getJSONObject("organization");
+                            Log.d("###", "status: " + organization.getString("status"));
+                            DataBaseManager.getInstance(SplashActivity.this).setAccountStatus(organization.getString("status"));
+                        }
+                    }
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                    if (!response.isNull("message")) {
+                        try {
+                            Toast.makeText(SplashActivity.this, response.getString("message"), Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {}
+                    } else {
+                        Toast.makeText(SplashActivity.this, "getting status failed", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+            mLogoAnimator.start();
+        }
+    }
 }

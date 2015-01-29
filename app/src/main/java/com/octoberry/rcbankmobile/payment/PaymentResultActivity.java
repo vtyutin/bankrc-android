@@ -72,7 +72,7 @@ public class PaymentResultActivity extends Activity implements JSONResponseListe
 		
 		Payment payment = Payment.createFromPreference(this);
 		
-		String token = DataBaseManager.getInstance(this).getActiveToken();
+		String token = DataBaseManager.getInstance(this).getBankToken();
 		
 		AsyncJSONLoader paymentLoader = new AsyncJSONLoader(this);
 		paymentLoader.registryListener(this);
@@ -83,17 +83,15 @@ public class PaymentResultActivity extends Activity implements JSONResponseListe
 		headerParams.putString("Authorization", token);
 		Bundle bodyParams = new Bundle();
 		bodyParams.putString("account_number", payment.getAccountNumber());
-		Double amount = Long.valueOf(payment.getAmountFirst()).doubleValue();
-		amount = amount + (Long.valueOf(payment.getAmountLast()).doubleValue() / 100);
-		bodyParams.putString("amount", "" + amount.doubleValue());
+		bodyParams.putString("amount", "" + payment.getAmount());
 		bodyParams.putString("corr_name", payment.getCorrName());
-		bodyParams.putString("corr_account_number", payment.getCorrAccount());
+		bodyParams.putString("corr_account_number", payment.getCorrAccountNumber());
 		bodyParams.putString("corr_inn", payment.getCorrInn());
 		bodyParams.putString("corr_kpp", payment.getCorrKpp());
-		bodyParams.putString("corr_bank_bik", payment.getCorrBik());
+		bodyParams.putString("corr_bank_bik", payment.getCorrBankBik());
 		bodyParams.putString("description", payment.getDescription());
 		bodyParams.putString("nds_value", "" + payment.getNds());
-		bodyParams.putString("nds_include", "" + (payment.isNdsIncluded() ? 1 : 0));
+		bodyParams.putString("nds_include", "" + (payment.getNds() > 0 ? 1 : 0));
 		paymentLoader.execute(params, headerParams, bodyParams);
 	}
 
