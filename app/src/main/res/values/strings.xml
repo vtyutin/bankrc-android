@@ -32,6 +32,7 @@
     <string name="ADD_TO_CALENDAR">Добавить в календарь</string>
     <string name="REGISTRATION_HINT_MESSAGE">Сообщите нам номер телефона, мы отправим вам СМС-код, чтобы убедиться, что вы человек. Никакого спама, честно.</string>
     <string name="PHONE_NUMBER">Номер телефона</string>
+    <string name="APPROVE_PERSONAL_DATA">Нажимая на кнопку «Открыть счёт», вы даете согласие на обработку персональных данных в соответствии с Законом РФ 152-ФЗ</string>
     <string name="MEETING_POINT_TITLE">МЕСТО ВСТРЕЧИ</string>
     <string name="ERROR_GEODECODING">Не удалось получить координаты встречи.</string>
     <string name="ERROR_DOWNLOADING_FILE">Не удалось загрузить файл.</string>
@@ -150,5 +151,12 @@
     <string name="PAID">ОПЛАЧЕН</string>
     <string name="FROM">ОТ</string>
     <string name="BANK">БАНК</string>
+    <string name="EXIT">Выйти</string>
+    <string name="ACCOUNT_HINT">Перетащите один счёт на другой,\n чтобы перевести деньги</string>
+    <string name="TRANSFER_SUMM">Сумма перевода</string>
+    <string name="SOURCE_ACCOUNT">СЧЁТ СПИСАНИЯ</string>
+    <string name="TARGET_ACCOUNT">СЧЁТ НАЗНАЧЕНИЯ</string>
+    <string name="MAKE_TRANSFER">ПЕРЕВЕСТИ</string>
+    <string name="ENTER_VALID_SUMM">Введите сумму перевода</string>
 
 </resources>

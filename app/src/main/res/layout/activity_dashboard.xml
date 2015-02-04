@@ -20,6 +20,25 @@
         android:visibility="gone" >
     </TextView>
 
+    <ImageView
+        android:id="@+id/accountsImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:padding="10dp"
+        android:src="@drawable/accounts" />
+
+    <ImageView
+        android:id="@+id/actionImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:src="@drawable/action_button" />
+
+
     <RelativeLayout
         android:id="@+id/topRelativeLayout"
         android:layout_width="match_parent"
@@ -59,144 +78,41 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#FFFFFF" />
 
-                <ImageView
-                    android:id="@+id/uploadCredsImageView"
+                <TextView
+                    android:id="@+id/exitTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="20dp"
-                    android:src="@drawable/icon_share_white" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/EXIT"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/innTextView"
+                android:id="@+id/hintTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@id/credsTitleLayout"
-                android:paddingLeft="20dp"
-                android:text="@string/INN"
+                android:text="@string/ACCOUNT_HINT"
                 android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAlignment="center"
+                android:padding="10dp"
                 android:textColor="#CCCCCC"
                 android:textStyle="bold" />
+            <View
+                android:id="@+id/separatorView"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/hintTextView"
+                android:background="#333333"/>
 
-            <TextView
-                android:id="@+id/innValueTextView"
-                android:layout_width="wrap_content"
+            <com.octoberry.rcbankmobile.ui.DynamicListView
+                android:id="@+id/accountListView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/innTextView"
-                android:paddingLeft="20dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#EEEEEE" />
-
-            <TextView
-                android:id="@+id/kppTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/kppValueTextView"
-                android:layout_below="@id/credsTitleLayout"
-                android:paddingRight="20dp"
-                android:text="@string/KPP"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#CCCCCC"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@id/kppValueTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/kppTextView"
-                android:paddingRight="20dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#EEEEEE" />
-
-            <TextView
-                android:id="@+id/accountTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/innValueTextView"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:text="@string/ACCOUNT_NUMBER"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#CCCCCC"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/accountValueTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/accountTextView"
-                android:paddingLeft="20dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#EEEEEE" />
-
-            <TextView
-                android:id="@+id/bankNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/accountValueTextView"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:text="@string/BANK_NAME"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#CCCCCC"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/bankNameValueTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/bankNameTextView"
-                android:paddingLeft="20dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#EEEEEE" />
-
-            <TextView
-                android:id="@+id/corrTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/bankNameValueTextView"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:text="@string/CORR_NUMBER"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#CCCCCC"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/corrValueTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/corrTextView"
-                android:paddingLeft="20dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#EEEEEE" />
-
-            <TextView
-                android:id="@+id/bikTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/corrValueTextView"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:text="@string/BIK"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#CCCCCC"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/bikValueTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/bikTextView"
-                android:paddingLeft="20dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#EEEEEE" />
+                android:layout_below="@id/separatorView">
+             </com.octoberry.rcbankmobile.ui.DynamicListView>
         </RelativeLayout>
 
         <RelativeLayout
@@ -215,7 +131,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:paddingBottom="20dp"
-                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:paddingTop="20dp"
                 android:src="@drawable/chat_white" />
 
@@ -225,16 +141,20 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/chatImageView"
                 android:layout_centerHorizontal="true"
+                android:textAlignment="gravity"
+                android:gravity="center_horizontal"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/balanceTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/nameTextView"
                 android:layout_centerHorizontal="true"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAlignment="gravity"
+                android:gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#FFFFFF" />
         </RelativeLayout>
 
@@ -248,30 +168,12 @@
             android:src="@drawable/icon_account_info" />
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/accountsImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:padding="10dp"
-        android:src="@drawable/accounts" />
-
-    <ImageView
-        android:id="@+id/actionImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:padding="10dp"
-        android:src="@drawable/action_button" />
-
     <ListView
         android:id="@+id/activeListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/actionImageView"
-        android:layout_below="@id/topRelativeLayout"
+        android:layout_below="@+id/topRelativeLayout"
         android:visibility="visible" />
 
     <View
@@ -360,9 +262,130 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/transferRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_centerVertical="true"
+                    android:text="@string/TRANSFER_SUMM"
+                    android:textAlignment="gravity"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#000000" />
+                <ImageView
+                    android:id="@+id/transferCloseImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/icon_close_black"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#999999"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/SOURCE_ACCOUNT"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#333333" />
+            <TextView
+                android:id="@+id/accountSourceTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#999999"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/TARGET_ACCOUNT"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#333333" />
+            <TextView
+                android:id="@+id/accountTargetTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#999999"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/PAYMENT_SUMM"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#333333" />
+            <EditText
+                android:id="@+id/summTextEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:background="#FFFFFF"
+                android:inputType="phone"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#999999"/>
+            <TextView
+                android:id="@+id/makeTransferTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:text="@string/MAKE_TRANSFER"
+                android:textAlignment="gravity"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/transferProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/initMessageLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -415,7 +415,7 @@ public class PrepareDocumentsActivity extends Activity {
             mPrepareDocumentsTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.list_item_arrow, R.drawable.hor_line_grey);
         }
 
-		if (isACPGenerated && isCheckListCompleted && isAllDocumentsUploaded) {
+		if (isACPGenerated && isAllDocumentsUploaded) {
 			mAllDoneTextView.setEnabled(true);
 			mAllDoneTextView.setBackgroundColor(Color.BLACK);
 			mAllDoneTextView.setTextColor(Color.WHITE);

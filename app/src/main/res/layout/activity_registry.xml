@@ -116,6 +116,19 @@
             android:textStyle="bold" />
 
     <TextView
+            android:id="@+id/message2TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/messageTextView"
+            android:layout_toRightOf="@id/progressPanelLayout"
+            android:paddingLeft="20dp"
+            android:paddingTop="25dp"
+            android:text="@string/APPROVE_PERSONAL_DATA"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#CCCCCC"
+            android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/openAccountTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

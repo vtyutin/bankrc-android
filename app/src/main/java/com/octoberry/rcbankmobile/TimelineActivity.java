@@ -80,6 +80,7 @@ public class TimelineActivity extends Activity {
 	private ObjectAnimator mAppearAnimator;
 	private ObjectAnimator mDisappearAnimator;
 	private RelativeLayout mRootLayout;
+    private String mAccountId = "";
 
     private final static int ENTER_LOCK_TIMER_DELAY = 1000; // 1 sec
 
@@ -274,6 +275,10 @@ public class TimelineActivity extends Activity {
 
 		mToken = DataBaseManager.getInstance(getApplicationContext()).getBankToken();
 
+        if (getIntent().getStringExtra("account_id") != null) {
+            mAccountId = "/" + getIntent().getStringExtra("account_id");
+        }
+
         updateDateFilter();
 	}
 
@@ -305,8 +310,8 @@ public class TimelineActivity extends Activity {
         paymentLoader.registryListener(mPaymentListHandler);
         Bundle params2 = new Bundle();
         params2.putString("requestType", "GET");
-        params2.putString("endpoint", String.format("/api/bank/timeline?date_to=%s&date_from=%s",
-                        toDateString, fromDateString));
+        params2.putString("endpoint", String.format("/api/bank/timeline%s?date_to=%s&date_from=%s",
+                        mAccountId, toDateString, fromDateString));
         Bundle headerParams2 = new Bundle();
         headerParams2.putString("Authorization", mToken);
         paymentLoader.execute(params2, headerParams2, null);

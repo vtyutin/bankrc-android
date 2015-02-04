@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import com.flurry.android.FlurryAgent;
 import com.octoberry.rcbankmobile.chat.ChatActivity;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
+import com.octoberry.rcbankmobile.db.SharedPreferenceManager;
 import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
 import com.octoberry.rcbankmobile.net.JSONResponseListener;
 
@@ -151,6 +152,45 @@ public class SetPincodeActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+
+        final SharedPreferenceManager manager = SharedPreferenceManager.getInstance(this);
+        if (!manager.isDocumentsUploaded()) {
+            AsyncJSONLoader loader = new AsyncJSONLoader(SetPincodeActivity.this);
+            loader.registryListener(new JSONResponseListener() {
+                @Override
+                public void handleResponse(int result, JSONObject response, String error) {
+                    if (response != null) {
+                        Log.d("###", response.toString());
+                        try {
+                            int resultCode = response.getInt("status");
+                            if (resultCode == 200) {
+                                manager.setDocumentsUploaded(true);
+                            } else if (resultCode == 403) {
+                                Intent intent = new Intent(SetPincodeActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                // log flurry event
+                                Map<String, String> articleParams = new HashMap<String, String>();
+                                articleParams.put("message", response.getString("message"));
+                                FlurryAgent.logEvent("documents uploaded set failed", articleParams);
+                                Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception exc) {
+
+                        }
+                    }
+                }
+            });
+            Bundle params = new Bundle();
+            params.putString("endpoint", "/api/user");
+            params.putString("requestType", "POST");
+            Bundle headerParams = new Bundle();
+            headerParams.putString("Authorization", DataBaseManager.getInstance(SetPincodeActivity.this).getCrmToken());
+            Bundle bodyParams = new Bundle();
+            bodyParams.putBoolean("is_documents_attached", true);
+            loader.execute(params, headerParams, bodyParams);
+        }
 	}
 
     @Override

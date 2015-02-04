@@ -3,9 +3,6 @@ package com.octoberry.rcbankmobile.payment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
 
 import java.util.ArrayList;
 

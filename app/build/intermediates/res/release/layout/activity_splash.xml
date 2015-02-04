@@ -10,7 +10,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_centerVertical="true"/>
-    
+
+    <TextView android:id="@+id/alreadyClientTextView"
+        android:alpha="0.0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/centerView"
+        android:textAlignment="gravity"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000"
+        android:background="@drawable/frame_black"
+        android:textStyle="bold"
+        android:text="@string/ALREADY_CLIENT"/>
+
     <TextView android:id="@+id/openAccountTextView"
         android:alpha="0.0"
         android:layout_width="match_parent"
@@ -28,24 +46,6 @@
         android:background="#000000"
         android:textStyle="bold"
         android:text="@string/OPEN_ACCOUNT"/>
-    
-    <TextView android:id="@+id/alreadyClientTextView"
-        android:alpha="0.0"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/centerView"        
-        android:textAlignment="gravity"
-        android:gravity="center_horizontal"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000000"
-        android:background="@drawable/frame_black"
-        android:textStyle="bold"
-        android:text="@string/ALREADY_CLIENT"/>
     
     <ImageView
         android:id="@+id/logoImageView" 

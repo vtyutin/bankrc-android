@@ -1,21 +1,14 @@
 package com.octoberry.rcbankmobile.chat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.jivesoftware.smack.SmackException;
-import org.jivesoftware.smack.SmackException.NotLoggedInException;
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.packet.DefaultPacketExtension;
-import org.jivesoftware.smackx.muc.DiscussionHistory;
 import org.json.JSONObject;
 
 import com.octoberry.rcbankmobile.R;
@@ -24,7 +17,6 @@ import com.octoberry.rcbankmobile.gcm.PlayServicesHelper;
 import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
 import com.octoberry.rcbankmobile.net.JSONResponseListener;
 import com.quickblox.core.QBEntityCallback;
-import com.quickblox.core.QBEntityCallbackImpl;
 import com.quickblox.internal.core.exception.QBResponseException;
 import com.quickblox.internal.module.custom.request.QBCustomObjectRequestBuilder;
 import com.quickblox.internal.module.custom.request.QBCustomObjectUpdateBuilder;
@@ -40,8 +32,6 @@ import com.quickblox.module.chat.model.QBChatHistoryMessage;
 import com.quickblox.module.chat.model.QBChatMessage;
 import com.quickblox.module.chat.model.QBDialog;
 import com.quickblox.module.chat.model.QBDialogType;
-import com.quickblox.module.chat.model.QBPresence;
-import com.quickblox.module.messages.QBMessages;
 import com.quickblox.module.users.model.QBUser;
 
 import android.app.Service;
@@ -50,7 +40,6 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -98,9 +87,7 @@ public class ChatService extends Service implements QBMessageListener {
 	@Override
 	public IBinder onBind(Intent arg0) {
 		Log.d("###", "service bind");
-		if (initDone) {
-			//getChat();
-		} else {
+		if (!initDone) {
             if (!initializationInprogress) {
                 startChat();
             }
@@ -141,15 +128,6 @@ public class ChatService extends Service implements QBMessageListener {
 	}
 
     private void startChat() {
-        /*
-        if ((DataBaseManager.getInstance(getApplicationContext()).getChatToken() != null) &&
-                (DataBaseManager.getInstance(getApplicationContext()).getChatPassword() != null)) {
-            mUser = new QBUser(DataBaseManager.getInstance(getApplicationContext()).getChatToken(),
-                    DataBaseManager.getInstance(getApplicationContext()).getChatPassword());
-            mUser.setId(Integer.parseInt(DataBaseManager.getInstance(getApplicationContext()).getChatUserId()));
-            initChatSession();
-        } else {
-        */
             Log.d("###", "token: " + DataBaseManager.getInstance(this).getCrmToken());
             Log.d("###", "phone_number: " + DataBaseManager.getInstance(this).getPhoneNumber());
             AsyncJSONLoader loader = new AsyncJSONLoader(this);
@@ -208,7 +186,7 @@ public class ChatService extends Service implements QBMessageListener {
 			QBChatService.init(this);
 		}		
 		
-		if (QBChatService.getInstance().isLoggedIn() == false) {
+		if (!QBChatService.getInstance().isLoggedIn()) {
             mRequestType = LOGIN_CHAT;
             QBChatService.getInstance().login(mUser, mChatCallbakListener);
 		} else {
@@ -229,7 +207,7 @@ public class ChatService extends Service implements QBMessageListener {
 							dialog.setName("chat");
 							ArrayList<Integer> occupants = new ArrayList<Integer>();												
 							occupants.add(mUser.getId());
-							occupants.add(Integer.valueOf(getResources().getString(R.string.chat_opponent_id)).intValue());							
+							occupants.add(Integer.valueOf(getResources().getString(R.string.chat_opponent_id)));
 							dialog.setOccupantsIds(occupants);
 							dialog.setType(QBDialogType.GROUP);
 							try {
@@ -245,7 +223,7 @@ public class ChatService extends Service implements QBMessageListener {
 							mDialog = dialogs.get(0);
 							ArrayList<Integer> occupants = new ArrayList<Integer>();												
 							occupants.add(mUser.getId());
-							occupants.add(Integer.valueOf(getResources().getString(R.string.chat_opponent_id)).intValue());							
+							occupants.add(Integer.valueOf(getResources().getString(R.string.chat_opponent_id)));
 							mDialog.setOccupantsIds(occupants);
 							QBCustomObjectUpdateBuilder builder = new QBCustomObjectUpdateBuilder();
 							builder.push("occupants_ids", occupants);
@@ -271,8 +249,7 @@ public class ChatService extends Service implements QBMessageListener {
 		if (mChat == null) {
 			mChat = QBChatService.getInstance().getGroupChatManager().createGroupChat(mDialog.getRoomJid());
 		}
-		
-		DiscussionHistory discussionHistory = new DiscussionHistory();
+
         mRequestType = JOIN_CHAT;
         mChat.join(null, mChatCallbakListener);
 	}
@@ -286,7 +263,6 @@ public class ChatService extends Service implements QBMessageListener {
 		@Override
 		protected Void doInBackground(Void... params) {
 			QBCustomObjectRequestBuilder customObjectRequestBuilder = new QBCustomObjectRequestBuilder();
-			//customObjectRequestBuilder.setPagesLimit(10000);
 			try {
 
 				ArrayList<QBChatHistoryMessage> messages = QBChatService.getDialogMessages(mDialog, customObjectRequestBuilder, new Bundle());
@@ -341,7 +317,7 @@ public class ChatService extends Service implements QBMessageListener {
 		}
 	}
 	
-	private void handleErrors(List<String> errors) {
+	private void handleErrors(List errors) {
         initializationInprogress = false;
         String message = String.format("[ERROR] Request has been completed with errors: %s", errors);
 		Log.e("###", message);
@@ -406,7 +382,6 @@ public class ChatService extends Service implements QBMessageListener {
             attachment.setId(attachmentId);
             attachment.setUrl(url);
             message.addAttachment(attachment);
-            Log.d("###", "attachment: " + message.getAttachments().toArray()[0]);
         }
 		try {
 			//sendMessage(chatMessage);
@@ -434,7 +409,6 @@ public class ChatService extends Service implements QBMessageListener {
 
     @Override
     public void processMessage(QBChat chat, QBChatMessage message) {
-        Log.d("###", "processMessage");
         Integer senderId = mUser.getId();
         try {
             senderId = message.getSenderId();
@@ -445,11 +419,9 @@ public class ChatService extends Service implements QBMessageListener {
                 senderId, message.getRecipientId(),
                 "" + new Date().getTime());
 
-        Log.d("###", "process message, attachments: " + message.getAttachments());
         if (message.getAttachments() != null) {
             if (message.getAttachments().iterator().hasNext()) {
                 QBAttachment attachment = message.getAttachments().iterator().next();
-                Log.d("###", "process message, attachment: " + attachment);
                 msg.addAttachment(attachment);
             }
         }
@@ -457,15 +429,7 @@ public class ChatService extends Service implements QBMessageListener {
     }
 
 	public void processMessageInternal(ChatMessage msg) {
-        Log.d("###", "processMessageInternal: message id: " + msg.getId());
-        Log.d("###", "processMessageInternal: message body: " + msg.getBody());
-        Log.d("###", "processMessageInternal: message date sent: " + msg.getDateSent());
-        Log.d("###", "processMessageInternal: message sender id: " + msg.getSenderId());
-        Log.d("###", "processMessageInternal: message recipient id: " + msg.getRecipientId());
-
-        boolean result = dbManager.addMessage(msg, false);
-
-        Log.d("###", "processMessageInternal: add message result: " + result);
+        dbManager.addMessage(msg, false);
 
 		Intent intent = new Intent(BROADCAST_ACTION);
 	    intent.putExtra(MSG_ID, INCOMMING_MESSAGE);

@@ -129,7 +129,6 @@ public class ChatDBManager {
             values.putNull(Columns.ATTACHMENT_TYPE);
             values.putNull(Columns.ATTACHMENT_URL);
         }
-        Log.d("###", "addMessage: idToUpdate: " + idToUpdate);
         if (idToUpdate != -1) {
             if (!forceUpdate) {
                 // message is already exist

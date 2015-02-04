@@ -125,13 +125,16 @@ public class SplashActivity extends Activity {
 					if (DataBaseManager.getInstance(SplashActivity.this).getOgrn() != null) {
 						intent = new Intent(getBaseContext(), EnterPhoneActivity.class);
 					}
-				} else {
+				} else if (SharedPreferenceManager.getInstance(SplashActivity.this).isDocumentsUploaded()) {
+                    intent = new Intent(getBaseContext(), SetPincodeActivity.class);
+                } else {
 					if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_DOCUMENTS)) {
 						intent = new Intent(getBaseContext(), WaitDocumentsActivity.class);
 					} else if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_PREPARED)) {
 						intent = new Intent(getBaseContext(), SetPincodeActivity.class);
 					} else if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_CONFIRMED)) {
-                        intent = new Intent(getBaseContext(), WaitDocumentsActivity.class);
+                        //intent = new Intent(getBaseContext(), WaitDocumentsActivity.class);
+                        intent = new Intent(getBaseContext(), PrepareDocumentsActivity.class);
                     } else if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_MEETING)) {
                         intent = new Intent(getBaseContext(), PrepareDocumentsActivity.class);
                     } else if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_CREATED)) {

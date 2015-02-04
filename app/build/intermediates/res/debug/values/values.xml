@@ -59,12 +59,14 @@
     <string name="ACCOUNT_CREATED">СЧЕТ ОТКРЫТ</string>
     <string name="ACCOUNT_CREATION">ОТКРЫТИЕ СЧЕТА</string>
     <string name="ACCOUNT_DETAILS">Реквизиты счета</string>
+    <string name="ACCOUNT_HINT">Перетащите один счёт на другой,\n чтобы перевести деньги</string>
     <string name="ACCOUNT_NUMBER">РАСЧЁТНЫЙ СЧЁТ</string>
     <string name="ACCOUNT_READY">Ура! Счёт готов!</string>
     <string name="ACCOUNT_WILL_BE_CREATED">Мы подтвердим ваш номер телефона. Счёт будет открыт через несколько минут.</string>
     <string name="ADD_TO_CALENDAR">Добавить в календарь</string>
     <string name="ALL_DONE">ВСЁ ГОТОВО</string>
     <string name="ALREADY_CLIENT">Я УЖЕ КЛИЕНТ</string>
+    <string name="APPROVE_PERSONAL_DATA">Нажимая на кнопку «Открыть счёт», вы даете согласие на обработку персональных данных в соответствии с Законом РФ 152-ФЗ</string>
     <string name="APP_NAME">No Name Bank</string>
     <string name="BACK">Назад</string>
     <string name="BANK">БАНК</string>
@@ -96,12 +98,14 @@
     <string name="ENTER_OGRN">Введите ОГРН</string>
     <string name="ENTER_PASSWORD">Введите пароль для входа в банк.</string>
     <string name="ENTER_PHONE">Введите номер телефона.</string>
+    <string name="ENTER_VALID_SUMM">Введите сумму перевода</string>
     <string name="ERROR_DOWNLOADING_FILE">Не удалось загрузить файл.</string>
     <string name="ERROR_EVENT_ALREADY_CREATED">Событие уже добавлено в календарь.</string>
     <string name="ERROR_FAILED_TO_SAVE_EVENT">Не удалось добавить событие в календарь.</string>
     <string name="ERROR_GEODECODING">Не удалось получить координаты встречи.</string>
     <string name="ERROR_SETUP_EMAIL">Необходимо настроить почтовый аккаунт.</string>
     <string name="EVENT_ADDED_TO_CALENDAR">Событие успешно добавлено.</string>
+    <string name="EXIT">Выйти</string>
     <string name="FAVOURITE_PARTNERS">Здесь будут видны ваши любимые партнёры</string>
     <string name="FIRST_PAGE">Первая страница</string>
     <string name="FROM">ОТ</string>
@@ -112,6 +116,7 @@
     <string name="INN">ИНН</string>
     <string name="KPP">КПП</string>
     <string name="LAST_PAYMENT">последний платёж</string>
+    <string name="MAKE_TRANSFER">ПЕРЕВЕСТИ</string>
     <string formatted="false" name="MEETING_DATA_FORMAT"><![CDATA[Встреча с нашим представителем пройдет <strong>%s</strong> в <strong>%s</strong> по адресу <strong>%s</strong> ]]></string>
     <string name="MEETING_POINT_TITLE">МЕСТО ВСТРЕЧИ</string>
     <string name="MENU_CHAT">Чат с банком</string>
@@ -186,9 +191,12 @@
     <string name="SMS_CODE_CONFIRM">Подтверждение СМС</string>
     <string name="SNILS_PLACEHOLDER">СНИЛС</string>
     <string name="SNILS_TITLE">СНИЛС</string>
+    <string name="SOURCE_ACCOUNT">СЧЁТ СПИСАНИЯ</string>
+    <string name="TARGET_ACCOUNT">СЧЁТ НАЗНАЧЕНИЯ</string>
     <string name="THINK_UP_PIN">Придумайте PIN для входа в банк</string>
     <string name="TITLE_ACTIVITY_PAYMENT_DETAILS">PaymentDetailsActivity</string>
     <string name="TOTAL">ИТОГО</string>
+    <string name="TRANSFER_SUMM">Сумма перевода</string>
     <string name="TRUE">ДА ВСЕ ПРАВИЛЬНО!</string>
     <string name="UPLOAD_DOCUMENTS">Загрузить паспортные данные учредителей</string>
     <string name="UPLOAD_IN_PROGRESS">Файл отправляется на сервер, повторите попытку позже.</string>

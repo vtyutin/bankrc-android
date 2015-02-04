@@ -164,13 +164,23 @@ public class SharedPreferenceManager {
 	
 	public void setSignatureCreated(boolean isCreated) {
 		Editor editor = mPreferences.edit();
-		editor.putBoolean("is_signature_created", true);
+		editor.putBoolean("is_signature_created", isCreated);
 		editor.commit();
 	}
 	
 	public boolean isSignatureCreated() {
 		return mPreferences.getBoolean("is_signature_created", false);
 	}
+
+    public void setDocumentsUploaded(boolean isUploaded) {
+        Editor editor = mPreferences.edit();
+        editor.putBoolean("is_documents_uploaded", isUploaded);
+        editor.commit();
+    }
+
+    public boolean isDocumentsUploaded() {
+        return mPreferences.getBoolean("is_documents_uploaded", false);
+    }
 	
 	public void setCredsTitle(String credsTitle) {
 		Editor editor = mPreferences.edit();

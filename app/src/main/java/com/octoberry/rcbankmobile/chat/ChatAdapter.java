@@ -1,52 +1,40 @@
 package com.octoberry.rcbankmobile.chat;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
-
 import com.octoberry.rcbankmobile.GeneralUtils;
 import com.octoberry.rcbankmobile.R;
 import com.quickblox.module.chat.model.QBAttachment;
-import com.quickblox.module.chat.model.QBChatHistoryMessage;
-import com.quickblox.module.chat.model.QBMessage;
 import com.quickblox.module.users.model.QBUser;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ChatAdapter extends ResourceCursorAdapter {
 
@@ -57,6 +45,8 @@ public class ChatAdapter extends ResourceCursorAdapter {
     private QBUser user;
     int mImagePreviewWidth;
     int mImagePreviewHeight;
+    private static final int HASH_SIZE = 30;
+    MaxSizeHashMap<String, Bitmap> hashMap = new MaxSizeHashMap<String, Bitmap>(HASH_SIZE);
 
     public ChatAdapter(ChatActivity chatActivity, int layout, Cursor c, int flags) {
         super(chatActivity, layout, c, flags);
@@ -103,6 +93,25 @@ public class ChatAdapter extends ResourceCursorAdapter {
                 }
             }
 
+            // check the hash
+            String attachmentId = cursor.getString(cursor.getColumnIndex(ChatDBManager.Columns.ATTACHMENT_ID));
+            Bitmap image = hashMap.get(attachmentId);
+            if (image != null) {
+                holder.attachmentImageView.setImageBitmap(image);
+                holder.attachmentLayout.setVisibility(View.VISIBLE);
+
+                File file = new File(Environment.getExternalStorageDirectory() + "/octoberry/attachments", String.format("attachment_%s.JPG", attachmentId));
+                final String pathToPreview = file.getAbsolutePath();
+
+                holder.attachmentImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mChatActivity.startImagePreview(pathToPreview);
+                    }
+                });
+                return;
+            }
+
             LoadAttachmentAsyncTask loadTask = new LoadAttachmentAsyncTask();
             loadTask.setHolder(holder);
             holder.loadTask = loadTask;
@@ -142,6 +151,7 @@ public class ChatAdapter extends ResourceCursorAdapter {
         @Override
         protected Bitmap doInBackground(QBAttachment... qbAttachments) {
             attachment = qbAttachments[0];
+
             if (attachment.getUrl() == null) {
                 return null;
             }
@@ -178,7 +188,7 @@ public class ChatAdapter extends ResourceCursorAdapter {
             int responseCode = response.getStatusLine().getStatusCode();
             if (responseCode == 200) {
                 HttpEntity fileEntity = response.getEntity();
-                InputStream is = null;
+                InputStream is;
                 try {
                     is = fileEntity.getContent();
                 } catch (IOException e) {
@@ -189,14 +199,18 @@ public class ChatAdapter extends ResourceCursorAdapter {
 
                 File dir = new File(Environment.getExternalStorageDirectory() + "/octoberry/attachments");
                 if (!dir.exists()) {
-                    dir.mkdir();
+                    if (!dir.mkdir()) {
+                        return null;
+                    }
                 }
 
                 File file = new File(Environment.getExternalStorageDirectory() + "/octoberry/attachments", String.format("attachment_%s.JPG", attachment.getId()));
                 pathToPreview = file.getAbsolutePath();
-                FileOutputStream fos = null;
+                FileOutputStream fos;
                 try {
-                    file.createNewFile();
+                    if (!file.createNewFile()) {
+                        return null;
+                    }
                     fos = new FileOutputStream(file);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -223,8 +237,7 @@ public class ChatAdapter extends ResourceCursorAdapter {
 
                 GeneralUtils utils = new GeneralUtils();
                 String thumbnail = utils.decodeImageFromFile(file.getAbsolutePath(), attachment.getId(), mImagePreviewWidth, mImagePreviewHeight);
-                Bitmap bitmap = BitmapFactory.decodeFile(thumbnail);
-                return bitmap;
+                return BitmapFactory.decodeFile(thumbnail);
             } else {
                 Log.e(TAG, "Can't load attachment file. result: " + responseCode);
             }
@@ -235,6 +248,9 @@ public class ChatAdapter extends ResourceCursorAdapter {
         @Override
         protected void onPostExecute(Bitmap image) {
             holder.progressBar.setVisibility(View.GONE);
+            if (image != null) {
+                hashMap.put(attachment.getId(), image);
+            }
             if (isCanceled) {
                 return;
             }
@@ -255,7 +271,7 @@ public class ChatAdapter extends ResourceCursorAdapter {
             holder.contentWithBG.setBackgroundResource(R.drawable.incoming_message_bg);
 
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.contentWithBG.getLayoutParams();
-            layoutParams.gravity = Gravity.RIGHT;
+            layoutParams.gravity = Gravity.END;
             holder.contentWithBG.setLayoutParams(layoutParams);
 
             RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) holder.content.getLayoutParams();
@@ -263,18 +279,18 @@ public class ChatAdapter extends ResourceCursorAdapter {
             lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             holder.content.setLayoutParams(lp);
             layoutParams = (LinearLayout.LayoutParams) holder.txtMessage.getLayoutParams();
-            layoutParams.gravity = Gravity.RIGHT;
+            layoutParams.gravity = Gravity.END;
             layoutParams.bottomMargin = 50;
             holder.txtMessage.setLayoutParams(layoutParams);
 
             layoutParams = (LinearLayout.LayoutParams) holder.txtInfo.getLayoutParams();
-            layoutParams.gravity = Gravity.RIGHT;
+            layoutParams.gravity = Gravity.END;
             holder.txtInfo.setLayoutParams(layoutParams);
         } else {
             holder.contentWithBG.setBackgroundResource(R.drawable.outgoing_message_bg);
 
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.contentWithBG.getLayoutParams();
-            layoutParams.gravity = Gravity.LEFT;
+            layoutParams.gravity = Gravity.START;
             holder.contentWithBG.setLayoutParams(layoutParams);
 
             RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) holder.content.getLayoutParams();
@@ -282,12 +298,12 @@ public class ChatAdapter extends ResourceCursorAdapter {
             lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             holder.content.setLayoutParams(lp);
             layoutParams = (LinearLayout.LayoutParams) holder.txtMessage.getLayoutParams();
-            layoutParams.gravity = Gravity.LEFT;
+            layoutParams.gravity = Gravity.START;
             layoutParams.bottomMargin = 50;
             holder.txtMessage.setLayoutParams(layoutParams);
 
             layoutParams = (LinearLayout.LayoutParams) holder.txtInfo.getLayoutParams();
-            layoutParams.gravity = Gravity.LEFT;
+            layoutParams.gravity = Gravity.START;
             holder.txtInfo.setLayoutParams(layoutParams);
         }
     }
@@ -310,6 +326,7 @@ public class ChatAdapter extends ResourceCursorAdapter {
             try {
                 return DateFormat.format(DATE_FORMAT, Long.parseLong(dateSent)).toString();
             } catch (NumberFormatException nfe) {
+                Log.e(TAG, "invalid time format: " + dateSent);
             }
         }
         return DateFormat.format(DATE_FORMAT, new Date().getTime()).toString();
@@ -324,5 +341,18 @@ public class ChatAdapter extends ResourceCursorAdapter {
         public RelativeLayout attachmentLayout;
         public ProgressBar progressBar;
         public ImageView attachmentImageView;
+    }
+
+    private class MaxSizeHashMap<K, V> extends LinkedHashMap<K, V> {
+        private final int maxSize;
+
+        public MaxSizeHashMap(int maxSize) {
+            this.maxSize = maxSize;
+        }
+
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+            return size() > maxSize;
+        }
     }
 }
