@@ -7,6 +7,7 @@ import com.flurry.android.FlurryAgent;
 import com.octoberry.rcbankmobile.chat.ChatActivity;
 import com.octoberry.rcbankmobile.db.CsvManager;
 import com.octoberry.rcbankmobile.db.DataBaseManager;
+import com.octoberry.rcbankmobile.handler.UserAccount;
 import com.octoberry.rcbankmobile.net.AsyncFileLoader;
 import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
 import com.octoberry.rcbankmobile.net.FileResponseListener;
@@ -27,18 +28,22 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -82,6 +87,10 @@ public class TimelineActivity extends Activity {
 	private RelativeLayout mRootLayout;
     private String mAccountId = "";
 
+    private ArrayList<UserAccount> mAccountList;
+    private AccountListAdapter mAccountAdapter;
+    private ListView mAccountListView;
+
     private final static int ENTER_LOCK_TIMER_DELAY = 1000; // 1 sec
 
 	@Override
@@ -104,6 +113,9 @@ public class TimelineActivity extends Activity {
         mHalfYearTextView = (TextView) findViewById(R.id.halfYearTextView);
         mChatImageView = (ImageView) findViewById(R.id.chatImageView);
         mCsvImageView = (ImageView) findViewById(R.id.csvImageView);
+        mAccountListView = (ListView) findViewById(R.id.accountsListView);
+
+        mAccountListView.setAlpha(1.0f);
 
 		mCloseImageView.setOnClickListener(new OnClickListener() {
 			@Override
@@ -277,6 +289,11 @@ public class TimelineActivity extends Activity {
 
         if (getIntent().getStringExtra("account_id") != null) {
             mAccountId = "/" + getIntent().getStringExtra("account_id");
+        }
+        if (getIntent().getParcelableArrayListExtra("account_list") != null) {
+            mAccountList = getIntent().getParcelableArrayListExtra("account_list");
+            mAccountAdapter = new AccountListAdapter(this);
+            mAccountListView.setAdapter(mAccountAdapter);
         }
 
         updateDateFilter();
@@ -511,6 +528,46 @@ public class TimelineActivity extends Activity {
 
 		}
 	}
+
+    private class AccountListAdapter extends ArrayAdapter<Object> {
+        private final Context context;
+
+        public AccountListAdapter(Context context) {
+            super(context, R.layout.timeline_list_row);
+            this.context = context;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            final TextView rowView;
+            if (convertView == null) {
+                rowView = new TextView(context);
+            } else {
+                rowView = (TextView)convertView;
+            }
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            rowView.setText(mAccountList.get(position).getName());
+            rowView.setBackgroundColor(Color.WHITE);
+            rowView.setAlpha(1.0f);
+            rowView.setPadding(width / 10, width / 15, width / 10, width / 15);
+            rowView.setGravity(Gravity.CENTER_HORIZONTAL);
+            rowView.setTextSize(10.0f);
+            rowView.setTextColor(Color.BLACK);
+
+            return rowView;
+        }
+
+        @Override
+        public int getCount() {
+            if (mAccountList != null) {
+                return mAccountList.size();
+            }
+            return 0;
+        }
+    }
 
 	private class TimelineListAdapter extends ArrayAdapter<Object> {
 		private final Context context;

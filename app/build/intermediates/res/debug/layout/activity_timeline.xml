@@ -6,19 +6,13 @@
     android:background="#FFFFFF"
     tools:context=".TimelineActivity" >
 
-    <RelativeLayout
-        android:id="@+id/titleLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="#000000" >
-
         <LinearLayout
             android:id="@+id/topLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:background="#000000">
 
             <ImageView
                 android:id="@+id/closeImageView"
@@ -78,10 +72,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/periodFilterLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/topLayout"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:background="#000000">
 
             <TextView
                 android:id="@+id/allTextView"
@@ -131,12 +127,11 @@
                 android:textColor="#999999"
                 android:textStyle="bold" />
         </LinearLayout>
-    </RelativeLayout>
 
     <com.octoberry.rcbankmobile.swipeview.SwipeListView
         xmlns:swipe="http://schemas.android.com/apk/res-auto"
         android:id="@+id/historyListView"
-        android:layout_below="@id/titleLayout"
+        android:layout_below="@id/periodFilterLayout"
         android:listSelector="#00000000"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -155,5 +150,34 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/options_top_corner"
+        android:layout_alignBottom="@id/topLayout"
+        android:background="#FFFFFFFF"/>
+    <RelativeLayout
+        android:id="@+id/accountMenuLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topLayout">
+        <ListView
+            android:id="@+id/accountsListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#FFFFFF">
+        </ListView>
+        <RelativeLayout
+            android:id="@+id/shadowLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/accountsListView"
+            android:background="#000000"
+            android:alpha="0.5">
+        </RelativeLayout>
+    </RelativeLayout>
 
 </RelativeLayout><!-- From: file:/E:/Work/Projects/Octoberry/workspace/bankrc-android/app/src/main/res/layout/activity_timeline.xml -->

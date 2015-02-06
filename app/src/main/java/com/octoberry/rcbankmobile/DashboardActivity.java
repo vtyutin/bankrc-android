@@ -376,6 +376,7 @@ public class DashboardActivity extends Activity {
             @Override
             public void onItemClicked(int position) {
                 Intent intent = new Intent(DashboardActivity.this, TimelineActivity.class);
+                intent.putParcelableArrayListExtra("account_list", mAccountsList);
                 intent.putExtra("account_id", mAccountsList.get(position).getId());
                 DashboardActivity.this.startActivity(intent);
             }
@@ -679,18 +680,6 @@ public class DashboardActivity extends Activity {
                 }
             });
 
-            /*
-            final int pos = position;
-            rowView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(DashboardActivity.this, TimelineActivity.class);
-                    intent.putExtra("account_id", mAccountsList.get(pos).getId());
-                    DashboardActivity.this.startActivity(intent);
-                }
-            });
-            */
-
             return rowView;
         }
 
@@ -730,6 +719,9 @@ public class DashboardActivity extends Activity {
                             }
                             if (!resultObject.isNull("id")) {
                                 account.setId(resultObject.getString("id"));
+                            }
+                            if (!resultObject.isNull("name")) {
+                                account.setName(resultObject.getString("name"));
                             }
                             if (!resultObject.isNull("balance")) {
                                 account.setBalance(resultObject.getString("balance"));
