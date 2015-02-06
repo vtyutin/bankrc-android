@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -308,15 +309,18 @@ public class TimelineActivity extends Activity {
             mAccountListView.setAdapter(mAccountAdapter);
 
             String accountName = "";
-            while (mAccountList.iterator().hasNext()) {
-                UserAccount account = mAccountList.iterator().next();
-                if (mAccountId.equals(account.getId())) {
+            Iterator<UserAccount> iterator = mAccountList.iterator();
+            while (iterator.hasNext()) {
+                UserAccount account = iterator.next();
+                Log.d("###", "name: " + account.getName());
+                if (mAccountId.substring(1).equals(account.getId())) {
                     accountName = account.getName();
-                    break;
+                    //break;
                 }
             }
 
             mFilterLayout.setVisibility(View.GONE);
+            mFilterImageView.setVisibility(View.GONE);
             mCurrentAccountTextView.setText(accountName);
             mCurrentAccountTextView.setVisibility(View.VISIBLE);
         }

@@ -645,7 +645,7 @@ public class DashboardActivity extends Activity {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 rowView = inflater.inflate(R.layout.account_creds_list_row, null);
             }
-            ((TextView)rowView.findViewById(R.id.accountNameTextView)).setText(mAccountsList.get(position).getInfo());
+            ((TextView)rowView.findViewById(R.id.accountNameTextView)).setText(mAccountsList.get(position).getName());
             ((TextView)rowView.findViewById(R.id.accountBalanceTextView)).setText(mAccountsList.get(position).getActualBalance() +
                     " " + mAccountsList.get(position).getCurrency());
             if (mAccountsList.get(position).isCard()) {
