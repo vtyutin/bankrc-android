@@ -28,7 +28,6 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
-import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -38,7 +37,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -80,6 +78,10 @@ public class TimelineActivity extends Activity {
     private TextView mMonthTextView;
     private TextView mHalfYearTextView;
     private ImageView mCsvImageView;
+    private TextView mCurrentAccountTextView;
+    private ImageView mTriangleImageView;
+    private RelativeLayout mAccountMenuLayout;
+
     private Timer mTimer = null;
 
 	private ObjectAnimator mAppearAnimator;
@@ -114,6 +116,9 @@ public class TimelineActivity extends Activity {
         mChatImageView = (ImageView) findViewById(R.id.chatImageView);
         mCsvImageView = (ImageView) findViewById(R.id.csvImageView);
         mAccountListView = (ListView) findViewById(R.id.accountsListView);
+        mCurrentAccountTextView = (TextView) findViewById(R.id.currentAccountTextView);
+        mTriangleImageView = (ImageView) findViewById(R.id.triangleImageView);
+        mAccountMenuLayout = (RelativeLayout) findViewById(R.id.accountMenuLayout);
 
         mAccountListView.setAlpha(1.0f);
 
@@ -137,9 +142,7 @@ public class TimelineActivity extends Activity {
             public void onClick(View view) {
                 mFilterLayout.setVisibility(View.INVISIBLE);
                 mFilteredListValues = new Payment[mTimelineListValues.length];
-                for (int index = 0; index < mTimelineListValues.length; index++) {
-                    mFilteredListValues[index] = mTimelineListValues[index];
-                }
+                System.arraycopy(mTimelineListValues, 0, mFilteredListValues, 0, mTimelineListValues.length);
                 mHistoryListAdapter.setTimelineValues(mFilteredListValues);
                 mHistoryListAdapter.notifyDataSetChanged();
             }
@@ -233,9 +236,7 @@ public class TimelineActivity extends Activity {
                 } else {
                     if (mTimelineListValues != null) {
                         mFilteredListValues = new Payment[mTimelineListValues.length];
-                        for (int index = 0; index < mTimelineListValues.length; index++) {
-                            mFilteredListValues[index] = mTimelineListValues[index];
-                        }
+                        System.arraycopy(mTimelineListValues, 0, mFilteredListValues, 0, mTimelineListValues.length);
                         mHistoryListAdapter.setTimelineValues(mFilteredListValues);
                         mHistoryListAdapter.notifyDataSetChanged();
                     }
@@ -282,18 +283,42 @@ public class TimelineActivity extends Activity {
             }
         });
 
+        mCurrentAccountTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mAccountMenuLayout.getVisibility() == View.GONE) {
+                    mAccountMenuLayout.setVisibility(View.VISIBLE);
+                    mTriangleImageView.setVisibility(View.VISIBLE);
+                } else {
+                    mAccountMenuLayout.setVisibility(View.GONE);
+                    mTriangleImageView.setVisibility(View.GONE);
+                }
+            }
+        });
+
         clearSelection();
         mAllTextView.setTextColor(Color.WHITE);
 
 		mToken = DataBaseManager.getInstance(getApplicationContext()).getBankToken();
 
-        if (getIntent().getStringExtra("account_id") != null) {
+        if ((getIntent().getStringExtra("account_id") != null) && (getIntent().getParcelableArrayListExtra("account_list") != null)) {
             mAccountId = "/" + getIntent().getStringExtra("account_id");
-        }
-        if (getIntent().getParcelableArrayListExtra("account_list") != null) {
             mAccountList = getIntent().getParcelableArrayListExtra("account_list");
             mAccountAdapter = new AccountListAdapter(this);
             mAccountListView.setAdapter(mAccountAdapter);
+
+            String accountName = "";
+            while (mAccountList.iterator().hasNext()) {
+                UserAccount account = mAccountList.iterator().next();
+                if (mAccountId.equals(account.getId())) {
+                    accountName = account.getName();
+                    break;
+                }
+            }
+
+            mFilterLayout.setVisibility(View.GONE);
+            mCurrentAccountTextView.setText(accountName);
+            mCurrentAccountTextView.setVisibility(View.VISIBLE);
         }
 
         updateDateFilter();
@@ -602,7 +627,7 @@ public class TimelineActivity extends Activity {
 			TextView descriptionTextView = (TextView) rowView
 					.findViewById(R.id.descriptionTextView);
 
-			numberTextView.setText("" + timelineValues[position].getAmount().doubleValue());
+			numberTextView.setText("" + timelineValues[position].getAmount());
 			dateTextView.setText(timelineValues[position].getDate());
 			nameTextView.setText(timelineValues[position].getCorrName());
             descriptionTextView.setText(timelineValues[position].getDescription());

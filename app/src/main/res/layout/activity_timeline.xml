@@ -34,7 +34,7 @@
                     android:layout_centerHorizontal="true"
                     android:padding="10dp"
                     android:src="@drawable/icon_search_hover" />
-                <FrameLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true">
@@ -60,10 +60,20 @@
                             android:src="@drawable/icon_clear_hover" />
                     </LinearLayout>
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/currentAccountTextView"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Расчетный счет"/>
-                </FrameLayout>
+                        android:text="Расчетный счет"
+                        android:textAlignment="gravity"
+                        android:gravity="center_horizontal"
+                        android:layout_centerInParent="true"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@drawable/notification_more_arrow"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
+                </RelativeLayout>
             </RelativeLayout>
 
             <ImageView
@@ -161,17 +171,19 @@
         android:visibility="gone" />
 
     <ImageView
+        android:id="@+id/triangleImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:src="@drawable/options_top_corner"
         android:layout_alignBottom="@id/topLayout"
-        android:background="#FFFFFFFF"/>
+        android:visibility="gone"/>
     <RelativeLayout
         android:id="@+id/accountMenuLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/topLayout">
+        android:layout_below="@id/topLayout"
+        android:visibility="gone">
         <ListView
             android:id="@+id/accountsListView"
             android:layout_width="match_parent"
