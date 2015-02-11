@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
@@ -115,8 +116,9 @@
         android:id="@+id/confirmLayout"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
         android:layout_below="@id/progressValue"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
         <View
             android:id="@+id/shadowView"
@@ -135,17 +137,10 @@
             android:paddingTop="25dp"
             android:src="@drawable/ok_white" />
 
-        <View
-            android:id="@+id/center"
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_centerInParent="true" />
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_above="@id/confirmImageView"
-            android:layout_below="@id/center"
             android:background="#000000" >
 
             <ImageView
@@ -157,27 +152,11 @@
                 android:padding="10dp"
                 android:src="@drawable/close_white" />
 
-            <View
-                android:id="@+id/sub_center"
-                android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_centerInParent="true" />
-
             <TextView
-                android:id="@+id/targetTextView"
+                android:id="@+id/confirmMessageTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/sub_center"
-                android:gravity="center_vertical|center_horizontal"
-                android:paddingBottom="5dp"
-                android:textAlignment="gravity"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#FFFFFF" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/targetTextView"
+                android:layout_below="@id/closeConfirmImageView"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="@string/CONFIRM_PAYMENT"
                 android:textAlignment="gravity"
@@ -186,18 +165,53 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/targetIdTextView"
+                android:id="@+id/targetTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/sub_center"
+                android:layout_below="@id/confirmMessageTextView"
+                android:gravity="center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:textAlignment="gravity"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/smsCodeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/targetTextView"
                 android:gravity="center_vertical|center_horizontal"
                 android:paddingTop="5dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
                 android:textAlignment="gravity"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#FFFFFF"
                 android:textSize="30dp"
+                android:drawableBottom="@drawable/hor_line_white" />
+
+            <EditText
+                android:id="@+id/smsCodeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/targetTextView"
+                android:gravity="center_horizontal"
+                android:paddingTop="5dp"
+                android:textAlignment="gravity"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF"
+                android:inputType="phone"
+                android:textSize="30dp"
+                android:alpha="0.0"
                 android:textStyle="bold|italic" />
         </RelativeLayout>
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_centerInParent="true"
+        style="@android:style/Widget.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 </RelativeLayout>

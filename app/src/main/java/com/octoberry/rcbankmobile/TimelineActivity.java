@@ -19,7 +19,9 @@ import com.octoberry.rcbankmobile.swipeview.BaseSwipeListViewListener;
 import com.octoberry.rcbankmobile.swipeview.SwipeListView;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.animation.Animator;
@@ -34,6 +36,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -94,7 +97,7 @@ public class TimelineActivity extends Activity {
     private AccountListAdapter mAccountAdapter;
     private ListView mAccountListView;
 
-    private final static int ENTER_LOCK_TIMER_DELAY = 1000; // 1 sec
+    private final static int ENTER_LOCK_TIMER_DELAY = 1500; // 1,5 sec
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +124,12 @@ public class TimelineActivity extends Activity {
         mTriangleImageView = (ImageView) findViewById(R.id.triangleImageView);
         mAccountMenuLayout = (RelativeLayout) findViewById(R.id.accountMenuLayout);
 
-        mAccountListView.setAlpha(1.0f);
+        mAccountMenuLayout.findViewById(R.id.shadowLayout).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
 
 		mCloseImageView.setOnClickListener(new OnClickListener() {
 			@Override
@@ -210,15 +218,13 @@ public class TimelineActivity extends Activity {
                             if (mTimelineListValues != null) {
                                 ArrayList<Payment> list = new ArrayList<Payment>();
                                 for (Payment value : mTimelineListValues) {
-                                    if (((value.getName() != null) && (value.getName().toUpperCase().contains(filter))) ||
+                                    if (((value.getCorrName() != null) && (value.getCorrName().toUpperCase().contains(filter))) ||
                                             ((value.getDescription() != null) && (value.getDescription().toUpperCase().contains(filter)))) {
                                         list.add(value);
                                     }
                                 }
                                 mFilteredListValues = new Payment[list.size()];
-                                for (int index = 0; index < list.size(); index++) {
-                                    mFilteredListValues[index] = list.get(index);
-                                }
+                                System.arraycopy(list.toArray(), 0, mFilteredListValues, 0, list.size());
                                 runOnUiThread(new Runnable() {
                                     public void run() {
                                         mHistoryListAdapter.setTimelineValues(mFilteredListValues);
@@ -567,24 +573,31 @@ public class TimelineActivity extends Activity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             final TextView rowView;
             if (convertView == null) {
                 rowView = new TextView(context);
             } else {
                 rowView = (TextView)convertView;
             }
-            Display display = getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-            int width = size.x;
             rowView.setText(mAccountList.get(position).getName());
             rowView.setBackgroundColor(Color.WHITE);
-            rowView.setAlpha(1.0f);
-            rowView.setPadding(width / 10, width / 15, width / 10, width / 15);
             rowView.setGravity(Gravity.CENTER_HORIZONTAL);
-            rowView.setTextSize(10.0f);
+            rowView.setTextAppearance(context, android.R.style.TextAppearance_Large);
             rowView.setTextColor(Color.BLACK);
+            int padding = (int)(20 * getResources().getDisplayMetrics().density);
+            rowView.setPadding(0, padding, 0, padding);
+
+            rowView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mAccountId = "/" + mAccountList.get(position).getId();
+                    mCurrentAccountTextView.setText(mAccountList.get(position).getName());
+                    mAccountMenuLayout.setVisibility(View.GONE);
+                    mTriangleImageView.setVisibility(View.GONE);
+                    updateDateFilter();
+                }
+            });
 
             return rowView;
         }

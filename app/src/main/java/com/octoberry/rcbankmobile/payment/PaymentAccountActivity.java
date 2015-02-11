@@ -169,12 +169,12 @@ public class PaymentAccountActivity extends Activity {
 			String balance = accountValues[position].getBalance();
 			balanceTextView.setText(formatBalance(balance) + " " + accountValues[position].getCurrency());
 			numberTextView.setText(accountValues[position].getNumber());
-			
+            final int pos = position;
 			rowView.setOnClickListener(new OnClickListener() {				
 				@Override
 				public void onClick(View v) {
 					TextView numberTextView = (TextView) v.findViewById(R.id.numberTextView);
-					mPayment.setAccountNumber(numberTextView.getText().toString());
+					mPayment.setAccountNumber(accountValues[pos].getNumber());
 					mPayment.addToPreference(PaymentAccountActivity.this);
 					
 					Intent intent = new Intent(PaymentAccountActivity.this, PaymentConfirmActivity.class);

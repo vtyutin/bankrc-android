@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class PaymentResultActivity extends Activity implements JSONResponseListener {
+public class PaymentResultActivity extends Activity {
 	TextView mTitleTextView;
 	ImageView mCloseImageView;
 	TextView mResultTextView;
@@ -59,7 +59,7 @@ public class PaymentResultActivity extends Activity implements JSONResponseListe
 		mCancelTextView.setVisibility(View.INVISIBLE);
 		mTellTextView.setVisibility(View.INVISIBLE);
 		mSeparatorImageView.setVisibility(View.INVISIBLE);
-		mProgress.setVisibility(View.VISIBLE);
+		mProgress.setVisibility(View.GONE);
 		
 		mCloseImageView.setOnClickListener(new OnClickListener() {
 			@Override
@@ -69,9 +69,32 @@ public class PaymentResultActivity extends Activity implements JSONResponseListe
 				startActivity(intent);
 			}
 		});
-		
+
+        if (getIntent().getBooleanExtra("success", false)) {
+            mTitleTextView.setText(R.string.PAYMENT_RESULT_SUCCESS);
+            mCloseImageView.setVisibility(View.VISIBLE);
+            mResultImageView.setImageResource(R.drawable.final_ok);
+            mResultTextView.setText(R.string.PAYMENT_SUCCESS);
+            mResultImageView.setVisibility(View.VISIBLE);
+            mResultTextView.setVisibility(View.VISIBLE);
+            mResultMessageTextView.setVisibility(View.INVISIBLE);
+            mSeparatorImageView.setVisibility(View.VISIBLE);
+            mCancelTextView.setVisibility(View.VISIBLE);
+            mTellTextView.setVisibility(View.VISIBLE);
+        } else {
+            mTitleTextView.setText(R.string.PAYMENT_RESULT_FAIL);
+            mCloseImageView.setVisibility(View.VISIBLE);
+            mResultImageView.setImageResource(R.drawable.final_fail);
+            mResultTextView.setText(R.string.PAYMENT_FAIL);
+            mResultImageView.setVisibility(View.VISIBLE);
+            mResultTextView.setVisibility(View.VISIBLE);
+            mResultMessageTextView.setVisibility(View.VISIBLE);
+            mSeparatorImageView.setVisibility(View.INVISIBLE);
+            mCancelTextView.setVisibility(View.VISIBLE);
+            mTellTextView.setVisibility(View.INVISIBLE);
+        }
+		/*
 		Payment payment = Payment.createFromPreference(this);
-		
 		String token = DataBaseManager.getInstance(this).getBankToken();
 		
 		AsyncJSONLoader paymentLoader = new AsyncJSONLoader(this);
@@ -93,8 +116,9 @@ public class PaymentResultActivity extends Activity implements JSONResponseListe
 		bodyParams.putString("nds_value", "" + payment.getNds());
 		bodyParams.putString("nds_include", "" + (payment.getNds() > 0 ? 1 : 0));
 		paymentLoader.execute(params, headerParams, bodyParams);
+		*/
 	}
-
+/*
 	@Override
 	public void handleResponse(int result, JSONObject response, String error) {
 		mProgress.setVisibility(View.GONE);
@@ -153,4 +177,5 @@ public class PaymentResultActivity extends Activity implements JSONResponseListe
         articleParams.put("ogrn", DataBaseManager.getInstance(PaymentResultActivity.this).getOgrn());
         FlurryAgent.logEvent("payment failed", articleParams);
 	}
+	*/
 }

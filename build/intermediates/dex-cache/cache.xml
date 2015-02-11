@@ -2,81 +2,81 @@
 <items version="2" >
 
     <item
-        jar="/TVV/Android/workspace/bankrc-android/app/libs/deploygatesdk.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="c5616ae6242effdbc9309f297ca69a456e7fe448">
-        <dex dex="/TVV/Android/workspace/bankrc-android/app/build/intermediates/pre-dexed/debug/deploygatesdk-38e788a444ab01bb3b1e6b0bd3f4340dfb889229.jar" />
-    </item>
-    <item
-        jar="/Users/macbookair/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpmime/4.3.5/1dd0d38df9c6d21e893f2e52403f1cd99e91cd81/httpmime-4.3.5.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="1dd0d38df9c6d21e893f2e52403f1cd99e91cd81">
-        <dex dex="/TVV/Android/workspace/bankrc-android/app/build/intermediates/pre-dexed/debug/httpmime-4.3.5-449845c192133fd0ff56cadcd1b05b2f7c87b28f.jar" />
-    </item>
-    <item
-        jar="/TVV/Android/workspace/bankrc-android/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/libs/internal_impl-21.0.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
-        <dex dex="/TVV/Android/workspace/bankrc-android/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.0-58a91c8fccd02736db1560eb87d9d67dcca17acd.jar" />
-    </item>
-    <item
-        jar="/TVV/Android/workspace/bankrc-android/app/libs/FlurryAnalytics-5.0.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="9143ea9b390b4f6eeee3673533402669de23ab7e">
-        <dex dex="/TVV/Android/workspace/bankrc-android/app/build/intermediates/pre-dexed/debug/FlurryAnalytics-5.0.0-0834dab230417d5f62ee56ad6757eed7c2fb93ae.jar" />
-    </item>
-    <item
-        jar="/Users/macbookair/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient-android/4.3.5/82edcaec6c7b4599eaeaaf11167ceea41db42f33/httpclient-android-4.3.5.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="82edcaec6c7b4599eaeaaf11167ceea41db42f33">
-        <dex dex="/TVV/Android/workspace/bankrc-android/app/build/intermediates/pre-dexed/debug/httpclient-android-4.3.5-2060060f0d688d03d54c02b8d77167ce90bcb875.jar" />
-    </item>
-    <item
-        jar="/TVV/Android/workspace/bankrc-android/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="686344a780033e4ba22b926cd225f8d4941247e6">
-        <dex dex="/TVV/Android/workspace/bankrc-android/app/build/intermediates/pre-dexed/debug/classes-ed33d32edf2c58085926b9937bcb8fe2779702b0.jar" />
-    </item>
-    <item
-        jar="/Users/macbookair/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jar="C:\Users\ruinvtyu.GLOBAL\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
-        <dex dex="/TVV/Android/workspace/bankrc-android/app/build/intermediates/pre-dexed/debug/library-2.4.0-47903858c61b15e8744997451060f4859825bf53.jar" />
+        <dex dex="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\pre-dexed\debug\library-2.4.0-bc0bdf31771bc7a83b2f9284a97ab4d63d68a4a0.jar" />
     </item>
     <item
-        jar="/TVV/Android/workspace/bankrc-android/app/libs/SDK-android.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2c32d029bc281f8e78e57753138b7b3a887ee367">
-        <dex dex="/TVV/Android/workspace/bankrc-android/app/build/intermediates/pre-dexed/debug/SDK-android-ee27be93e7ac5e21ca4509c370b8d603547361ea.jar" />
-    </item>
-    <item
-        jar="/TVV/Android/workspace/bankrc-android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
-        <dex dex="/TVV/Android/workspace/bankrc-android/app/build/intermediates/pre-dexed/debug/classes-ee69f3e9abb6b5936ceac90f1928c88a3cbd1807.jar" />
-    </item>
-    <item
-        jar="/Users/macbookair/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.0/support-annotations-21.0.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
-        <dex dex="/TVV/Android/workspace/bankrc-android/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.0-208b14bad020e3f27f25676a89e16ba2c7ab765d.jar" />
-    </item>
-    <item
-        jar="/TVV/Android/workspace/bankrc-android/app/libs/slidemenu-library.jar"
+        jar="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\libs\slidemenu-library.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="fec6b7502f8e325071bb642f37acd94125296f08">
-        <dex dex="/TVV/Android/workspace/bankrc-android/app/build/intermediates/pre-dexed/debug/slidemenu-library-d9aea9e4e951e8aaa47ba90680c325fda5922250.jar" />
+        <dex dex="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\pre-dexed\debug\slidemenu-library-b2a10a752126e9bf34423d54c3589215ac6126cf.jar" />
+    </item>
+    <item
+        jar="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\libs\internal_impl-21.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
+        <dex dex="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-e9b6471c8cbfcef3f64b0728f77a917903447077.jar" />
+    </item>
+    <item
+        jar="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\pre-dexed\debug\classes-b7524df8b52bdcad737d790944316e1c95649422.jar" />
+    </item>
+    <item
+        jar="C:\Users\ruinvtyu.GLOBAL\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
+        <dex dex="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-870227f7be27b6424ef9fbe31115f43211d0010e.jar" />
+    </item>
+    <item
+        jar="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\libs\SDK-android.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c32d029bc281f8e78e57753138b7b3a887ee367">
+        <dex dex="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\pre-dexed\debug\SDK-android-340b05b3f58e4c3356361ae44e33fc34483fb07e.jar" />
+    </item>
+    <item
+        jar="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\libs\deploygatesdk.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c5616ae6242effdbc9309f297ca69a456e7fe448">
+        <dex dex="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\pre-dexed\debug\deploygatesdk-640d612c580783b031b0f1e12851afdaaf44639f.jar" />
+    </item>
+    <item
+        jar="C:\Users\ruinvtyu.GLOBAL\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpmime\4.3.5\1dd0d38df9c6d21e893f2e52403f1cd99e91cd81\httpmime-4.3.5.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1dd0d38df9c6d21e893f2e52403f1cd99e91cd81">
+        <dex dex="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\pre-dexed\debug\httpmime-4.3.5-1b871f3bd3612b5ca64a5601776b7f8f45729a75.jar" />
+    </item>
+    <item
+        jar="C:\Users\ruinvtyu.GLOBAL\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient-android\4.3.5\82edcaec6c7b4599eaeaaf11167ceea41db42f33\httpclient-android-4.3.5.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="82edcaec6c7b4599eaeaaf11167ceea41db42f33">
+        <dex dex="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\pre-dexed\debug\httpclient-android-4.3.5-f5c57c1cc97c11bd1bcca9e34dcbade2f4bf5f85.jar" />
+    </item>
+    <item
+        jar="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="686344a780033e4ba22b926cd225f8d4941247e6">
+        <dex dex="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\pre-dexed\debug\classes-97b32441dd47fa31e5a8b549ceb289685432ef08.jar" />
+    </item>
+    <item
+        jar="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\libs\FlurryAnalytics-5.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9143ea9b390b4f6eeee3673533402669de23ab7e">
+        <dex dex="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\build\intermediates\pre-dexed\debug\FlurryAnalytics-5.0.0-e2f3efec22b36aa471a63f2c48b45951e704be61.jar" />
     </item>
 
 </items>

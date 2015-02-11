@@ -26,6 +26,7 @@ import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnLayoutChangeListener;
 import android.view.View.OnTouchListener;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -151,21 +153,24 @@ public class DashboardActivity extends Activity {
             startActivity(intent);
             finish();
         }
-		
+
 		mDetector = new GestureDetectorCompat(this, mSimpleGestureListener);
-		
+
+        mTopRelativeLayout.setVisibility(View.INVISIBLE);
+
 		mTopRelativeLayout.addOnLayoutChangeListener(new OnLayoutChangeListener() {			
 			@Override
 			public void onLayoutChange(View v, int left, int top, int right,
 					int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
 				mTopViewHeight = bottom - top;
 				if (isDataReceived) {
-					mTopRelativeLayout.removeOnLayoutChangeListener(this);					
-				} 
+					mTopRelativeLayout.removeOnLayoutChangeListener(this);
+                    mTopRelativeLayout.setVisibility(View.VISIBLE);
+				}
 				initViews();
 			}
 		});
-		
+
 		mAccountDetailsLayout.addOnLayoutChangeListener(new OnLayoutChangeListener() {			
 			@Override
 			public void onLayoutChange(View v, int left, int top, int right,
@@ -185,7 +190,7 @@ public class DashboardActivity extends Activity {
 				}
 			}
 		});
-		
+
 		mTopRelativeLayout.setOnTouchListener(new OnTouchListener() {			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {	
@@ -381,7 +386,7 @@ public class DashboardActivity extends Activity {
                 DashboardActivity.this.startActivity(intent);
             }
         });
-		
+
 		AsyncJSONLoader loader = new AsyncJSONLoader(this);		
 		loader.registryListener(new AccountDataHandler());
 		Bundle params = new Bundle();
@@ -390,7 +395,7 @@ public class DashboardActivity extends Activity {
 		headerParams.putString("Authorization", mBankToken);
 		params.putString("endpoint", "/api/bank/account");										
 		loader.execute(params, headerParams, null);
-		
+
 		AsyncJSONLoader corrLoader = new AsyncJSONLoader(DashboardActivity.this);
 		corrLoader.registryListener(new CommonCorrHandler());
 		Bundle corrParams = new Bundle();
@@ -399,7 +404,7 @@ public class DashboardActivity extends Activity {
 		Bundle corrHeaderParams = new Bundle();
 		corrHeaderParams.putString("Authorization", mBankToken);
 		corrLoader.execute(corrParams, corrHeaderParams, null);
-		
+
 		/* get credentials */		
 		File f = new File(android.os.Environment.getExternalStorageDirectory() + "/octoberry", "credentials.pdf");
 		if (f.exists() == false) {			
@@ -432,12 +437,10 @@ public class DashboardActivity extends Activity {
 	}
 	
 	private void initViews() {				
-    	mTopInitPosition = -(mTopViewHeight - mAccountViewHeight - mHandleImageViewHeight);										
+    	mTopInitPosition = -(mTopViewHeight - mAccountViewHeight - mHandleImageViewHeight);
 		RelativeLayout.LayoutParams relativeParams = (RelativeLayout.LayoutParams)mTopRelativeLayout.getLayoutParams();
 		relativeParams.setMargins(0, mTopInitPosition, 0, 0);
     	mTopRelativeLayout.setLayoutParams(relativeParams);
-    	findViewById(R.id.rootLayout).requestLayout();
-    	mTopRelativeLayout.requestLayout();
 	}
 	
 	private void expandCredsView() {
@@ -446,15 +449,15 @@ public class DashboardActivity extends Activity {
     	ValueAnimator vAnimator = ValueAnimator.ofInt(paddingInitValue, paddingTargetValue);
     	vAnimator.setDuration(500);
     	vAnimator.addUpdateListener(new AnimatorUpdateListener() {
-			@Override
-			public void onAnimationUpdate(ValueAnimator animation) {
-				int padding = ((Integer)animation.getAnimatedValue());
-				float offset = ((float)padding) / (-mTopInitPosition);				
-				mAccountDetailsLayout.setAlpha(1.0f - offset);													
-				mCredsDetailsLayout.setAlpha(offset);
-				mTopRelativeLayout.setPadding(0, padding, 0, 0);
-			}
-		});
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int padding = ((Integer) animation.getAnimatedValue());
+                float offset = ((float) padding) / (-mTopInitPosition);
+                mAccountDetailsLayout.setAlpha(1.0f - offset);
+                mCredsDetailsLayout.setAlpha(offset);
+                mTopRelativeLayout.setPadding(0, padding, 0, 0);
+            }
+        });
     	vAnimator.start();
 	}
 	
@@ -750,6 +753,7 @@ public class DashboardActivity extends Activity {
 					exc.printStackTrace();
 				}
 			}
+
             AsyncJSONLoader orgLoader = new AsyncJSONLoader(DashboardActivity.this);
             orgLoader.registryListener(new OrganizationHandler());
             Bundle orgParams = new Bundle();

@@ -375,7 +375,7 @@ public class Payment {
 		payment.setOperType(pref.getString("operType", null));
 		payment.setInn(pref.getString("inn", null));
 		payment.setBankPlace(pref.getString("bankPlace", null));
-        payment.setCorrAccountNumber(pref.getString("accountNumber", null));
+        payment.setAccountNumber(pref.getString("accountNumber", null));
         payment.setAccountId(pref.getString("accountId", null));
         payment.setStatus(pref.getString("status", null));
         payment.setBankCorrAccount(pref.getString("bankCorrAccount", null));
@@ -385,7 +385,7 @@ public class Payment {
         payment.setCorrInn(pref.getString("corrInn", null));
         payment.setCorrCutName(pref.getString("corrCutName", null));
         payment.setBankBik(pref.getString("bankBik", null));
-        payment.setAccountNumber(pref.getString("corrAccountNumber", null));
+        payment.setCorrAccountNumber(pref.getString("corrAccountNumber", null));
         payment.setUrgentType(pref.getString("urgentType", null));
         payment.setCorrBankPlace(pref.getString("corrBankPlace", null));
         payment.setCorrKpp(pref.getString("corrKpp", null));
