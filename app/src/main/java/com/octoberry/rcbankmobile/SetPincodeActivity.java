@@ -13,13 +13,17 @@ import com.octoberry.rcbankmobile.db.SharedPreferenceManager;
 import com.octoberry.rcbankmobile.net.AsyncJSONLoader;
 import com.octoberry.rcbankmobile.net.JSONResponseListener;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,7 +42,10 @@ public class SetPincodeActivity extends Activity {
 	private TextView mPin2TextView;
 	private TextView mPin3TextView;
 	private TextView mPin4TextView;
+    private TextView mPin5TextView;
+    private TextView mPin6TextView;
 	private TextView mCreatePinTextView;
+    private TextView mThinkUpPINTextView;
 	private EditText mPinEditText;
 	private LinearLayout mPinLinearLayout;
 	private ProgressBar mProgressBar;
@@ -52,6 +59,8 @@ public class SetPincodeActivity extends Activity {
 
 	
 	private String mPinCode = "";
+    private String mFirstPinCode = "";
+    private boolean isInitialInput = true;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +69,13 @@ public class SetPincodeActivity extends Activity {
 		
 		mMeetingMessageTextView = (TextView)findViewById(R.id.meetingMessageTextView);
 		mMeetingDetailsTextView = (TextView)findViewById(R.id.meetingDetailsTextView);
+        mThinkUpPINTextView = (TextView)findViewById(R.id.thinkUpPINTextView);
 		mPin1TextView = (TextView)findViewById(R.id.pin1TextView);
 		mPin2TextView = (TextView)findViewById(R.id.pin2TextView);
 		mPin3TextView = (TextView)findViewById(R.id.pin3TextView);
 		mPin4TextView = (TextView)findViewById(R.id.pin4TextView);
+        mPin5TextView = (TextView)findViewById(R.id.pin5TextView);
+        mPin6TextView = (TextView)findViewById(R.id.pin6TextView);
 		mCreatePinTextView = (TextView)findViewById(R.id.createPINTextView);
 		mPinLinearLayout = (LinearLayout)findViewById(R.id.pinLinearLayout);
 		mPinEditText = (EditText)findViewById(R.id.pinEditText);
@@ -82,6 +94,10 @@ public class SetPincodeActivity extends Activity {
 				mPin3TextView.setText(null);
 				mPin4TextView.setBackgroundResource(R.drawable.pin_input_empty);
 				mPin4TextView.setText(null);
+                mPin5TextView.setBackgroundResource(R.drawable.pin_input_empty);
+                mPin5TextView.setText(null);
+                mPin6TextView.setBackgroundResource(R.drawable.pin_input_empty);
+                mPin6TextView.setText(null);
 				mCreatePinTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
 				mCreatePinTextView.setTextColor(Color.parseColor("#333333"));
 				mCreatePinTextView.setEnabled(false);
@@ -106,10 +122,27 @@ public class SetPincodeActivity extends Activity {
 						mPin3TextView.setBackgroundResource(R.drawable.pin_input_fill);
 						mPin4TextView.setBackgroundResource(R.drawable.pin_input_empty);
 						mPin4TextView.setText(mPinCode.substring(3));
-						mCreatePinTextView.setBackgroundColor(Color.BLACK);
-						mCreatePinTextView.setTextColor(Color.WHITE);
-						mCreatePinTextView.setEnabled(true);
-						break;	
+						break;
+                    case 5:
+                        mPin1TextView.setBackgroundResource(R.drawable.pin_input_fill);
+                        mPin2TextView.setBackgroundResource(R.drawable.pin_input_fill);
+                        mPin3TextView.setBackgroundResource(R.drawable.pin_input_fill);
+                        mPin4TextView.setBackgroundResource(R.drawable.pin_input_fill);
+                        mPin5TextView.setBackgroundResource(R.drawable.pin_input_empty);
+                        mPin5TextView.setText(mPinCode.substring(4));
+                        break;
+                    case 6:
+                        mPin1TextView.setBackgroundResource(R.drawable.pin_input_fill);
+                        mPin2TextView.setBackgroundResource(R.drawable.pin_input_fill);
+                        mPin3TextView.setBackgroundResource(R.drawable.pin_input_fill);
+                        mPin4TextView.setBackgroundResource(R.drawable.pin_input_fill);
+                        mPin5TextView.setBackgroundResource(R.drawable.pin_input_fill);
+                        mPin6TextView.setBackgroundResource(R.drawable.pin_input_empty);
+                        mPin6TextView.setText(mPinCode.substring(5));
+                        mCreatePinTextView.setBackgroundColor(Color.BLACK);
+                        mCreatePinTextView.setTextColor(Color.WHITE);
+                        mCreatePinTextView.setEnabled(true);
+                        break;
 				}
 			}
 			
@@ -126,9 +159,48 @@ public class SetPincodeActivity extends Activity {
 		mCreatePinTextView.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Log.d("###", "pin: " + mPinCode.length());
-				if (mPinCode.length() == 4) {
-					mPin4TextView.setBackgroundResource(R.drawable.pin_input_fill);
+				Log.d("###", "pin: " + mPinCode);
+                if (isInitialInput) {
+                    mFirstPinCode = mPinCode;
+                    mPinCode = "";
+                    isInitialInput = false;
+                    mPinEditText.setText("");
+                    mThinkUpPINTextView.setText(getResources().getString(R.string.REPEAT_PIN));
+                    mCreatePinTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
+                    mCreatePinTextView.setTextColor(Color.parseColor("#333333"));
+                    mCreatePinTextView.setEnabled(false);
+
+                    mPinEditText.setVisibility(View.VISIBLE);
+                    mPinEditText.setFocusableInTouchMode(true);
+                    mPinEditText.requestFocus();
+                    final InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.showSoftInput(mPinEditText, InputMethodManager.SHOW_IMPLICIT);
+                    return;
+                } else if (!mPinCode.equals(mFirstPinCode)) {
+                    Animation shake = AnimationUtils.loadAnimation(SetPincodeActivity.this, R.anim.shake);
+                    mPinLinearLayout.startAnimation(shake);
+                    Vibrator vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    vib.vibrate(500);
+
+                    mFirstPinCode = "";
+                    mPinCode = "";
+                    isInitialInput = true;
+                    mPinEditText.setText("");
+                    mThinkUpPINTextView.setText(getResources().getString(R.string.THINK_UP_PIN));
+                    mCreatePinTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
+                    mCreatePinTextView.setTextColor(Color.parseColor("#333333"));
+                    mCreatePinTextView.setEnabled(false);
+
+                    mPinEditText.setVisibility(View.VISIBLE);
+                    mPinEditText.setFocusableInTouchMode(true);
+                    mPinEditText.requestFocus();
+                    final InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.showSoftInput(mPinEditText, InputMethodManager.SHOW_IMPLICIT);
+                    return;
+                }
+
+				if (mPinCode.length() == 6) {
+					mPin6TextView.setBackgroundResource(R.drawable.pin_input_fill);
 					mProgressBar.setVisibility(View.VISIBLE);
 					
 					AsyncJSONLoader loader = new AsyncJSONLoader(SetPincodeActivity.this);
@@ -262,7 +334,7 @@ public class SetPincodeActivity extends Activity {
 						}
 						
 						if (DataBaseManager.ACCOUNT_STATUS_CREATED.equals(organization.get("status"))) {
-							mMeetingDetailsTextView.setVisibility(View.GONE);
+                        	mMeetingDetailsTextView.setVisibility(View.GONE);
 							mMeetingMessageTextView.setVisibility(View.GONE);
 							mPinLinearLayout.setVisibility(View.VISIBLE);
 							needToRequest = false;

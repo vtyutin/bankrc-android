@@ -133,8 +133,8 @@ public class SplashActivity extends Activity {
 					} else if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_PREPARED)) {
 						intent = new Intent(getBaseContext(), SetPincodeActivity.class);
 					} else if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_CONFIRMED)) {
-                        //intent = new Intent(getBaseContext(), WaitDocumentsActivity.class);
-                        intent = new Intent(getBaseContext(), PrepareDocumentsActivity.class);
+                        intent = new Intent(getBaseContext(), WaitDocumentsActivity.class);
+                        //intent = new Intent(getBaseContext(), SetPincodeActivity.class);
                     } else if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_MEETING)) {
                         intent = new Intent(getBaseContext(), PrepareDocumentsActivity.class);
                     } else if (DataBaseManager.getInstance(SplashActivity.this).getAccountStatus().equals(DataBaseManager.ACCOUNT_STATUS_CREATED)) {

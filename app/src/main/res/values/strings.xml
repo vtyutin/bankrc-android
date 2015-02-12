@@ -129,6 +129,7 @@
     <string name="FIRST_PAGE">Первая страница</string>
     <string name="SECOND_PAGE">Прописка</string>
     <string name="THINK_UP_PIN">Придумайте PIN для входа в банк</string>
+    <string name="REPEAT_PIN">Введите PIN еще раз</string>
     <string name="WE_WILL_ASSIGN_MEETING">Мы обсудим и назначим встречу на удобное время.</string>
     <string name="CREATE_PIN">СОЗДАТЬ ПИН-КОД</string>
     <string name="MEETING_DATA_FORMAT" formatted="false"><![CDATA[Встреча с нашим представителем пройдет <strong>%s</strong> в <strong>%s</strong> по адресу <strong>%s</strong> ]]></string>
