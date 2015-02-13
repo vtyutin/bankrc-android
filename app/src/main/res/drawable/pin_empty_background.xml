@@ -1,0 +1,5 @@
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/pin_input_empty"
+    android:gravity="fill|center"
+    android:scaleType="fitXY"/>
+

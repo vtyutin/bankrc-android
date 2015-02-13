@@ -1,7 +1,10 @@
 package com.octoberry.rcbankmobile;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.json.JSONObject;
@@ -20,10 +23,12 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,6 +49,12 @@ public class SetPincodeActivity extends Activity {
 	private TextView mPin4TextView;
     private TextView mPin5TextView;
     private TextView mPin6TextView;
+    private ImageView mPin1ImageView;
+    private ImageView mPin2ImageView;
+    private ImageView mPin3ImageView;
+    private ImageView mPin4ImageView;
+    private ImageView mPin5ImageView;
+    private ImageView mPin6ImageView;
 	private TextView mCreatePinTextView;
     private TextView mThinkUpPINTextView;
 	private EditText mPinEditText;
@@ -56,7 +67,7 @@ public class SetPincodeActivity extends Activity {
 	private static final int SECUND = 1000;
 	private static final int CHECK_ACCOUNT_STATUS_PERIOD = 30 * SECUND;
 	
-
+    private ArrayList<ImageView> mPinImageList = new ArrayList<ImageView>();
 	
 	private String mPinCode = "";
     private String mFirstPinCode = "";
@@ -76,68 +87,57 @@ public class SetPincodeActivity extends Activity {
 		mPin4TextView = (TextView)findViewById(R.id.pin4TextView);
         mPin5TextView = (TextView)findViewById(R.id.pin5TextView);
         mPin6TextView = (TextView)findViewById(R.id.pin6TextView);
+        mPinImageList.add((ImageView)findViewById(R.id.pin1ImageView));
+        mPinImageList.add((ImageView)findViewById(R.id.pin2ImageView));
+        mPinImageList.add((ImageView)findViewById(R.id.pin3ImageView));
+        mPinImageList.add((ImageView)findViewById(R.id.pin4ImageView));
+        mPinImageList.add((ImageView)findViewById(R.id.pin5ImageView));
+        mPinImageList.add((ImageView)findViewById(R.id.pin6ImageView));
 		mCreatePinTextView = (TextView)findViewById(R.id.createPINTextView);
 		mPinLinearLayout = (LinearLayout)findViewById(R.id.pinLinearLayout);
 		mPinEditText = (EditText)findViewById(R.id.pinEditText);
 		mProgressBar = (ProgressBar)findViewById(R.id.progressBar);
 		mChatImageView = (ImageView)findViewById(R.id.chatImageView);
+
+        mPinEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                closePins(mPinCode.length());
+                return false;
+            }
+        });
 		
 		mPinEditText.addTextChangedListener(new TextWatcher() {			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				mPinCode = s.toString();
-				mPin1TextView.setBackgroundResource(R.drawable.pin_input_empty);
 				mPin1TextView.setText(null);
-				mPin2TextView.setBackgroundResource(R.drawable.pin_input_empty);
 				mPin2TextView.setText(null);
-				mPin3TextView.setBackgroundResource(R.drawable.pin_input_empty);
 				mPin3TextView.setText(null);
-				mPin4TextView.setBackgroundResource(R.drawable.pin_input_empty);
 				mPin4TextView.setText(null);
-                mPin5TextView.setBackgroundResource(R.drawable.pin_input_empty);
                 mPin5TextView.setText(null);
-                mPin6TextView.setBackgroundResource(R.drawable.pin_input_empty);
                 mPin6TextView.setText(null);
 				mCreatePinTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
 				mCreatePinTextView.setTextColor(Color.parseColor("#333333"));
 				mCreatePinTextView.setEnabled(false);
+                closePins(mPinCode.length() - 1);
 				switch (mPinCode.length()) {
 					case 1:
-						mPin1TextView.setBackgroundResource(R.drawable.pin_input_empty);
 						mPin1TextView.setText(mPinCode);
 						break;
 					case 2:
-						mPin1TextView.setBackgroundResource(R.drawable.pin_input_fill);
 						mPin2TextView.setText(mPinCode.substring(1));
 						break;
 					case 3:
-						mPin1TextView.setBackgroundResource(R.drawable.pin_input_fill);
-						mPin2TextView.setBackgroundResource(R.drawable.pin_input_fill);
-						mPin3TextView.setBackgroundResource(R.drawable.pin_input_empty);
 						mPin3TextView.setText(mPinCode.substring(2));
 						break;
 					case 4:
-						mPin1TextView.setBackgroundResource(R.drawable.pin_input_fill);
-						mPin2TextView.setBackgroundResource(R.drawable.pin_input_fill);
-						mPin3TextView.setBackgroundResource(R.drawable.pin_input_fill);
-						mPin4TextView.setBackgroundResource(R.drawable.pin_input_empty);
 						mPin4TextView.setText(mPinCode.substring(3));
 						break;
                     case 5:
-                        mPin1TextView.setBackgroundResource(R.drawable.pin_input_fill);
-                        mPin2TextView.setBackgroundResource(R.drawable.pin_input_fill);
-                        mPin3TextView.setBackgroundResource(R.drawable.pin_input_fill);
-                        mPin4TextView.setBackgroundResource(R.drawable.pin_input_fill);
-                        mPin5TextView.setBackgroundResource(R.drawable.pin_input_empty);
                         mPin5TextView.setText(mPinCode.substring(4));
                         break;
                     case 6:
-                        mPin1TextView.setBackgroundResource(R.drawable.pin_input_fill);
-                        mPin2TextView.setBackgroundResource(R.drawable.pin_input_fill);
-                        mPin3TextView.setBackgroundResource(R.drawable.pin_input_fill);
-                        mPin4TextView.setBackgroundResource(R.drawable.pin_input_fill);
-                        mPin5TextView.setBackgroundResource(R.drawable.pin_input_fill);
-                        mPin6TextView.setBackgroundResource(R.drawable.pin_input_empty);
                         mPin6TextView.setText(mPinCode.substring(5));
                         mCreatePinTextView.setBackgroundColor(Color.BLACK);
                         mCreatePinTextView.setTextColor(Color.WHITE);
@@ -200,7 +200,7 @@ public class SetPincodeActivity extends Activity {
                 }
 
 				if (mPinCode.length() == 6) {
-					mPin6TextView.setBackgroundResource(R.drawable.pin_input_fill);
+					closePins(mPinCode.length());
 					mProgressBar.setVisibility(View.VISIBLE);
 					
 					AsyncJSONLoader loader = new AsyncJSONLoader(SetPincodeActivity.this);
@@ -264,6 +264,16 @@ public class SetPincodeActivity extends Activity {
             loader.execute(params, headerParams, bodyParams);
         }
 	}
+
+    private void closePins(int lastCloseIndex) {
+        Iterator<ImageView> iterator = mPinImageList.iterator();
+        while(iterator.hasNext()) {
+            iterator.next().setImageResource(R.drawable.pin_empty_background);
+        }
+        for (int index = 0; index < lastCloseIndex; index++) {
+            mPinImageList.get(index).setImageResource(R.drawable.pin_input_fill);
+        }
+    }
 
     @Override
     protected void onResume() {

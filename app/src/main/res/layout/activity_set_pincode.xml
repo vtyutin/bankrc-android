@@ -137,90 +137,102 @@
         android:layout_below="@id/thinkUpPINTextView"
         android:layout_toRightOf="@id/progressPanelLayout"
         android:visibility="gone">
-        <RelativeLayout android:layout_width="0dp"
-                android:layout_height="wrap_content"
+        <FrameLayout android:layout_width="0dp"
+                android:layout_height="fill_parent"
                 android:layout_weight="1">
+            <ImageView android:id="@+id/pin1ImageView"
+                android:layout_width="fill_parent" android:layout_height="fill_parent"
+                android:src="@drawable/pin_empty_background"/>
 	        <TextView android:id="@+id/pin1TextView"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_centerInParent="true"
-	            android:background="@drawable/pin_input_empty"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textAlignment="gravity"
 	            android:gravity="center"
+                android:layout_gravity="center"
 	            android:textStyle="bold"
 	            android:textColor="#000000"/>
-        </RelativeLayout>
-        <RelativeLayout android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+        </FrameLayout>
+        <FrameLayout android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+            <ImageView android:id="@+id/pin2ImageView"
+                android:layout_width="fill_parent" android:layout_height="fill_parent"
+                android:src="@drawable/pin_empty_background"/>
             <TextView android:id="@+id/pin2TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/pin_input_empty"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textAlignment="gravity"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:textStyle="bold"
                 android:textColor="#000000"/>
-        </RelativeLayout>
-        <RelativeLayout android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+        </FrameLayout>
+        <FrameLayout android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+            <ImageView android:id="@+id/pin3ImageView"
+                android:layout_width="fill_parent" android:layout_height="fill_parent"
+                android:src="@drawable/pin_empty_background"/>
             <TextView android:id="@+id/pin3TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/pin_input_empty"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textAlignment="gravity"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:textStyle="bold"
                 android:textColor="#000000"/>
-        </RelativeLayout>
-        <RelativeLayout android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+        </FrameLayout>
+        <FrameLayout android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+            <ImageView android:id="@+id/pin4ImageView"
+                android:layout_width="fill_parent" android:layout_height="fill_parent"
+                android:src="@drawable/pin_empty_background"/>
             <TextView android:id="@+id/pin4TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/pin_input_empty"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textAlignment="gravity"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:textStyle="bold"
                 android:textColor="#000000"/>
-        </RelativeLayout>
-        <RelativeLayout android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        </FrameLayout>
+        <FrameLayout android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1">
+            <ImageView android:id="@+id/pin5ImageView"
+                android:layout_width="fill_parent" android:layout_height="fill_parent"
+                android:src="@drawable/pin_empty_background"/>
             <TextView android:id="@+id/pin5TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/pin_input_empty"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textAlignment="gravity"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:textStyle="bold"
                 android:textColor="#000000"/>
-        </RelativeLayout>
-        <RelativeLayout android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        </FrameLayout>
+        <FrameLayout android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1">
+            <ImageView android:id="@+id/pin6ImageView"
+                android:layout_width="fill_parent" android:layout_height="fill_parent"
+                android:src="@drawable/pin_empty_background"/>
             <TextView android:id="@+id/pin6TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/pin_input_empty"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textAlignment="gravity"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:textStyle="bold"
                 android:textColor="#000000"/>
-        </RelativeLayout>
+        </FrameLayout>
     </LinearLayout>
   
     <TextView
