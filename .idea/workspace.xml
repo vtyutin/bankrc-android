@@ -25,13 +25,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.octoberry.rcbankmobile" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6856b91c-8591-4a7e-aeb3-80ffc142b627" name="Default" comment="">
-      <change type="DELETED" beforePath="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\src\main\java\com\octoberry\rcbankmobile\SnilsActivity.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/ui/CardListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/ui/CardListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/PrepareDocumentsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/PrepareDocumentsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SetPincodeActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SetPincodeActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" />
+    <list default="true" id="6856b91c-8591-4a7e-aeb3-80ffc142b627" name="Default" comment="registry changes">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bankrc-android.iws" />
@@ -58,35 +52,19 @@
       <file leaf-file-name="PaymentConfirmActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentConfirmActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="929" max-vertical-offset="6987">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1241" max-vertical-offset="7463">
               <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="74" selection-end-column="117" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#6626#6642#0" expanded="true" />
-                <element signature="e#7511#7527#0" expanded="true" />
-                <element signature="e#10578#10594#0" expanded="true" />
-                <element signature="e#11717#11733#0" expanded="true" />
-                <element signature="e#12313#12329#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PrepareDocumentsActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="PrepareDocumentsActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/PrepareDocumentsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3927" max-vertical-offset="12376">
-              <caret line="328" column="0" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
-              <folding>
-                <element signature="e#7842#7892#0" expanded="true" />
-                <element signature="e#28007#28068#0" expanded="true" />
-                <element signature="e#29321#29359#0" expanded="true" />
-                <element signature="e#29366#29403#0" expanded="true" />
-                <element signature="e#29410#29447#0" expanded="true" />
-                <element signature="e#29818#29856#0" expanded="true" />
-                <element signature="e#30561#30598#0" expanded="true" />
-                <element signature="e#30927#30964#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.8666667" vertical-offset="3196" max-vertical-offset="12376">
+              <caret line="330" column="17" selection-start-line="330" selection-start-column="17" selection-end-line="330" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -94,7 +72,7 @@
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.090909" vertical-offset="563" max-vertical-offset="3825">
+            <state vertical-scroll-proportion="0.0" vertical-offset="563" max-vertical-offset="3825">
               <caret line="43" column="25" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="25" />
               <folding />
             </state>
@@ -104,18 +82,18 @@
       <file leaf-file-name="AsyncJSONLoader.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/net/AsyncJSONLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="2278">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1632" max-vertical-offset="2618">
               <caret line="96" column="37" selection-start-line="96" selection-start-column="37" selection-end-line="96" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SetPincodeActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SetPincodeActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SetPincodeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4" vertical-offset="1989" max-vertical-offset="4981">
-              <caret line="166" column="46" selection-start-line="166" selection-start-column="46" selection-end-line="166" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2074" max-vertical-offset="6137">
+              <caret line="182" column="37" selection-start-line="182" selection-start-column="37" selection-end-line="182" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -134,6 +112,7 @@
     <option name="REMEMBER_PASSWORDS" value="true" />
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="REBASE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -1185,8 +1164,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1323,6 +1300,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1343,6 +1321,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1560,27 +1539,28 @@
       <created>1423659788053</created>
       <updated>1423659788053</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="registry changes">
+      <created>1423828452076</created>
+      <updated>1423828452076</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1029" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32829374" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274648" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298122" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274648" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274648" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2138229" sideWeight="0.5008726" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.342723" sideWeight="0.7451404" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36267605" sideWeight="0.82667387" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1588,13 +1568,16 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2138229" sideWeight="0.4991274" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2138229" sideWeight="0.4991274" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274648" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274648" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32829374" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298122" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.342723" sideWeight="0.7451404" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32922825" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1618,7 +1601,8 @@
     <MESSAGE value="test" />
     <MESSAGE value="popup menu for account" />
     <MESSAGE value="payment confirmation via SMS code" />
-    <option name="LAST_COMMIT_MESSAGE" value="payment confirmation via SMS code" />
+    <MESSAGE value="registry changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="registry changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1626,6 +1610,14 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SetPincodeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2227" max-vertical-offset="6137">
+          <caret line="166" column="45" selection-start-line="166" selection-start-column="45" selection-end-line="166" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/GeneralUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="2278">
@@ -1678,7 +1670,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="935">
           <caret line="19" column="27" selection-start-line="0" selection-start-column="0" selection-end-line="49" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
@@ -1728,7 +1719,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.5625" vertical-offset="0" max-vertical-offset="782">
           <caret line="18" column="43" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
@@ -1783,7 +1773,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1615">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1807,11 +1796,11 @@
         <state vertical-scroll-proportion="0.5777311" vertical-offset="3023" max-vertical-offset="12138">
           <caret line="221" column="140" selection-start-line="221" selection-start-column="140" selection-end-line="221" selection-end-column="140" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5123#5299#0" expanded="true" />
-            <element signature="e#5288#5289#0" expanded="true" />
-            <element signature="e#25662#26128#0" expanded="true" />
-            <element signature="e#26113#26114#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#5123#5299#0" expanded="false" />
+            <element signature="e#5288#5289#0" expanded="false" />
+            <element signature="e#25662#26128#0" expanded="false" />
+            <element signature="e#26113#26114#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1846,7 +1835,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1003" max-vertical-offset="3077">
           <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="77" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
@@ -1876,7 +1864,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="502">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1908,7 +1895,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1932,9 +1918,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
           <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-          <folding>
-            <marker date="1423580209602" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2000,12 +1984,12 @@
         <state vertical-scroll-proportion="0.9958159" vertical-offset="2941" max-vertical-offset="3774">
           <caret line="201" column="43" selection-start-line="201" selection-start-column="43" selection-end-line="201" selection-end-column="43" />
           <folding>
-            <element signature="e#880#908#0" expanded="true" />
-            <element signature="e#1496#1527#0" expanded="true" />
-            <element signature="e#1936#1964#0" expanded="true" />
-            <element signature="e#3274#3288#0" expanded="true" />
-            <element signature="e#3936#3949#0" expanded="true" />
-            <element signature="e#6292#6317#0" expanded="true" />
+            <element signature="e#880#908#0" expanded="false" />
+            <element signature="e#1496#1527#0" expanded="false" />
+            <element signature="e#1936#1964#0" expanded="false" />
+            <element signature="e#3274#3288#0" expanded="false" />
+            <element signature="e#3936#3949#0" expanded="false" />
+            <element signature="e#6292#6317#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2033,14 +2017,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="929" max-vertical-offset="6987">
           <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="74" selection-end-column="117" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6626#6642#0" expanded="true" />
-            <element signature="e#7511#7527#0" expanded="true" />
-            <element signature="e#10578#10594#0" expanded="true" />
-            <element signature="e#11717#11733#0" expanded="true" />
-            <element signature="e#12313#12329#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2054,26 +2031,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.090909" vertical-offset="563" max-vertical-offset="3825">
+        <state vertical-scroll-proportion="0.0" vertical-offset="563" max-vertical-offset="3825">
           <caret line="43" column="25" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="25" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/PrepareDocumentsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3213" max-vertical-offset="12376">
-          <caret line="328" column="0" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
-          <folding>
-            <element signature="e#7842#7892#0" expanded="true" />
-            <element signature="e#28007#28068#0" expanded="true" />
-            <element signature="e#29321#29359#0" expanded="true" />
-            <element signature="e#29366#29403#0" expanded="true" />
-            <element signature="e#29410#29447#0" expanded="true" />
-            <element signature="e#29818#29856#0" expanded="true" />
-            <element signature="e#30561#30598#0" expanded="true" />
-            <element signature="e#30927#30964#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2087,8 +2047,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SetPincodeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4" vertical-offset="1989" max-vertical-offset="4981">
-          <caret line="166" column="46" selection-start-line="166" selection-start-column="46" selection-end-line="166" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2074" max-vertical-offset="6137">
+          <caret line="182" column="37" selection-start-line="182" selection-start-column="37" selection-end-line="182" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/PrepareDocumentsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8666667" vertical-offset="3196" max-vertical-offset="12376">
+          <caret line="330" column="17" selection-start-line="330" selection-start-column="17" selection-end-line="330" selection-end-column="17" />
           <folding />
         </state>
       </provider>
