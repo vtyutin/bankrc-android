@@ -28,10 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.octoberry.rcbankmobile.DashboardActivity;
 import com.octoberry.rcbankmobile.LoginActivity;
 import com.octoberry.rcbankmobile.R;
-import com.octoberry.rcbankmobile.SnilsActivity;
 import com.octoberry.rcbankmobile.handler.AccountStatusHandler;
 import com.octoberry.rcbankmobile.handler.Card;
 import com.octoberry.rcbankmobile.handler.Document;
@@ -151,8 +149,8 @@ public class CardListAdapter extends ArrayAdapter<Card> {
 		rowView.setOnClickListener(new OnClickListener() {				
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(context, SnilsActivity.class);
-				((Activity)context).startActivityForResult(intent, CREATE_SNILS);
+				//Intent intent = new Intent(context, SnilsActivity.class);
+				//((Activity)context).startActivityForResult(intent, CREATE_SNILS);
 			}
 		});
 		return rowView;

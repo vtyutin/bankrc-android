@@ -30,6 +30,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,6 +38,8 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnLayoutChangeListener;
 import android.view.View.OnTouchListener;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -305,10 +308,25 @@ public class PrepareDocumentsActivity extends Activity {
                 return tmp;
             }
 		});
+
+        mSnilsEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    mSnilsEditText.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }
+                return false;
+            }
+        });
 		
 		mCheckSnilsTextView.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
+                InputMethodManager inputManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(mSnilsEditText.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+
 				mSnilsProgress.setVisibility(View.VISIBLE);
 				AsyncJSONLoader loader = new AsyncJSONLoader(PrepareDocumentsActivity.this);
 				loader.registryListener(new SnilsHandler());

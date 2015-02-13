@@ -25,36 +25,13 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.octoberry.rcbankmobile" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6856b91c-8591-4a7e-aeb3-80ffc142b627" name="Default" comment="popup menu for account">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/cycle_7.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/hor_line_white.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/shake.xml" />
-      <change type="DELETED" beforePath="E:\Work\Projects\Octoberry\workspace\bankrc-android\.idea\libraries\FlurryAnalytics_5_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\Projects\Octoberry\workspace\bankrc-android\.idea\libraries\SDK_android.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\Projects\Octoberry\workspace\bankrc-android\.idea\libraries\deploygatesdk.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\Projects\Octoberry\workspace\bankrc-android\.idea\libraries\httpclient_android_4_3_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\Projects\Octoberry\workspace\bankrc-android\.idea\libraries\httpmime_4_3_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\Projects\Octoberry\workspace\bankrc-android\.idea\libraries\library_2_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\Projects\Octoberry\workspace\bankrc-android\.idea\libraries\play_services_6_5_87.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\Projects\Octoberry\workspace\bankrc-android\.idea\libraries\slidemenu_library.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\Projects\Octoberry\workspace\bankrc-android\.idea\libraries\support_annotations_21_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\Projects\Octoberry\workspace\bankrc-android\.idea\libraries\support_v4_21_0_0.xml" afterPath="" />
+    <list default="true" id="6856b91c-8591-4a7e-aeb3-80ffc142b627" name="Default" comment="">
+      <change type="DELETED" beforePath="E:\Work\Projects\Octoberry\workspace\bankrc-android\app\src\main\java\com\octoberry\rcbankmobile\SnilsActivity.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/DashboardActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/DashboardActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/Payment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/Payment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentAccountActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentAccountActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentConfirmActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentConfirmActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentResultActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentResultActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/octoberry/rcbankmobile/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/octoberry/rcbankmobile/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/TimelineActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/TimelineActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_payment_confirm.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_payment_confirm.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_payment_description.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_payment_description.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bankrc-android.iml" afterPath="$PROJECT_DIR$/bankrc-android.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/ui/CardListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/ui/CardListAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/PrepareDocumentsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/PrepareDocumentsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SetPincodeActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SetPincodeActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bankrc-android.iws" />
@@ -81,113 +58,64 @@
       <file leaf-file-name="PaymentConfirmActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentConfirmActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.424242" vertical-offset="1643" max-vertical-offset="7463">
-              <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="929" max-vertical-offset="6987">
+              <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="74" selection-end-column="117" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4555#5089#0" expanded="true" />
-                <element signature="e#5078#5079#0" expanded="true" />
-                <element signature="e#5127#9263#0" expanded="true" />
-                <element signature="e#5447#7985#0" expanded="true" />
                 <element signature="e#6626#6642#0" expanded="true" />
                 <element signature="e#7511#7527#0" expanded="true" />
-                <element signature="e#7966#7967#0" expanded="true" />
-                <element signature="e#9258#9259#0" expanded="true" />
-                <element signature="e#9313#9439#0" expanded="true" />
-                <element signature="e#9434#9435#0" expanded="true" />
-                <element signature="e#9482#9577#0" expanded="true" />
-                <element signature="e#9572#9573#0" expanded="true" />
-                <element signature="e#9622#13435#0" expanded="true" />
-                <element signature="e#9945#12819#0" expanded="true" />
                 <element signature="e#10578#10594#0" expanded="true" />
                 <element signature="e#11717#11733#0" expanded="true" />
                 <element signature="e#12313#12329#0" expanded="true" />
-                <element signature="e#12800#12801#0" expanded="true" />
-                <element signature="e#13430#13431#0" expanded="true" />
-                <element signature="e#13795#13796#0" expanded="true" />
-                <element signature="e#13826#13827#0" expanded="true" />
-                <element signature="e#14416#14433#0" expanded="true" />
-                <element signature="e#14537#14549#0" expanded="true" />
-                <element signature="e#14652#14664#0" expanded="true" />
-                <element signature="e#14767#14779#0" expanded="true" />
-                <element signature="e#14886#14909#0" expanded="true" />
-                <element signature="e#15022#15043#0" expanded="true" />
-                <element signature="e#15169#15190#0" expanded="true" />
-                <element signature="e#15299#15328#0" expanded="true" />
-                <element signature="e#15435#15447#0" expanded="true" />
-                <element signature="e#15583#15598#0" expanded="true" />
-                <element signature="e#16615#17256#0" expanded="true" />
-                <element signature="e#17249#17250#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PaymentDescriptionActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentDescriptionActivity.java">
+      <file leaf-file-name="PrepareDocumentsActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/PrepareDocumentsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="561" max-vertical-offset="1071">
-              <caret line="25" column="23" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PaymentResultActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentResultActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="2771">
-              <caret line="57" column="40" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_payment_confirm.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_payment_confirm.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9958159" vertical-offset="2941" max-vertical-offset="3774">
-              <caret line="201" column="43" selection-start-line="201" selection-start-column="43" selection-end-line="201" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3927" max-vertical-offset="12376">
+              <caret line="328" column="0" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
               <folding>
-                <element signature="e#880#908#0" expanded="true" />
-                <element signature="e#1496#1527#0" expanded="true" />
-                <element signature="e#1936#1964#0" expanded="true" />
-                <element signature="e#3274#3288#0" expanded="true" />
-                <element signature="e#3936#3949#0" expanded="true" />
-                <element signature="e#6292#6317#0" expanded="true" />
+                <element signature="e#7842#7892#0" expanded="true" />
+                <element signature="e#28007#28068#0" expanded="true" />
+                <element signature="e#29321#29359#0" expanded="true" />
+                <element signature="e#29366#29403#0" expanded="true" />
+                <element signature="e#29410#29447#0" expanded="true" />
+                <element signature="e#29818#29856#0" expanded="true" />
+                <element signature="e#30561#30598#0" expanded="true" />
+                <element signature="e#30927#30964#0" expanded="true" />
               </folding>
             </state>
           </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
         </entry>
       </file>
-      <file leaf-file-name="hor_line_grey.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/hor_line_grey.xml">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204">
-              <caret line="6" column="8" selection-start-line="0" selection-start-column="0" selection-end-line="6" selection-end-column="8" />
+            <state vertical-scroll-proportion="-5.090909" vertical-offset="563" max-vertical-offset="3825">
+              <caret line="43" column="25" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hor_line_white.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/hor_line_white.xml">
+      <file leaf-file-name="AsyncJSONLoader.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/net/AsyncJSONLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204">
-              <caret line="5" column="33" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="2278">
+              <caret line="96" column="37" selection-start-line="96" selection-start-column="37" selection-end-line="96" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <file leaf-file-name="SetPincodeActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SetPincodeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1734" max-vertical-offset="2839">
-              <caret line="102" column="33" selection-start-line="102" selection-start-column="18" selection-end-line="102" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.4" vertical-offset="1989" max-vertical-offset="4981">
+              <caret line="166" column="46" selection-start-line="166" selection-start-column="46" selection-end-line="166" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -1159,8 +1087,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/swipeview/SwipeListViewTouchListener.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/timeline_list_row.xml" />
@@ -1168,7 +1094,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_payment_details.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/AccountStatusActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentDetailsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/ui/CardListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/App.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/db/CsvManager.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentMenuActivity.java" />
@@ -1184,10 +1109,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/CheckOgrnActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/handler/Correspondent.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_registry.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/PrepareDocumentsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/db/SharedPreferenceManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SetPincodeActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SplashActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/account_creds_list_row.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/ui/OnItemSwitchedListener.java" />
@@ -1210,6 +1132,12 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentConfirmActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/hor_line_white.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_payment_confirm.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SnilsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/PrepareDocumentsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/ui/CardListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/net/AsyncJSONLoader.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SetPincodeActivity.java" />
       </list>
     </option>
   </component>
@@ -1335,24 +1263,6 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="drawable" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bankrc-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="anim" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
@@ -1373,6 +1283,28 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="rcbankmobile" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bankrc-android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rcbankmobile" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="payment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1624,7 +1556,11 @@
       <created>1423224776760</created>
       <updated>1423224776760</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="payment confirmation via SMS code">
+      <created>1423659788053</created>
+      <updated>1423659788053</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1634,7 +1570,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32829374" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32829374" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274648" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298122" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1681,7 +1617,8 @@
     </option>
     <MESSAGE value="test" />
     <MESSAGE value="popup menu for account" />
-    <option name="LAST_COMMIT_MESSAGE" value="popup menu for account" />
+    <MESSAGE value="payment confirmation via SMS code" />
+    <option name="LAST_COMMIT_MESSAGE" value="payment confirmation via SMS code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1689,13 +1626,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/net/AsyncFileLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1904">
-          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/GeneralUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="2278">
@@ -1780,35 +1710,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="265" max-vertical-offset="1088">
-          <caret line="26" column="35" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/db/SharedPreferenceManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2397" max-vertical-offset="3655">
           <caret line="181" column="61" selection-start-line="181" selection-start-column="61" selection-end-line="181" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SetPincodeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1935" max-vertical-offset="5032">
-          <caret line="190" column="63" selection-start-line="190" selection-start-column="63" selection-end-line="190" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/PrepareDocumentsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2754" max-vertical-offset="14331">
-          <caret line="162" column="32" selection-start-line="162" selection-start-column="12" selection-end-line="162" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -1858,14 +1763,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/net/AsyncJSONLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="951" max-vertical-offset="2278">
-          <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/swipeview/SwipeListView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2706" max-vertical-offset="11101">
@@ -1878,6 +1775,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1734" max-vertical-offset="2295">
           <caret line="159" column="32" selection-start-line="159" selection-start-column="32" selection-end-line="159" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1900,6 +1798,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.31827113" vertical-offset="1215" max-vertical-offset="8806">
           <caret line="143" column="33" selection-start-line="143" selection-start-column="8" selection-end-line="143" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1907,6 +1806,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5777311" vertical-offset="3023" max-vertical-offset="12138">
           <caret line="221" column="140" selection-start-line="221" selection-start-column="140" selection-end-line="221" selection-end-column="140" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5123#5299#0" expanded="true" />
+            <element signature="e#5288#5289#0" expanded="true" />
+            <element signature="e#25662#26128#0" expanded="true" />
+            <element signature="e#26113#26114#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2032,22 +1938,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentResultActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="2771">
-          <caret line="57" column="40" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SnilsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8215686" vertical-offset="2794" max-vertical-offset="3859">
-          <caret line="225" column="6" selection-start-line="208" selection-start-column="4" selection-end-line="225" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentAccountActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2074" max-vertical-offset="3298">
@@ -2078,65 +1968,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentDescriptionActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="561" max-vertical-offset="1071">
-          <caret line="25" column="23" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.56666666" vertical-offset="3298" max-vertical-offset="3893">
-          <caret line="211" column="75" selection-start-line="211" selection-start-column="75" selection-end-line="211" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentConfirmActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.424242" vertical-offset="1643" max-vertical-offset="7463">
-          <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4555#5089#0" expanded="true" />
-            <element signature="e#5078#5079#0" expanded="true" />
-            <element signature="e#5127#9263#0" expanded="true" />
-            <element signature="e#5447#7985#0" expanded="true" />
-            <element signature="e#6626#6642#0" expanded="true" />
-            <element signature="e#7511#7527#0" expanded="true" />
-            <element signature="e#7966#7967#0" expanded="true" />
-            <element signature="e#9258#9259#0" expanded="true" />
-            <element signature="e#9313#9439#0" expanded="true" />
-            <element signature="e#9434#9435#0" expanded="true" />
-            <element signature="e#9482#9577#0" expanded="true" />
-            <element signature="e#9572#9573#0" expanded="true" />
-            <element signature="e#9622#13435#0" expanded="true" />
-            <element signature="e#9945#12819#0" expanded="true" />
-            <element signature="e#10578#10594#0" expanded="true" />
-            <element signature="e#11717#11733#0" expanded="true" />
-            <element signature="e#12313#12329#0" expanded="true" />
-            <element signature="e#12800#12801#0" expanded="true" />
-            <element signature="e#13430#13431#0" expanded="true" />
-            <element signature="e#13795#13796#0" expanded="true" />
-            <element signature="e#13826#13827#0" expanded="true" />
-            <element signature="e#14416#14433#0" expanded="true" />
-            <element signature="e#14537#14549#0" expanded="true" />
-            <element signature="e#14652#14664#0" expanded="true" />
-            <element signature="e#14767#14779#0" expanded="true" />
-            <element signature="e#14886#14909#0" expanded="true" />
-            <element signature="e#15022#15043#0" expanded="true" />
-            <element signature="e#15169#15190#0" expanded="true" />
-            <element signature="e#15299#15328#0" expanded="true" />
-            <element signature="e#15435#15447#0" expanded="true" />
-            <element signature="e#15583#15598#0" expanded="true" />
-            <element signature="e#16615#17256#0" expanded="true" />
-            <element signature="e#17249#17250#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/hor_line_grey.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204">
@@ -2151,6 +1982,17 @@
           <caret line="5" column="33" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.8849373" vertical-offset="0" max-vertical-offset="1088">
+          <caret line="53" column="43" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_payment_confirm.xml">
@@ -2169,6 +2011,86 @@
       </provider>
       <provider editor-type-id="android-designer">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentResultActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6666667" vertical-offset="272" max-vertical-offset="2771">
+          <caret line="57" column="40" selection-start-line="57" selection-start-column="40" selection-end-line="57" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentDescriptionActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.56666666" vertical-offset="561" max-vertical-offset="1071">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/payment/PaymentConfirmActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="929" max-vertical-offset="6987">
+          <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="74" selection-end-column="117" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6626#6642#0" expanded="true" />
+            <element signature="e#7511#7527#0" expanded="true" />
+            <element signature="e#10578#10594#0" expanded="true" />
+            <element signature="e#11717#11733#0" expanded="true" />
+            <element signature="e#12313#12329#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/ui/CardListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1810" max-vertical-offset="6154">
+          <caret line="155" column="23" selection-start-line="155" selection-start-column="23" selection-end-line="155" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.090909" vertical-offset="563" max-vertical-offset="3825">
+          <caret line="43" column="25" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/PrepareDocumentsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3213" max-vertical-offset="12376">
+          <caret line="328" column="0" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
+          <folding>
+            <element signature="e#7842#7892#0" expanded="true" />
+            <element signature="e#28007#28068#0" expanded="true" />
+            <element signature="e#29321#29359#0" expanded="true" />
+            <element signature="e#29366#29403#0" expanded="true" />
+            <element signature="e#29410#29447#0" expanded="true" />
+            <element signature="e#29818#29856#0" expanded="true" />
+            <element signature="e#30561#30598#0" expanded="true" />
+            <element signature="e#30927#30964#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/net/AsyncJSONLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="2278">
+          <caret line="96" column="37" selection-start-line="96" selection-start-column="37" selection-end-line="96" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/octoberry/rcbankmobile/SetPincodeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4" vertical-offset="1989" max-vertical-offset="4981">
+          <caret line="166" column="46" selection-start-line="166" selection-start-column="46" selection-end-line="166" selection-end-column="46" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>

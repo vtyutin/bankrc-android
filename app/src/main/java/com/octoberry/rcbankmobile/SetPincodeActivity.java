@@ -255,12 +255,12 @@ public class SetPincodeActivity extends Activity {
                 }
             });
             Bundle params = new Bundle();
-            params.putString("endpoint", "/api/user");
+            params.putString("endpoint", "/api/organization");
             params.putString("requestType", "POST");
             Bundle headerParams = new Bundle();
             headerParams.putString("Authorization", DataBaseManager.getInstance(SetPincodeActivity.this).getCrmToken());
             Bundle bodyParams = new Bundle();
-            bodyParams.putBoolean("is_documents_attached", true);
+            bodyParams.putString("is_documents_attached", "true");
             loader.execute(params, headerParams, bodyParams);
         }
 	}
