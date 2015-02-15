@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context="com.octoberry.rcbankmobile.DashboardActivity" >
+    tools:context="com.octoberry.nonamebank.DashboardActivity" >
 
     <TextView
         android:id="@+id/favouritePartnersTextView"
@@ -107,12 +107,12 @@
                 android:layout_below="@id/hintTextView"
                 android:background="#333333"/>
 
-            <com.octoberry.rcbankmobile.ui.DynamicListView
+            <com.octoberry.nonamebank.ui.DynamicListView
                 android:id="@+id/accountListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/separatorView">
-             </com.octoberry.rcbankmobile.ui.DynamicListView>
+             </com.octoberry.nonamebank.ui.DynamicListView>
         </RelativeLayout>
 
         <RelativeLayout

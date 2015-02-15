@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.octoberry.rcbankmobile"
+        applicationId "com.octoberry.nonamebank"
         minSdkVersion 16
         targetSdkVersion 20
     }

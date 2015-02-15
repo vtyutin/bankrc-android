@@ -146,7 +146,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-    <com.octoberry.rcbankmobile.swipeview.SwipeListView
+    <com.octoberry.nonamebank.swipeview.SwipeListView
         xmlns:swipe="http://schemas.android.com/apk/res-auto"
         android:id="@+id/historyListView"
         android:layout_below="@id/periodFilterLayout"

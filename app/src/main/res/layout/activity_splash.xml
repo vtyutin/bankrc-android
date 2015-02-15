@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context="com.octoberry.rcbankmobile.SplashActivity" >
+    tools:context="com.octoberry.nonamebank.SplashActivity" >
     
     <View
         android:id="@+id/centerView" 

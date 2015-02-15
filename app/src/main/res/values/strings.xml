@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- debug server -->
-    <string name="server_url">http://bankrc.dev.octoberry.ru</string>
+    <!--<string name="server_url">http://bankrc.dev.octoberry.ru</string>-->
     <!-- release server -->
-    <!-- <string name="server_url">https://nonamebank.ru</string> -->
+    <string name="server_url">https://nonamebank.ru</string>
 
     <string name="chat_opponent_id">1647202</string>
     <string name="chat_room_jid">14696_54304748535c12e386013b82@muc.chat.quickblox.com</string>
